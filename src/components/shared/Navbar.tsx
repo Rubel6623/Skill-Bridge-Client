@@ -21,9 +21,9 @@ export function Navbar() {
   }
 
   return (
-    <>
+    <main className="pb-4">
       <header
-        className={`fixed top-0 left-0 right-0 z-50 px-8 h-16 flex items-center justify-between transition-all duration-300 ${scrolled ? "bg-gray-800/90 backdrop-blur border-b border-gray-700" : "bg-gray-900"}`}
+        className={`fixed top-0 left-0 right-0 z-50 px-8 h-16 flex items-center justify-between transition-all duration-300 ${scrolled ? "bg-gray-800/90 backdrop-blur border-b border-gray-700" : "bg-gray-800 "}`}
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
@@ -113,7 +113,7 @@ export function Navbar() {
       </header>
 
       {/* Add padding below the Navbar to ensure content is visible */}
-      <div className="h-16" />
-    </>
+      <div className="h-16 " />
+    </main>
   );
 }
