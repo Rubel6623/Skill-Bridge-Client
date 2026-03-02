@@ -1,6 +1,6 @@
 "use client";
 
-// import { HeroSection } from "@/components/ui/HeroSection";
+import { HeroSection } from "@/components/ui/HeroSection";
 
 export default function Home() {
   return (
@@ -39,7 +39,7 @@ export default function Home() {
         }
       ` }} />
       
-      {/* <HeroSection /> */}
+      <HeroSection />
     </main>
   );
 }
