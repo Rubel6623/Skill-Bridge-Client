@@ -3,11 +3,24 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiMenu, HiX } from "react-icons/hi";
+import { getUser } from "@/services/auth";
 
 export function Navbar() {
+
+  const [user, setUser] = useState();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  console.log(user);
+
+  useEffect(()=>{
+    const getCurrentUser = async () => {
+      const userData = await getUser();
+      setUser(userData);
+  }
+  getCurrentUser();
+},[]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
