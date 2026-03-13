@@ -26,12 +26,22 @@ export const loginUser = async (userData: FieldValues) => {
   }
 };
 
+interface CustomJwtPayload {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+  status: string;
+  exp?: number;
+  iat?: number;
+}
+
 export const getUser = async () => {
   const storeCookie = await cookies();
   const token = storeCookie.get("token")?.value;
   let decodedData = null;
   if (token) {
-    decodedData = await jwtDecode(token);
+    decodedData = await jwtDecode<CustomJwtPayload>(token);
     return decodedData;
   } else {
     return null;

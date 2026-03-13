@@ -1,26 +1,33 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiMenu, HiX } from "react-icons/hi";
-import { getUser } from "@/services/auth";
+import { getUser, UserLogOut } from "@/services/auth";
+import { useRouter } from "next/navigation";
 
 export function Navbar() {
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<any>(null);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-
+  const router = useRouter();
   console.log(user);
 
-  useEffect(()=>{
+  const handleLogout = async () => {
+    await UserLogOut();
+    router.push("/login");
+  };
+
+  useEffect(() => {
     const getCurrentUser = async () => {
       const userData = await getUser();
       setUser(userData);
-  }
-  getCurrentUser();
-},[]);
+    }
+    getCurrentUser();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
@@ -75,18 +82,34 @@ export function Navbar() {
 
           {/* Right side: Auth */}
           <div className="flex gap-2 items-center">
-            <Link
-              href="/login"
-              className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-gray-700"
-            >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              className="text-white no-underline text-sm font-serif px-4 py-2 rounded-lg bg-blue-500 font-semibold shadow-md transition-all duration-200 whitespace-nowrap transform hover:translate-y-[-1px] hover:brightness-110"
-            >
-              Get Started
-            </Link>
+            {user ? (
+              <>
+                <span className="text-gray-200 text-sm font-serif mr-2">
+                  Hi, {user.name}
+                </span>
+                <button
+                  onClick={handleLogout}
+                  className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-red-500/10 hover:border-red-500/50 hover:text-red-400"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-gray-700"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="text-white no-underline text-sm font-serif px-4 py-2 rounded-lg bg-blue-500 font-semibold shadow-md transition-all duration-200 whitespace-nowrap transform hover:translate-y-[-1px] hover:brightness-110"
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
         </div>
 
@@ -95,10 +118,10 @@ export function Navbar() {
           <nav
             className="lg:hidden absolute top-16 left-0 w-full bg-gray-800 shadow-md flex flex-col items-center gap-4 py-4 z-40"
           >
-            {["Browse Tutors", "Categories", "How It Works", "Pricing","About Us"].map((item) => (
+            {["Browse Tutors", "Categories", "How It Works", "Pricing", "About Us"].map((item) => (
               <Link
                 key={item}
-                href={item === "Browse Tutors" ? "/tutors" : item === "Categories" ? "/categories" : item === "How It Works" ? "/how-it-works" : item === "Pricing" ? "/pricing":"/about-us"}
+                href={item === "Browse Tutors" ? "/tutors" : item === "Categories" ? "/categories" : item === "How It Works" ? "/how-it-works" : item === "Pricing" ? "/pricing" : "/about-us"}
                 className="text-gray-300 no-underline text-sm font-serif tracking-wide transition-colors duration-200 hover:text-white"
                 onClick={() => setMenuOpen(false)}
               >
@@ -107,20 +130,39 @@ export function Navbar() {
             ))}
 
             {/* Auth Links */}
-            <Link
-              href="/login"
-              className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-gray-700"
-              onClick={() => setMenuOpen(false)}
-            >
-              Login
-            </Link>
-            <Link
-              href="/register"
-              className="text-white no-underline text-sm font-serif px-4 py-2 rounded-lg bg-blue-500 font-semibold shadow-md transition-all duration-200 whitespace-nowrap transform hover:translate-y-[-1px] hover:brightness-110"
-              onClick={() => setMenuOpen(false)}
-            >
-              Get Started
-            </Link>
+            {user ? (
+              <div className="flex flex-col items-center gap-4 w-full px-8">
+                <div className="text-white font-serif text-sm bg-gray-700/50 w-full text-center py-2 rounded-lg border border-gray-600">
+                  User: <span className="font-bold text-blue-400">{user?.name}</span>
+                </div>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                  className="w-full text-white no-underline text-sm font-serif px-4 py-2 rounded-lg bg-red-500/20 border border-red-500/50 font-semibold transition-all duration-200 transform hover:bg-red-500/30"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-2 w-full px-8">
+                <Link
+                  href="/login"
+                  className="w-full text-center text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 hover:bg-gray-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="w-full text-center text-white no-underline text-sm font-serif px-4 py-2 rounded-lg bg-blue-500 font-semibold shadow-md transition-all duration-200 transform hover:translate-y-[-1px] hover:brightness-110"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Get Started
+                </Link>
+              </div>
+            )}
           </nav>
         )}
       </header>

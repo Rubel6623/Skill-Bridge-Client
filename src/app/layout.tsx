@@ -25,9 +25,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
+      
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-[#0a0a14] text-white antialiased`}
       >
+        <time dateTime="2016-10-25" suppressHydrationWarning />        
+        
         {/* Global Background Glow */}
         <div className="fixed inset-0 -z-10">
           <div className="absolute top-[-200px] right-[-200px] h-[500px] w-[500px] rounded-full bg-orange-500/20 blur-[120px]" />

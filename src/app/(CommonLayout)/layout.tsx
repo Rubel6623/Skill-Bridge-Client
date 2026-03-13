@@ -8,6 +8,7 @@ const CommonLayout = ({children}: {children : React.ReactNode} ) => {
       <div className="relative z-10">
           {children}
       </div>
+      <time dateTime="2016-10-25" suppressHydrationWarning />
     </div>
   );
 };
