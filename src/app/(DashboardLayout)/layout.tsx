@@ -14,6 +14,19 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { getUser } from "@/services/auth"
+import { error } from "console"
+import {
+  AudioWaveform,
+  BookOpen,
+  Bot,
+  Command,
+  Frame,
+  GalleryVerticalEnd,
+  Map,
+  PieChart,
+  Settings2,
+  SquareTerminal,
+} from "lucide-react"
 
 export default async function Page({ admin, student, tutor }: {
   admin: React.ReactNode,
@@ -23,12 +36,12 @@ export default async function Page({ admin, student, tutor }: {
   const user = await getUser();
 
   if (!user) {
-    return null;
+    return error;
   }
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar userRole={user.role as "ADMIN" | "STUDENT" | "TUTOR"}/>
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
@@ -58,6 +71,7 @@ export default async function Page({ admin, student, tutor }: {
             {user?.role === "ADMIN" && admin}
             {user?.role === "STUDENT" && student}
             {user?.role === "TUTOR" && tutor}
+          
           </div>
         </div>
       </SidebarInset>
