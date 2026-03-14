@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Loader2, Mail, Lock, ArrowLeft } from "lucide-react";
 import { loginUser } from "@/services/auth";
 import { toast } from "sonner";
+import { useSearchParams, useRouter } from "next/navigation";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -32,25 +33,32 @@ export default function LoginPage() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginFormValues) => {
-    setIsLoading(true);
-    setServerError(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-      try {
-        const res = await loginUser(data);
-        if(res.success) {
-          toast.success(res.message);
-          window.location.href = "/";
-        }else{
-          toast.error(res.message);
-        }
-      } catch (error) {
-        setServerError(error as string);
-      }
-      finally {
-        setIsLoading(false);
-      }    
+  const onSubmit = async (data: LoginFormValues) => {
+  setIsLoading(true);
+  setServerError(null);
+
+  try {
+    const res = await loginUser(data);
+
+    if (res.success) {
+      toast.success(res.message);
+
+      const redirect = searchParams.get("redirect") || "/";
+      router.push(redirect);
+
+    } else {
+      toast.error(res.message);
+    }
+
+  } catch (error) {
+    setServerError(error as string  || "Something went wrong");
+  } finally {
+    setIsLoading(false);
   }
+};
     //   await new Promise((resolve) => setTimeout(resolve, 1500));
 
     //   if (

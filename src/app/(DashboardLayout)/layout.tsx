@@ -14,7 +14,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { getUser } from "@/services/auth"
-import { error } from "console"
 import {
   AudioWaveform,
   BookOpen,
@@ -27,16 +26,27 @@ import {
   Settings2,
   SquareTerminal,
 } from "lucide-react"
+import Link from "next/link"
 
-export default async function Page({ admin, student, tutor }: {
-  admin: React.ReactNode,
-  student: React.ReactNode,
-  tutor: React.ReactNode
-}) {
+
+interface LayoutProps {
+  children: React.ReactNode; // ✅ REQUIRED by Next.js
+  admin: React.ReactNode;
+  student: React.ReactNode;
+  tutor: React.ReactNode;
+}
+
+export default async function Page({children, admin, student, tutor }: LayoutProps) {
+  
   const user = await getUser();
 
   if (!user) {
-    return error;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p>Unauthorized Access. Please <Link href='/login'>Login
+        </Link></p>        
+      </div>
+    );
   }
 
   return (

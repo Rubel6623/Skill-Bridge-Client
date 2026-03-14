@@ -18,7 +18,8 @@ export function Navbar() {
 
   const handleLogout = async () => {
     await UserLogOut();
-    router.push("/login");
+    window.location.replace("/");
+    // router.push("/login")
   };
 
   useEffect(() => {
