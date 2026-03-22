@@ -1,26 +1,46 @@
-
 "use server";
 
 import { cookies } from "next/headers";
 
-export const getUserBookings = async () => {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-
-  if (!token) return { success: false, message: "Unauthorized" };
+export const getBookings = async () => {
+  const storeCookie = await cookies();
+  const token = storeCookie.get("token")?.value;
 
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/booking`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
+        "Authorization": `Bearer ${token}`
       },
-      cache: "no-store", 
+      next: { tags: ["bookings"] },
     });
-
     return await res.json();
   } catch (error: any) {
-    return { success: false, message: error.message };
+    return {
+      success: false,
+      message: error.message || "Failed to fetch bookings",
+    };
+  }
+};
+
+export const createBooking = async (data: any) => {
+  const storeCookie = await cookies();
+  const token = storeCookie.get("token")?.value;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/booking`, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return await res.json();
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Failed to create booking",
+    };
   }
 };

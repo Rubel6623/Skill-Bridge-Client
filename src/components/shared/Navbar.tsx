@@ -18,8 +18,8 @@ export function Navbar() {
 
   const handleLogout = async () => {
     await UserLogOut();
-    window.location.replace("/");
-    // router.push("/login")
+    // window.location.replace("/");
+    router.push("/login")
   };
 
   useEffect(() => {
@@ -88,12 +88,19 @@ export function Navbar() {
                 <span className="text-gray-200 text-sm font-serif mr-2">
                   Hi, {user.name}
                 </span>
+                <Link
+                  href="/dashboard/profile"
+                  className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-gray-700"
+                >
+                  Profile
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-red-500/10 hover:border-red-500/50 hover:text-red-400"
                 >
                   Logout
                 </button>
+
               </>
             ) : (
               <>
@@ -136,6 +143,13 @@ export function Navbar() {
                 <div className="text-white font-serif text-sm bg-gray-700/50 w-full text-center py-2 rounded-lg border border-gray-600">
                   User: <span className="font-bold text-blue-400">{user?.name}</span>
                 </div>
+                <Link
+                  href="/dashboard/profile"
+                  className="w-full text-center text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 hover:bg-gray-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  My Profile
+                </Link>
                 <button
                   onClick={() => {
                     handleLogout();
@@ -145,6 +159,7 @@ export function Navbar() {
                 >
                   Logout
                 </button>
+
               </div>
             ) : (
               <div className="flex flex-col items-center gap-2 w-full px-8">
@@ -167,8 +182,7 @@ export function Navbar() {
           </nav>
         )}
       </header>
-
-      {/* Add padding below the Navbar to ensure content is visible */}
+      
       <div className="h-16 " />
     </main>
   );

@@ -36,7 +36,7 @@ interface LayoutProps {
   tutor: React.ReactNode;
 }
 
-export default async function Page({children, admin, student, tutor }: LayoutProps) {
+export default async function DashboardLayout({children, admin, student, tutor }: LayoutProps) {
   
   const user = await getUser();
 

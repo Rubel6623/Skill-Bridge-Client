@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HeroCarousel } from "../modules/Hero";
+import { HeroCarousel } from "../modules/home/Hero";
 
 export const HeroSection = () => {
   const [searchVal, setSearchVal] = useState("");

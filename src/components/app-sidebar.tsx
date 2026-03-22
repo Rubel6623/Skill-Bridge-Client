@@ -12,6 +12,7 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
+  Home
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -35,17 +36,18 @@ const STUDENT_navMain = [
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "My Dashboard",
+          url: "/dashboard",
         },
         {
-          title: "Starred",
-          url: "#",
+          title: "My Profile",
+          url: "/dashboard/profile",
         },
         {
           title: "Settings",
           url: "#",
         },
+
       ],
     },
     {
@@ -114,42 +116,34 @@ const ADMIN_navMain = [
   const TUTOR_navMain = [
     {
       title: "Tutor Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: "Dashboard Home",
+          url: "/dashboard",
         },
         {
-          title: "Starred",
-          url: "#",
+          title: "My Profile",
+          url: "/dashboard/profile",
         },
         {
-          title: "Settings",
-          url: "#",
+          title: "Bookings",
+          url: "/dashboard/bookings",
         },
       ],
     },
     {
-      title: "Models",
-      url: "#",
-      icon: Bot,
+      title: "Home",
+      url: "/",
+      icon: Home,
       items: [
         {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
+      title: "Home",
+      url: "/"
+    }
+      ]
     }
   ]
 

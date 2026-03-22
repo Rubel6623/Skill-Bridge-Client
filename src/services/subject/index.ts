@@ -12,7 +12,7 @@ export const getOwnSubjects = async () => {
   }
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/my-subjects`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/my-subjects`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
