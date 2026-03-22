@@ -8,6 +8,7 @@ import { Loader2, Calendar, Clock, CreditCard, ChevronLeft } from "lucide-react"
 import { toast } from "sonner";
 import Link from "next/link";
 import { format, addHours } from "date-fns";
+import { getTutorDetails } from "@/services/tutor";
 
 export default function BookingPage() {
   const { id: tutorId } = useParams();
@@ -30,7 +31,7 @@ export default function BookingPage() {
       setIsLoading(true);
       try {
         const [tutorRes, userRes] = await Promise.all([
-          fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutors/${tutorId}`).then(r => r.json()),
+          getTutorDetails(tutorId as string),
           getMe()
         ]);
 
@@ -66,29 +67,54 @@ export default function BookingPage() {
   const subject = tutor?.subjects?.find((s: any) => s.id === subjectId) || tutor?.subjects?.[0];
 
   const handleBooking = async () => {
+    // Extensive safety checks to prevent "id of undefined" crashes
+    if (!user || !tutor || !subject) {
+      console.error("CRITICAL: Missing objects for booking:", { 
+        hasUser: !!user, 
+        hasTutor: !!tutor, 
+        hasSubject: !!subject 
+      });
+      toast.error("Required data is missing. Please refresh the page.");
+      return;
+    }
+
+    if (!user.id || !tutor.id || !subject.id) {
+       console.error("CRITICAL: Missing IDs for booking:", { 
+        userId: user.id || "MISSING", 
+        tutorId: tutor.id || "MISSING", 
+        subjectId: subject.id || "MISSING" 
+      });
+      toast.error("Registration data is incomplete. Please contact support.");
+      return;
+    }
+
     setIsSubmitting(true);
     const start = new Date(bookingData.startTime);
-    const end = addHours(start, bookingData.duration);
-
+    
+    // Construct payload safely
     const payload = {
       studentId: user.id,
       tutorProfileId: tutor.id,
       tutorSubjectId: subject.id,
       startTime: start.toISOString(),
-      endTime: end.toISOString(),
-      totalPrice: tutor.pricePerHour * bookingData.duration,
+      durationInHours: bookingData.duration,
     };
+
+    console.log("[Booking] Final Payload:", payload);
 
     try {
       const res = await createBooking(payload);
+      console.log("Booking response:", res);
+      
       if (res.success) {
         toast.success("Successfully enrolled in course!");
         router.push("/dashboard/bookings");
       } else {
         toast.error(res.message || "Enrollment failed");
       }
-    } catch (error) {
-      toast.error("An error occurred during booking");
+    } catch (error: any) {
+      console.error("Booking catch error:", error);
+      toast.error(error.message || "An error occurred during booking");
     } finally {
       setIsSubmitting(false);
     }

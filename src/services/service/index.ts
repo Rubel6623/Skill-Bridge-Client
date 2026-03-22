@@ -57,3 +57,23 @@ export const getSingleSubjectDetails = async (id: string) => {
     return { success: false, message: error.message };
   }
 };
+
+export const getSubjectDetails = async (id: string) => {
+  console.log(`[Service] Fetching subject details for ID: ${id}`);
+  try {
+    const url = `${process.env.NEXT_PUBLIC_BASE_URL}/tutor-subjects/${id}`;
+    console.log(`[Service] Target URL: ${url}`);
+    
+    const res = await fetch(url, {
+      method: "GET",
+      cache: "no-store",
+    });
+    
+    const result = await res.json();
+    console.log(`[Service] Fetch result for ${id}:`, JSON.stringify(result).slice(0, 100));
+    return result;
+  } catch (error: any) {
+    console.error(`[Service] Fetch error for ${id}:`, error.message);
+    return { success: false, message: error.message };
+  }
+};

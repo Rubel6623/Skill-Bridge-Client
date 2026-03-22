@@ -1,4 +1,5 @@
-
-export const StudentDefault = () => {
+const StudentDefault = () => {
   return null;
 };
+
+export default StudentDefault;

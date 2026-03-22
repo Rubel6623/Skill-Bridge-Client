@@ -70,7 +70,7 @@ export const ServiceCard = ({ service }: { service: any }) => {
       </CardContent>
 
       <CardFooter className="pt-4">
-        <Link href={`/services/${service?.id}`} className="w-full">
+        <Link href={`/services/${service?.id || service?._id}`} className="w-full">
           <Button variant="default" className="w-full bg-primary hover:bg-primary/90 transition-colors">
             View Details
           </Button>

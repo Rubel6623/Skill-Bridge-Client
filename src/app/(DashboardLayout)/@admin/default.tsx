@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const AdminDefault = () => {
+const AdminDefault = () => {
   return null;
 };
+
+export default AdminDefault;
