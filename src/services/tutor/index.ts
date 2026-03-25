@@ -96,3 +96,46 @@ export const getSubjectDetails = async (id: string) => {
     };
   }
 };
+
+export const getMyProfile = async () => {
+  const storeCookie = await cookies();
+  const token = storeCookie.get("token")?.value;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutors/profile/me`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      next: { tags: ["tutor-profile"] }
+    });
+    return await res.json();
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Tutor profile fetch failed",
+    };
+  }
+};
+
+export const updateTutorProfile = async (profileData: any) => {
+  const storeCookie = await cookies();
+  const token = storeCookie.get("token")?.value;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutors/profile`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
+      },
+      body: JSON.stringify(profileData),
+    });
+    return await res.json();
+  } catch (error: any) {
+    return {
+      success: false,
+      message: error.message || "Failed to update profile",
+    };
+  }
+};

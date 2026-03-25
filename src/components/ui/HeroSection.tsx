@@ -1,9 +1,20 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { HeroCarousel } from "../modules/home/Hero";
 
 export const HeroSection = () => {
   const [searchVal, setSearchVal] = useState("");
   const [focused, setFocused] = useState(false);
+  const router = useRouter();
+
+  const handleSearch = () => {
+    if (!searchVal.trim()) return;
+    router.push(`/tutors?query=${encodeURIComponent(searchVal.trim())}`);
+  };
+
+  const handlePopularSearch = (tag: string) => {
+    router.push(`/tutors?query=${encodeURIComponent(tag)}`);
+  };
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-24 bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a]">
@@ -54,10 +65,14 @@ export const HeroSection = () => {
             onChange={(e) => setSearchVal(e.target.value)}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             className="flex-1 bg-transparent outline-none text-white placeholder:text-white/40 py-4 text-sm font-serif"
           />
 
-          <button className="px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm hover:opacity-90 transition">
+          <button 
+            onClick={handleSearch}
+            className="px-6 bg-gradient-to-r from-orange-500 to-red-500 text-white font-semibold text-sm hover:opacity-90 transition"
+          >
             Search
           </button>
         </div>
@@ -71,6 +86,7 @@ export const HeroSection = () => {
           {["Mathematics", "Physics", "Python", "English", "SAT Prep"].map((t) => (
             <button
               key={t}
+              onClick={() => handlePopularSearch(t)}
               className="px-4 py-1 text-xs rounded-full border border-white/10 bg-white/5 text-white/60 hover:bg-orange-500/15 hover:border-orange-500/40 hover:text-orange-400 transition"
             >
               {t}

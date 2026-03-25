@@ -119,7 +119,7 @@ export default function CategoriesPage() {
                       </div>
                       <h3 className="text-lg font-bold text-white mb-2">{cat.name}</h3>
                       <p className="text-sm text-gray-400 mb-4">
-                        {cat.tutorSubjects?.length || 0} Tutors Available
+                        {cat._count?.tutorSubjects || 0} Tutors Available
                       </p>
                       <div className="flex items-center text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
                         Browse Tutors <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />

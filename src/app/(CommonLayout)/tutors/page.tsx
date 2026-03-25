@@ -7,10 +7,15 @@ import { Star, Users, Search, GraduationCap, Filter, ArrowRight, Clock } from "l
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
+import { useSearchParams } from "next/navigation"
+
 export default function TutorsPage() {
+  const searchParams = useSearchParams()
+  const initialQuery = searchParams.get("query") || ""
+  
   const [tutors, setTutors] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState("")
+  const [searchTerm, setSearchTerm] = useState(initialQuery)
   const [sortBy, setSortBy] = useState("rating")
 
   useEffect(() => {
@@ -37,8 +42,17 @@ export default function TutorsPage() {
     .filter((t: any) => {
       const name = t.user?.name?.toLowerCase() || ""
       const bio = t.bio?.toLowerCase() || ""
+      const subjects = (t.subjects || []).map((s: any) => s.title?.toLowerCase() || "")
+      const categories = (t.subjects || []).map((s: any) => s.category?.name?.toLowerCase() || "")
+      
       const q = searchTerm.toLowerCase()
-      return name.includes(q) || bio.includes(q)
+      
+      return (
+        name.includes(q) || 
+        bio.includes(q) || 
+        subjects.some((s: string) => s.includes(q)) ||
+        categories.some((c: string) => c.includes(q))
+      )
     })
     .sort((a: any, b: any) => {
       if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0)

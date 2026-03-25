@@ -2,11 +2,17 @@
 
 import { cookies } from "next/headers";
 
-export const getTutorAvailability = async (tutorProfileId: string) => {
+export const getMyAvailability = async () => {
+  const storeCookie = await cookies();
+  const token = storeCookie.get("token")?.value;
+
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/${tutorProfileId}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutor/availability/me`, {
       method: "GET",
-      cache: "no-store",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      },
+      next: { tags: ["availability"] }
     });
     return await res.json();
   } catch (error: any) {

@@ -67,7 +67,6 @@ export default function BookingPage() {
   const subject = tutor?.subjects?.find((s: any) => s.id === subjectId) || tutor?.subjects?.[0];
 
   const handleBooking = async () => {
-    // Extensive safety checks to prevent "id of undefined" crashes
     if (!user || !tutor || !subject) {
       console.error("CRITICAL: Missing objects for booking:", { 
         hasUser: !!user, 
@@ -198,7 +197,7 @@ export default function BookingPage() {
 
             <button
               onClick={handleBooking}
-              disabled={isSubmitting}
+              // disabled={isSubmitting}
               className="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold py-5 rounded-2xl transition-all shadow-[0_0_30px_rgba(249,115,22,0.4)] disabled:opacity-50 flex justify-center items-center gap-2"
             >
               {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : "Confirm Enrollment & Pay"}

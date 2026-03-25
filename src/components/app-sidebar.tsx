@@ -47,6 +47,11 @@ const STUDENT_navMain = [
         title: "My Profile",
         url: "/dashboard/profile",
       },
+      {
+        title: "Home",
+        icon: Home,
+        url: "/",
+      },
     ],
   },
 ]
@@ -63,16 +68,28 @@ const ADMIN_navMain = [
         url: "/dashboard",
       },
       {
+        title: "My Profile",
+        url: "/dashboard/profile",
+      },
+      {
         title: "Manage Bookings",
         url: "/dashboard/manage-bookings",
+      },
+      {
+        title: "Manage Users",
+        url: "/dashboard/manage-users",
       },
       {
         title: "Tutor Subjects",
         url: "/dashboard/manage-subjects",
       },
       {
-        title: "Settings",
-        url: "#",
+        title: "Manage Categories",
+        url: "/dashboard/manage-categories",
+      },
+      {
+        title: "Home",
+        url: "/",
       },
     ],
   },

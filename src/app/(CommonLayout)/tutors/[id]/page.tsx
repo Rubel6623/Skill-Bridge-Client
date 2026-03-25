@@ -3,23 +3,11 @@ import Link from "next/link"
 import { Star, Clock, GraduationCap, MapPin, Globe, CheckCircle2, Calendar, BookOpen, Shield, ChevronLeft, ArrowRight } from "lucide-react"
 import { getTutorDetails } from "@/services/tutor";
 
-export default async function TutorDetailsPage({ params }: { params: { id: string } }) {
-  // let tutor = null;
+export default async function TutorDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
-  const result = await getTutorDetails(params.id);
-  let tutor = result?.success ? result.data : null;
-
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutors/${params.id}`, {
-      cache: "no-store"
-    });
-    const result = await res.json();
-    if(result?.success) {
-      tutor = result.data;
-    }
-  } catch(error) {
-    console.log("Failed to fetch tutor details", error);
-  }
+  const result = await getTutorDetails(id);
+  const tutor = result?.success ? result.data : null;
 
   if (!tutor) {
     return (

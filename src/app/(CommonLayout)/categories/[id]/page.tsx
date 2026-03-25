@@ -2,35 +2,33 @@ import Image from "next/image"
 import Link from "next/link"
 import { Star, Clock, GraduationCap, ArrowRight, ChevronLeft, BookOpen, Layers } from "lucide-react"
 
-export default async function CategoryDetailsPage({ params }: { params: { id: string } }) {
+export default async function CategoryDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   let tutors: any[] = [];
   let categoryName = "Category";
+  let subjectCount = 0;
 
   try {
-    // Fetch all tutors
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutors?categoryId=${params.id}`, {
-      cache: "no-store",
-    })
-    const result = await res.json()
-    if (result?.success) {
-      tutors = result.data.data || []
-    }
-    
-    // Attempt to guess category name from first tutor
-    if (tutors.length > 0) {
-      const currentSub = tutors[0].subjects.find((s: any) => s.categoryId === params.id)
-      if (currentSub) {
-        categoryName = currentSub.category?.name || "Category"
-      }
-    } else {
-       // Ideally we should fetch the exact category by ID, but since there's no GET /category/:id
-       // We will just do GET /categories and filter
-       const catRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`, { cache: "no-store" })
-       const catResult = await catRes.json();
-       const exactCat = catResult?.data?.find((c:any) => c.id === params.id);
-       if(exactCat) categoryName = exactCat.name;
-    }
+    // 1. Fetch all categories to find the real ID from the slug
+    const catRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`, { 
+      cache: "no-store" 
+    });
+    const catResult = await catRes.json();
+    const category = catResult?.data?.find((c: any) => c.slug === id);
 
+    if (category) {
+      categoryName = category.name;
+      subjectCount = category._count?.tutorSubjects || 0;
+
+      // 2. Fetch tutors using the actual category UUID
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutors?categoryId=${category.id}`, {
+        cache: "no-store",
+      })
+      const result = await res.json()
+      if (result?.success) {
+        tutors = result.data.data || []
+      }
+    }
   } catch (error) {
     console.error("Failed to fetch category details", error)
   }
@@ -55,7 +53,7 @@ export default async function CategoryDetailsPage({ params }: { params: { id: st
             Master <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500">{categoryName}</span>
           </h1>
           <p className="text-xl text-zinc-400 max-w-2xl font-medium leading-relaxed">
-            Unleash your potential with {tutors.length} world-class experts. From fundamentals to advanced concepts, find the perfect mentor for your {categoryName} journey.
+            Unleash your potential with {tutors.length} world-class experts across {subjectCount} unique subjects. From fundamentals to advanced concepts, find the perfect mentor for your {categoryName} journey.
           </p>
         </div>
 
