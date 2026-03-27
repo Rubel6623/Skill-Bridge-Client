@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/components/app-sidebar"
+import { AppSidebar } from "../../components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,14 +6,14 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+} from "../../components/ui/breadcrumb";
+import { Separator } from "../../components/ui/separator";
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"
-import { getUser } from "@/services/auth"
+} from "../../components/ui/sidebar";
+import { getUser } from "../../services/auth";
 import {
   AudioWaveform,
   BookOpen,
@@ -26,8 +26,7 @@ import {
   Settings2,
   SquareTerminal,
 } from "lucide-react"
-import Link from "next/link"
-
+import Link from "next/link";
 
 interface LayoutProps {
   children: React.ReactNode; // ✅ REQUIRED by Next.js

@@ -1,12 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getAllBookings } from "@/services/booking"
-import { getAllUsers } from "@/services/user"
+import { getAllBookings } from "../../../../services/booking"
+import { getAllUsers } from "../../../../services/user"
 import { Users, BookOpen, Calendar, Star, Clock, TrendingUp, ArrowUpRight, Loader2, CheckCircle2, XCircle, MoreVertical } from "lucide-react"
 import { format } from "date-fns"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../components/ui/button"
 
 export default function AdminDashboard() {
   const [bookings, setBookings] = useState<any[]>([])

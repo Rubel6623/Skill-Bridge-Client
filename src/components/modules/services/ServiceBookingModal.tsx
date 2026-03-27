@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { createBooking } from "@/services/booking";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../../ui/dialog";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
+import { createBooking } from "../../../services/booking";
 import { toast } from "sonner";
 import { Calendar as CalendarIcon, Clock, CheckCircle2 } from "lucide-react";
+
+
 
 export const ServiceBookingModal = ({ service }: { service: any }) => {
   const [isOpen, setIsOpen] = useState(false);

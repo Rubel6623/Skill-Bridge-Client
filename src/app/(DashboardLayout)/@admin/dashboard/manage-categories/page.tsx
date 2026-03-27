@@ -1,23 +1,23 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getCategories, createCategory, updateCategory, deleteCategory } from "@/services/category"
+import { getCategories, createCategory, updateCategory, deleteCategory } from "../../../../../services/category"
 import { Tag, Search, Plus, MoreVertical, Edit2, Loader2, Image as ImageIcon, CheckCircle2, X, Trash2 } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../../components/ui/button"
 import { toast } from "sonner"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "../../../../../components/ui/dialog"
 
 export default function AdminManageCategoriesPage() {
   const [categories, setCategories] = useState<any[]>([])

@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getAllCategories } from "@/services/service"
+import { getAllCategories } from "../../../services/service"
 import Link from "next/link"
 import { BookOpen, Code, FlaskConical, Globe, Palette, BarChart3, Music, Calculator, ArrowRight, Search } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../components/ui/button"
+
 
 const categoryIcons: Record<string, any> = {
   programming: Code,

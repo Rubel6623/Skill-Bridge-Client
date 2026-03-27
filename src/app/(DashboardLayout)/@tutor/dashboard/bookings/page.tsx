@@ -1,5 +1,5 @@
-import { getBookings } from "@/services/booking";
-import UpdateBookingStatusForm from "@/components/modules/tutor/bookings/UpdateBookingStatus";
+import { getBookings } from "../../../../../services/booking";
+import UpdateBookingStatusForm from "../../../../../components/modules/tutor/bookings/UpdateBookingStatus";
 import { format } from "date-fns";
 
 export default async function TutorBookingsPage() {

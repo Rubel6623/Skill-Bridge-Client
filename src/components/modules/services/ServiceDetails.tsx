@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Star, Clock, Video, GraduationCap, MapPin, CheckCircle2 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
+import { Badge } from "../../ui/badge";
+import { Separator } from "../../ui/separator";
 
 export const ServiceDetails = ({ service }: { service: any }) => {
   const tutorName = service?.tutorProfile?.user?.name || "Unknown Tutor";

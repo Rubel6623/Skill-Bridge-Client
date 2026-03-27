@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronLeft, Clock, Star, BookOpen, CheckCircle2, ArrowRight, CreditCard, Globe, Shield } from "lucide-react";
-import { getSubjectDetails } from "@/services/tutor";
-import { Button } from "@/components/ui/button";
+import { getSubjectDetails } from "../../../../services/tutor";
+import { Button } from "../../../../components/ui/button";
 
 export default async function SubjectDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

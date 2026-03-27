@@ -5,8 +5,8 @@ import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Loader2, Plus, Trash2, GraduationCap, Briefcase, DollarSign, TextQuote, Save } from "lucide-react";
-import { createTutorProfile, updateTutorProfile, getMyProfile } from "@/services/tutor";
-import { getCategories } from "@/services/category";
+import { createTutorProfile, updateTutorProfile, getMyProfile } from "../../../../services/tutor";
+import { getCategories } from "../../../../services/category";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

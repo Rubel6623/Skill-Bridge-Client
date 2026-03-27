@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Star, Clock, GraduationCap, MapPin, Globe, CheckCircle2, Calendar, BookOpen, Shield, ChevronLeft, ArrowRight } from "lucide-react"
-import { getTutorDetails } from "@/services/tutor";
+import { getTutorDetails } from "../../../../services/tutor";
 
 export default async function TutorDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

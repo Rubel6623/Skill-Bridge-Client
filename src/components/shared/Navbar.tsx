@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { HiMenu, HiX } from "react-icons/hi";
-import { getUser, UserLogOut } from "@/services/auth";
+import { getUser, UserLogOut } from "../../services/auth";
 import { useRouter } from "next/navigation";
 
 export function Navbar() {

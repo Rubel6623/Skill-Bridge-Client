@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Loader2, CheckCircle2 } from "lucide-react";
-import { updateBookingStatus } from "@/services/tutor";
+import { updateBookingStatus } from "../../../../services/tutor";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

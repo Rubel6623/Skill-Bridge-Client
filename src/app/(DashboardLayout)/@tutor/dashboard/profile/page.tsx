@@ -1,5 +1,5 @@
-import TutorProfileForm from "@/components/modules/tutor/profile/TutorProfileForm";
-import ProfileUpdateForm from "@/components/modules/profile/ProfileUpdateForm";
+import TutorProfileForm from "../../../../../components/modules/tutor/profile/TutorProfileForm";
+import ProfileUpdateForm from "../../../../../components/modules/profile/ProfileUpdateForm";
 
 export default function TutorProfilePage() {
   return (

@@ -9,12 +9,12 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { getAllTutorSubjects } from "@/services/service"
-import { ServiceCard } from "../services/ServiceCard"
+} from "../../../components/ui/carousel"
+import { Card, CardContent } from "../../../components/ui/card"
+import { Badge } from "../../../components/ui/badge"
+import { Button } from "../../../components/ui/button"
+import { getAllTutorSubjects } from "../../../services/service";
+import { ServiceCard } from "../services/ServiceCard";
 import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
 

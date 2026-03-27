@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getAllTutorSubjects } from "@/services/service"
-import { ServiceCard } from "@/components/modules/services/ServiceCard"
+import { getAllTutorSubjects } from "../../../services/service"
+import { ServiceCard } from "../../../components/modules/services/ServiceCard"
 import { Search, Filter, Sparkles, BookOpen } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../components/ui/button"
 
 export default function ServicesPage() {
   const [services, setServices] = useState<any[]>([])

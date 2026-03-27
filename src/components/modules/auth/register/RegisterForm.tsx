@@ -7,7 +7,7 @@ import * as z from "zod";
 import Link from "next/link";
 import Image from "next/image";
 import { Loader2, Mail, Lock, ArrowLeft, User, ShieldCheck } from "lucide-react";
-import { registerUser } from "@/services/auth";
+import { registerUser } from "../../../../services/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 

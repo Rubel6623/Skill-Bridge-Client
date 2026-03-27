@@ -1,16 +1,16 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getAllTutorSubjects } from "@/services/tutor"
+import { getAllTutorSubjects } from "../../../../../services/tutor"
 import { BookOpen, Search, Filter, MoreVertical, Trash2, Edit2, Loader2, Tag, User } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../../components/ui/button"
 import { toast } from "sonner"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "../../../../../components/ui/dropdown-menu"
 
 export default function AdminManageSubjectsPage() {
   const [subjects, setSubjects] = useState<any[]>([])

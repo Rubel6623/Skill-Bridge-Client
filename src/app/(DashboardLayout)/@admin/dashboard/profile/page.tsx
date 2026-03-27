@@ -1,4 +1,4 @@
-import ProfileUpdateForm from "@/components/modules/profile/ProfileUpdateForm";
+import ProfileUpdateForm from "../../../../../components/modules/profile/ProfileUpdateForm";
 
 export default function AdminProfilePage() {
   return (

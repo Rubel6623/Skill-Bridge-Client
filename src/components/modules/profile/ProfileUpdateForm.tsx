@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Loader2, User, Camera } from "lucide-react";
-import { updateProfile, getMe } from "@/services/auth";
+import { updateProfile, getMe } from "../../../services/auth";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import Image from "next/image";

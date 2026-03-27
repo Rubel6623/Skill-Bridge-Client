@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getOwnSubjects } from "@/services/subject"
-import { getBookings } from "@/services/booking"
+import { getOwnSubjects } from "../../../../services/subject";
+import { getBookings } from "../../../../services/booking";
 import { BookOpen, Calendar, Star, DollarSign, Clock, Users, TrendingUp, Loader2 } from "lucide-react"
 import { format } from "date-fns"
 

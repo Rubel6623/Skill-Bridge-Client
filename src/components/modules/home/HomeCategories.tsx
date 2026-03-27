@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getAllCategories } from "@/services/service"
+import { getAllCategories } from "../../../services/service";
 import Link from "next/link"
 import { ArrowRight, BookOpen, Code, FlaskConical, Globe, Palette, BarChart3, Music, Calculator } from "lucide-react"
 

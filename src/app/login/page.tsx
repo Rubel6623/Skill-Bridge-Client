@@ -1,4 +1,4 @@
-import LoginPage from "@/components/modules/auth/login/LoginForm";
+import LoginPage from "../../components/modules/auth/login/LoginForm";
 import { Suspense } from "react";
 import { Loader2 } from "lucide-react";
 
@@ -6,7 +6,7 @@ const SignInPage = () => {
   return (
     <div className="container mx-auto px-4">
       {/* Note: Suspense only triggers if LoginPage 
-         is "streaming" data or using React.use() 
+        is "streaming" data or using React.use() 
       */}
       <Suspense fallback={
         <div className="min-h-screen flex items-center justify-center bg-[#0a0a14]">

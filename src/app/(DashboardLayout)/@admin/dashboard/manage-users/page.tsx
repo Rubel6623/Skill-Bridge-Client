@@ -1,18 +1,18 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react"
-import { getAllUsers, updateUserStatus, deleteUser } from "@/services/user"
+import { getAllUsers, updateUserStatus, deleteUser } from "../../../../../services/user"
 import { Users, Search, Filter, MoreVertical, Ban, ShieldCheck, Trash2, Loader2, Mail, User as UserIcon, Calendar, ArrowUpRight } from "lucide-react"
 import { format } from "date-fns"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../../components/ui/button"
 import { toast } from "sonner"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
+} from "../../../../../components/ui/dropdown-menu"
+import { cn } from "../../../../../lib/utils"
 
 export default function AdminManageUsersPage() {
   const [users, setUsers] = useState<any[]>([])

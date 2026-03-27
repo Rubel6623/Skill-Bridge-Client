@@ -1,19 +1,19 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getBookings } from "@/services/booking"
+import { getBookings } from "../../../../../services/booking"
 import { Calendar, Clock, Star, MessageSquare, Loader2 } from "lucide-react"
 import { format } from "date-fns"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../../components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { createReview } from "@/services/review"
-import { toast } from "sonner"
+} from "../../../../../components/ui/dialog"
+import { createReview } from "../../../../../services/review"
+import { toast } from "sonner";
 
 export default function StudentBookingsPage() {
   const [bookings, setBookings] = useState<any[]>([])

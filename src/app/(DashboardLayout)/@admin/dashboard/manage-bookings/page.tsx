@@ -3,16 +3,16 @@
 import { useState, useEffect, useCallback } from "react"
 import { Calendar, Clock, User, CheckCircle2, XCircle, Loader2, Filter, Search, MoreVertical, DollarSign, Fingerprint, Star, Trash2 } from "lucide-react"
 import { format } from "date-fns"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../../../components/ui/button"
 import { toast } from "sonner"
-import { deleteBooking, getAllBookings, updateBookingStatus } from "@/services/booking"
+import { deleteBooking, getAllBookings, updateBookingStatus } from "../../../../../services/booking"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { cn } from "@/lib/utils"
+} from "../../../../../components/ui/dropdown-menu";
+import { cn } from "../../../../../lib/utils";
 
 export default function AdminManageBookingsPage() {
   const [bookings, setBookings] = useState<any[]>([])

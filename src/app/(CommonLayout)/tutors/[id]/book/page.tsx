@@ -2,13 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams, useParams, useRouter } from "next/navigation";
-import { getMe } from "@/services/auth";
-import { createBooking } from "@/services/booking";
+import { getMe } from "../../../../../services/auth";
+import { createBooking } from "../../../../../services/booking";
 import { Loader2, Calendar, Clock, CreditCard, ChevronLeft } from "lucide-react";
 import { toast } from "sonner";
 import Link from "next/link";
 import { format, addHours } from "date-fns";
-import { getTutorDetails } from "@/services/tutor";
+import { getTutorDetails } from "../../../../../services/tutor";
+
+
 
 export default function BookingPage() {
   const { id: tutorId } = useParams();

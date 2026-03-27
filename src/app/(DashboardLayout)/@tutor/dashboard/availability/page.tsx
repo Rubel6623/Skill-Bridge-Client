@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { updateAvailability, getMyAvailability } from "@/services/availability"
+import { updateAvailability, getMyAvailability } from "../../../../../services/availability"
 import { Calendar, Clock, Plus, Trash2, CheckCircle2, Loader2, Save } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { toast } from "sonner"
+import { Button } from "../../../../../components/ui/button";
+import { toast } from "sonner";
 
 const DAYS = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
 

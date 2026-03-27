@@ -1,6 +1,6 @@
 import { Shield, Target, Lightbulb, Users, CheckCircle2, ArrowRight } from "lucide-react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Button } from "../../../components/ui/button";
 
 const stats = [
   { value: "10K+", label: "Active Students" },

@@ -1,4 +1,4 @@
-import RegisterPage from "@/components/modules/auth/register/RegisterForm";
+import RegisterPage from "../../components/modules/auth/register/RegisterForm";
 import { Suspense } from "react";
 import { Loader2 } from "lucide-react";
 
