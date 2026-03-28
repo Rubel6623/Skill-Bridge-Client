@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useParams, useRouter } from "next/navigation";
 import { getMe } from "../../../../../services/auth";
 import { createBooking } from "../../../../../services/booking";
@@ -122,7 +122,8 @@ export default function BookingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white pt-24 pb-16">
+    <Suspense fallback={<div>Loading checkout...</div>}>
+      <main className="min-h-screen bg-[#0a0a0f] text-white pt-24 pb-16">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="flex items-center gap-4 mb-8">
           <Link href={`/tutors/${tutorId}`} className="p-2 hover:bg-white/5 rounded-full transition">
@@ -211,5 +212,7 @@ export default function BookingPage() {
         </div>
       </div>
     </main>
+    </Suspense>
+    
   );
 }

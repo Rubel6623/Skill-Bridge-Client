@@ -16,9 +16,6 @@ import {
 } from "lucide-react"
 
 import { NavMain } from "../components/nav-main"
-// import { NavProjects } from "@/components/nav-projects"
-// import { NavUser } from "@/components/nav-user"
-// import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -26,6 +23,9 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "./ui/sidebar"
+import { useEffect, useState } from "react";
+
+
 
 const STUDENT_navMain = [
   {
@@ -138,6 +138,16 @@ const TUTOR_navMain = [
 
 
 export function AppSidebar({userRole, ...props }: AppSidebarProps) {
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="w-[var(--sidebar-width)] bg-sidebar" />; 
+  }
 
   let navItems = null;
 

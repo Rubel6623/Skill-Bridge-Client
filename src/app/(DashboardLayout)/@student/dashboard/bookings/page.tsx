@@ -14,6 +14,7 @@ import {
 } from "../../../../../components/ui/dialog"
 import { createReview } from "../../../../../services/review"
 import { toast } from "sonner";
+import Link from "next/link"
 
 export default function StudentBookingsPage() {
   const [bookings, setBookings] = useState<any[]>([])
@@ -189,9 +190,11 @@ export default function StudentBookingsPage() {
           <Calendar className="w-16 h-16 text-zinc-300 mx-auto mb-4" />
           <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">No bookings found</h3>
           <p className="text-zinc-500 mt-2 max-w-xs mx-auto">You haven't booked any subjects yet. Explore our tutors and start learning!</p>
+          <Link href={`/tutors`}>
           <Button className="mt-6 bg-orange-500 hover:bg-orange-600 px-8 py-6 rounded-xl font-bold">
             Explore Tutors
           </Button>
+          </Link>
         </div>
       )}
     </div>

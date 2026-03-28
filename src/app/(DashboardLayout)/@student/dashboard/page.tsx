@@ -21,7 +21,8 @@ export default function StudentDashboard() {
   const [reviewLoading, setReviewLoading] = useState(false)
   const [selectedBooking, setSelectedBooking] = useState<any>(null)
   const [rating, setRating] = useState(5)
-  const [comment, setComment] = useState("")
+  const [comment, setComment] = useState("");
+  const [mounted, setMounted] = useState(false);
 
   const fetchBookings = async () => {
     try {
@@ -38,7 +39,12 @@ export default function StudentDashboard() {
 
   useEffect(() => {
     fetchBookings()
-  }, [])
+  }, [])  
+
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const confirmedBookings = bookings.filter((b: any) => b.status === "CONFIRMED")
   const completedBookings = bookings.filter((b: any) => b.status === "COMPLETED")
@@ -86,7 +92,7 @@ export default function StudentDashboard() {
         </div>
         <div className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-3xl shadow-2xl">
            <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-           <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">System Synced: {new Date().toLocaleTimeString()}</span>
+           <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">System Synced: {mounted ? new Date().toLocaleTimeString() : "Loading..."}</span>
         </div>
       </div>
 
