@@ -70,27 +70,22 @@ export default function BookingPage() {
 
   const handleBooking = async () => {
     if (!user || !tutor || !subject) {
-      console.error("CRITICAL: Missing objects for booking:", { 
-        hasUser: !!user, 
-        hasTutor: !!tutor, 
-        hasSubject: !!subject 
-      });
       toast.error("Required data is missing. Please refresh the page.");
       return;
     }
 
+    const start = new Date(bookingData.startTime);
+    if (start < new Date()) {
+      toast.error("Scheduled start time cannot be in the past.");
+      return;
+    }
+
     if (!user.id || !tutor.id || !subject.id) {
-       console.error("CRITICAL: Missing IDs for booking:", { 
-        userId: user.id || "MISSING", 
-        tutorId: tutor.id || "MISSING", 
-        subjectId: subject.id || "MISSING" 
-      });
-      toast.error("Registration data is incomplete. Please contact support.");
+      toast.error("Account identity missing. Please re-login.");
       return;
     }
 
     setIsSubmitting(true);
-    const start = new Date(bookingData.startTime);
     
     // Construct payload safely
     const payload = {
@@ -101,11 +96,8 @@ export default function BookingPage() {
       durationInHours: bookingData.duration,
     };
 
-    console.log("[Booking] Final Payload:", payload);
-
     try {
       const res = await createBooking(payload);
-      console.log("Booking response:", res);
       
       if (res.success) {
         toast.success("Successfully enrolled in course!");
@@ -114,7 +106,6 @@ export default function BookingPage() {
         toast.error(res.message || "Enrollment failed");
       }
     } catch (error: any) {
-      console.error("Booking catch error:", error);
       toast.error(error.message || "An error occurred during booking");
     } finally {
       setIsSubmitting(false);
@@ -185,25 +176,25 @@ export default function BookingPage() {
 
           {/* Tutor Info */}
           <div className="space-y-6">
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-start gap-4">
-               <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0">
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 flex items-start gap-4 shadow-xl">
+               <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-white/10">
                   <img src={tutor?.user?.avatar || "https://github.com/shadcn.png"} alt="" className="w-full h-full object-cover" />
                </div>
                <div>
-                  <h4 className="font-bold text-lg">{tutor?.user?.name}</h4>
-                  <p className="text-sm text-zinc-400">Professional {subject?.category?.name} Tutor</p>
-                  <div className="flex items-center gap-1 mt-2 text-xs text-orange-400 font-bold">
-                    <Clock size={12} /> Fast Response
+                  <h4 className="font-bold text-lg text-white">{tutor?.user?.name}</h4>
+                  <p className="text-sm text-zinc-400 italic">Professional {subject?.category?.name} Expert</p>
+                  <div className="flex items-center gap-1 mt-2 text-xs text-orange-400 font-bold uppercase tracking-widest">
+                    <Clock size={12} /> Sync Pending
                   </div>
                </div>
             </div>
 
             <button
               onClick={handleBooking}
-              // disabled={isSubmitting}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold py-5 rounded-2xl transition-all shadow-[0_0_30px_rgba(249,115,22,0.4)] disabled:opacity-50 flex justify-center items-center gap-2"
+              disabled={isSubmitting}
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-extrabold py-5 rounded-2xl transition-all shadow-[0_0_30px_rgba(249,115,22,0.4)] hover:shadow-[0_0_50px_rgba(249,115,22,0.6)] hover:-translate-y-1 disabled:opacity-50 disabled:translate-y-0 flex justify-center items-center gap-2 uppercase tracking-tighter"
             >
-              {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : "Confirm Enrollment & Pay"}
+              {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : "Authorize Enrollment"}
             </button>
             <p className="text-center text-xs text-zinc-500 px-4">
               By clicking confirm, you agree to SkillBridge Terms of Service and the Tutor's personal policy.

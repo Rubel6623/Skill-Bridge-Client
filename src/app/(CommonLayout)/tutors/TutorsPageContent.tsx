@@ -11,28 +11,42 @@ export default function TutorsContent() {
   const initialQuery = searchParams.get("query") || ""
   
   const [tutors, setTutors] = useState<any[]>([])
+  const [categories, setCategories] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [searchTerm, setSearchTerm] = useState(initialQuery)
   const [sortBy, setSortBy] = useState("rating")
+  const [selectedCategory, setSelectedCategory] = useState("all")
 
   useEffect(() => {
-    const fetchTutors = async () => {
+    const fetchData = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutors`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        })
-        const result = await res.json()
-        if (result?.success && result.data?.data) {
-          setTutors(result.data.data || [])
+        const [tutorsRes, categoriesRes] = await Promise.all([
+          fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/tutors`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }),
+          fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/categories`, {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          })
+        ])
+
+        const tutorsResult = await tutorsRes.json()
+        const categoriesResult = await categoriesRes.json()
+
+        if (tutorsResult?.success && tutorsResult.data?.data) {
+          setTutors(tutorsResult.data.data || [])
+        }
+        if (categoriesResult?.success) {
+          setCategories(categoriesResult.data || [])
         }
       } catch (error) {
-        console.error("Failed to fetch tutors", error)
+        console.error("Failed to fetch data", error)
       } finally {
         setLoading(false)
       }
     }
-    fetchTutors()
+    fetchData()
   }, [])
 
   const filteredTutors = tutors
@@ -40,16 +54,21 @@ export default function TutorsContent() {
       const name = t.user?.name?.toLowerCase() || ""
       const bio = t.bio?.toLowerCase() || ""
       const subjects = (t.subjects || []).map((s: any) => s.title?.toLowerCase() || "")
-      const categories = (t.subjects || []).map((s: any) => s.category?.name?.toLowerCase() || "")
+      const tutorCategories = (t.subjects || []).map((s: any) => s.category?.name?.toLowerCase() || "")
+      const categoryIds = (t.subjects || []).map((s: any) => s.categoryId)
       
       const q = searchTerm.toLowerCase()
       
-      return (
+      const matchesSearch = (
         name.includes(q) || 
         bio.includes(q) || 
         subjects.some((s: string) => s.includes(q)) ||
-        categories.some((c: string) => c.includes(q))
+        tutorCategories.some((c: string) => c.includes(q))
       )
+
+      const matchesCategory = selectedCategory === "all" || categoryIds.includes(selectedCategory)
+
+      return matchesSearch && matchesCategory
     })
     .sort((a: any, b: any) => {
       if (sortBy === "rating") return (b.rating || 0) - (a.rating || 0)
@@ -81,8 +100,8 @@ export default function TutorsContent() {
           </div>
 
           {/* Search & Filter */}
-          <div className="max-w-3xl mx-auto flex flex-col sm:flex-row gap-4">
-            <div className="flex-1 flex items-center rounded-xl bg-white/5 border border-white/10 backdrop-blur-lg px-4">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-4">
+            <div className="flex-1 flex items-center rounded-xl bg-white/5 border border-white/10 backdrop-blur-lg px-4 shadow-xl">
               <Search className="w-5 h-5 text-gray-400 shrink-0" />
               <input
                 type="text"
@@ -92,18 +111,33 @@ export default function TutorsContent() {
                 className="flex-1 bg-transparent outline-none text-white placeholder:text-white/40 py-4 px-3 text-sm font-serif"
               />
             </div>
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full sm:w-[200px] bg-white/5 border-white/10 text-white rounded-xl h-[52px]">
-                <Filter className="w-4 h-4 mr-2 text-gray-400" />
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent className="bg-gray-900 border-white/10 text-white">
-                <SelectItem value="rating">Top Rated</SelectItem>
-                <SelectItem value="experience">Most Experienced</SelectItem>
-                <SelectItem value="price-low">Price: Low to High</SelectItem>
-                <SelectItem value="price-high">Price: High to Low</SelectItem>
-              </SelectContent>
-            </Select>
+            
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <SelectTrigger className="w-full sm:w-[180px] bg-white/5 border-white/10 text-white rounded-xl h-[52px]">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-900 border-white/10 text-white">
+                  <SelectItem value="all">All Categories</SelectItem>
+                  {categories.map((cat: any) => (
+                    <SelectItem key={cat.id} value={cat.id}>{cat.name}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select value={sortBy} onValueChange={setSortBy}>
+                <SelectTrigger className="w-full sm:w-[180px] bg-white/5 border-white/10 text-white rounded-xl h-[52px]">
+                  <Filter className="w-4 h-4 mr-2 text-gray-400" />
+                  <SelectValue placeholder="Sort by" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-900 border-white/10 text-white">
+                  <SelectItem value="rating">Top Rated</SelectItem>
+                  <SelectItem value="experience">Most Experienced</SelectItem>
+                  <SelectItem value="price-low">Price: Low to High</SelectItem>
+                  <SelectItem value="price-high">Price: High to Low</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
       </section>

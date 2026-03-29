@@ -1,13 +1,20 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Star, Clock, GraduationCap, MapPin, Globe, CheckCircle2, Calendar, BookOpen, Shield, ChevronLeft, ArrowRight } from "lucide-react"
+import { Star, Clock, GraduationCap, CheckCircle2, Calendar, BookOpen, ChevronLeft, ArrowRight, Quote } from "lucide-react"
 import { getTutorDetails } from "../../../../services/tutor";
+import { getReviewsByTutor } from "../../../../services/review";
+import { format } from "date-fns";
 
 export default async function TutorDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
 
-  const result = await getTutorDetails(id);
-  const tutor = result?.success ? result.data : null;
+  const [tutorResult, reviewsResult] = await Promise.all([
+    getTutorDetails(id),
+    getReviewsByTutor(id)
+  ]);
+
+  const tutor = tutorResult?.success ? tutorResult.data : null;
+  const reviews = reviewsResult?.success ? reviewsResult.data : [];
 
   if (!tutor) {
     return (
@@ -71,7 +78,7 @@ export default async function TutorDetailsPage({ params }: { params: Promise<{ i
                       </div>
                       <div className="flex flex-col">
                          <span className="font-black text-lg leading-none">{tutor.rating?.toFixed(1) || "5.0"}</span>
-                         <span className="text-[10px] uppercase font-black text-zinc-500 tracking-widest">({tutor.reviewCount || 0} reviews)</span>
+                         <span className="text-[10px] uppercase font-black text-zinc-500 tracking-widest">({reviews.length} reviews)</span>
                       </div>
                     </div>
                     <div className="flex items-center gap-2 group">
@@ -113,13 +120,13 @@ export default async function TutorDetailsPage({ params }: { params: Promise<{ i
                       <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 border border-orange-500/20 mb-4 transition-all group-hover:bg-orange-500 group-hover:text-white">
                         <BookOpen size={24} />
                       </div>
-                      <h3 className="font-black text-2xl tracking-tight leading-none group-hover:text-orange-500 transition-colors uppercase">{sub.title}</h3>
+                      <h3 className="font-black text-2xl tracking-tight leading-none group-hover:text-orange-500 transition-colors uppercase">{sub.title || sub.category?.name}</h3>
                       <p className="text-xs font-black text-zinc-500 uppercase tracking-widest">{sub.category?.name}</p>
                       
                       <div className="pt-6">
                         <Link href={`/tutors/${tutor.id}/book?subjectId=${sub.id}`} className="block">
                           <button className="w-full bg-white text-black font-black py-4 rounded-xl hover:bg-orange-500 hover:text-white transition-all shadow-xl flex items-center justify-center gap-2 uppercase tracking-widest text-xs">
-                            Buy Subject (Course) <ArrowRight size={16} />
+                            Enroll Now <ArrowRight size={16} />
                           </button>
                         </Link>
                       </div>
@@ -127,6 +134,50 @@ export default async function TutorDetailsPage({ params }: { params: Promise<{ i
                   </div>
                 ))}
               </div>
+            </div>
+
+            {/* Reviews Section */}
+            <div className="space-y-10 pt-10">
+               <h2 className="text-3xl font-black tracking-tighter flex items-center gap-3 uppercase">
+                 <Star className="text-yellow-500 fill-yellow-500" /> Student Perspective
+               </h2>
+
+               {reviews.length > 0 ? (
+                 <div className="grid grid-cols-1 gap-6">
+                   {reviews.map((review: any) => (
+                     <div key={review.id} className="bg-white/[0.03] border border-white/10 rounded-[2.5rem] p-10 backdrop-blur-3xl shadow-2xl relative group hover:bg-white/[0.05] transition-all">
+                       <div className="absolute top-10 right-10 text-white/5 group-hover:text-orange-500/10 transition-colors">
+                          <Quote size={80} />
+                       </div>
+                       
+                       <div className="flex items-center gap-4 mb-8">
+                         <div className="w-14 h-14 rounded-2xl overflow-hidden border-2 border-white/10">
+                            <img src={review.student?.user?.avatar || "https://github.com/shadcn.png"} alt="Student" className="w-full h-full object-cover" />
+                         </div>
+                         <div>
+                            <p className="font-black text-white uppercase tracking-tight">{review.student?.user?.name || "Student"}</p>
+                            <div className="flex gap-1 mt-1">
+                               {[1, 2, 3, 4, 5].map((s) => (
+                                 <Star key={s} size={14} className={s <= review.rating ? "fill-yellow-500 text-yellow-500" : "text-zinc-800"} />
+                               ))}
+                            </div>
+                         </div>
+                         <div className="ml-auto text-right">
+                            <p className="text-[10px] font-black uppercase tracking-widest text-zinc-500">{format(new Date(review.createdAt), "MMM dd, yyyy")}</p>
+                         </div>
+                       </div>
+
+                       <p className="text-lg font-medium text-zinc-300 leading-relaxed italic relative z-10">
+                          "{review.comment}"
+                       </p>
+                     </div>
+                   ))}
+                 </div>
+               ) : (
+                 <div className="text-center py-20 bg-white/5 border border-dashed border-white/10 rounded-[3rem] opacity-30">
+                    <p className="font-black uppercase tracking-[0.5em] text-xs">No Perspective Broadcasted Yet</p>
+                 </div>
+               )}
             </div>
           </div>
 

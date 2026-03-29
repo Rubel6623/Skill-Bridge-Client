@@ -117,6 +117,10 @@ const TUTOR_navMain = [
         title: "Availability",
         url: "/dashboard/availability",
       },
+      {
+        title: "My Reviews",
+        url: "/dashboard/reviews",
+      },
     ],
   },
   {

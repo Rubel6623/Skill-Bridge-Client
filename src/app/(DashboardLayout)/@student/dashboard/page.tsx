@@ -182,50 +182,51 @@ export default function StudentDashboard() {
                       </div>
                       
                       {reviewableBooking ? (
-                        <Dialog open={selectedBooking?.id === reviewableBooking.id} onOpenChange={(open) => !open && setSelectedBooking(null)}>
-                           <DialogTrigger asChild>
-                              <Button 
-                                onClick={() => setSelectedBooking(reviewableBooking)}
-                                className="w-full bg-purple-500 hover:bg-purple-600 text-white font-black h-16 rounded-2xl uppercase tracking-widest text-[10px] shadow-2xl shadow-purple-500/20 group-hover:scale-105 transition-transform"
-                              >
-                                Review Expertise Hub
-                              </Button>
-                           </DialogTrigger>
-                           <DialogContent className="sm:max-w-[425px] rounded-[3rem] border-none shadow-2xl overflow-hidden p-0 dark:bg-zinc-950">
-                             <div className="bg-purple-500 h-2 w-full" />
-                             <div className="p-8 space-y-8">
-                               <DialogHeader>
-                                 <DialogTitle className="text-3xl font-black tracking-tighter uppercase text-center">Mentor Evaluation</DialogTitle>
-                               </DialogHeader>
-                               
-                               <div className="text-center space-y-4">
-                                  <p className="text-[10px] font-black uppercase tracking-[0.4em] text-zinc-500">Subject Mastership</p>
-                                  <div className="flex justify-center gap-3">
+                        <div className="w-full">
+                          {selectedBooking?.id !== reviewableBooking.id ? (
+                            <Button
+                              onClick={() => { setSelectedBooking(reviewableBooking); setRating(5); setComment(""); }}
+                              className="w-full bg-purple-500 hover:bg-purple-600 text-white font-black h-16 rounded-2xl uppercase tracking-widest text-[10px] shadow-2xl shadow-purple-500/20 group-hover:scale-105 transition-transform"
+                            >
+                              Review Subject Mentorship
+                            </Button>
+                          ) : (
+                            <div className="pt-6 border-t border-white/5 space-y-4">
+                               <div className="flex justify-between items-center">
+                                  <p className="text-[10px] font-black uppercase tracking-[0.2em] text-purple-500">Provide Output</p>
+                                  <div className="flex gap-1">
                                     {[1, 2, 3, 4, 5].map((star) => (
-                                      <button key={star} onClick={() => setRating(star)} className={`transition-all duration-500 ${rating >= star ? 'text-purple-500 scale-125' : 'text-zinc-800'}`}>
-                                        <Star size={32} className="fill-current" strokeWidth={0} />
+                                      <button key={star} onClick={() => setRating(star)} className={`transition-all ${rating >= star ? 'text-purple-500 scale-110' : 'text-zinc-600'} hover:text-purple-400`}>
+                                        <Star size={20} className="fill-current" strokeWidth={0} />
                                       </button>
                                     ))}
                                   </div>
                                </div>
-
-                               <textarea 
+                               <textarea
                                   value={comment}
                                   onChange={(e) => setComment(e.target.value)}
-                                  className="w-full h-40 bg-zinc-100 dark:bg-zinc-900 border-none rounded-[2rem] p-6 outline-none focus:ring-4 focus:ring-purple-500/20 font-bold text-sm resize-none"
-                                  placeholder="Document your perspective on this mentorship phase..."
+                                  className="w-full h-24 bg-white/5 border border-white/10 rounded-xl p-4 outline-none focus:ring-2 focus:ring-purple-500/50 font-bold text-xs resize-none text-white"
+                                  placeholder="Document your perspective..."
                                />
-
-                               <Button 
-                                 onClick={handleReviewSubmit}
-                                 disabled={reviewLoading || !comment.trim()}
-                                 className="w-full bg-purple-500 hover:bg-purple-600 font-black h-16 rounded-[2rem] uppercase tracking-widest text-[10px] text-white shadow-2xl shadow-purple-500/30"
-                               >
-                                 {reviewLoading ? <Loader2 className="animate-spin" /> : "Authorize Broadcast"}
-                               </Button>
-                             </div>
-                           </DialogContent>
-                        </Dialog>
+                               <div className="flex gap-2">
+                                 <Button 
+                                   onClick={handleReviewSubmit}
+                                   disabled={reviewLoading || !comment.trim()}
+                                   className="flex-1 bg-purple-500 hover:bg-purple-600 font-black h-12 rounded-xl uppercase tracking-widest text-[10px] text-white"
+                                 >
+                                   {reviewLoading ? <Loader2 className="animate-spin" size={16} /> : "Post"}
+                                 </Button>
+                                 <Button 
+                                   onClick={() => setSelectedBooking(null)}
+                                   variant="ghost" 
+                                   className="text-zinc-400 hover:text-white h-12 rounded-xl uppercase text-[10px] font-bold tracking-widest"
+                                 >
+                                   Cancel
+                                 </Button>
+                               </div>
+                            </div>
+                          )}
+                        </div>
                       ) : (
                         <div className="h-16 flex items-center justify-center border-2 border-dashed border-white/5 rounded-2xl opacity-40">
                            <span className="text-[10px] font-black uppercase tracking-widest">Feedback Fully Integrated</span>

@@ -19,12 +19,16 @@ export default function AboutUsPage() {
             We're building the most accessible, high-quality tutoring platform on the internet. Whether you are aiming to master a new language, prepare for a certification, or excel in mathematics, SkillBridge connects you with the world's finest educators.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)] flex items-center justify-center gap-2">
-              Join as a Student <ArrowRight size={18} />
-            </button>
-            <button className="bg-white/5 hover:bg-white/10 text-white font-bold py-4 px-8 rounded-full transition-all border border-white/10 flex items-center justify-center gap-2">
-              Become a Tutor
-            </button>
+            <Link href="/register?role=student">
+              <button className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 px-8 rounded-full transition-all shadow-[0_0_20px_rgba(249,115,22,0.3)] hover:shadow-[0_0_30px_rgba(249,115,22,0.5)] flex items-center justify-center gap-2">
+                Join as a Student <ArrowRight size={18} />
+              </button>
+            </Link>
+            <Link href="/register?role=tutor">
+              <button className="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white font-bold py-4 px-8 rounded-full transition-all border border-white/10 flex items-center justify-center gap-2">
+                Become a Tutor
+              </button>
+            </Link>
           </div>
         </div>
       </section>

@@ -3,24 +3,28 @@
 import { useState, useEffect } from "react"
 import { getOwnSubjects } from "../../../../services/subject";
 import { getBookings } from "../../../../services/booking";
+import { getMyReviews } from "../../../../services/review";
 import { BookOpen, Calendar, Star, DollarSign, Clock, Users, TrendingUp, Loader2 } from "lucide-react"
 import { format } from "date-fns"
 
 export default function TutorDashboard() {
   const [subjects, setSubjects] = useState<any[]>([])
   const [bookings, setBookings] = useState<any[]>([])
+  const [reviews, setReviews] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const [subjectsRes, bookingsRes] = await Promise.all([
+        const [subjectsRes, bookingsRes, reviewsRes] = await Promise.all([
           getOwnSubjects(),
-          getBookings()
+          getBookings(),
+          getMyReviews()
         ])
         
         if (subjectsRes?.success) setSubjects(subjectsRes.data || [])
         if (bookingsRes?.success) setBookings(bookingsRes.data || [])
+        if (reviewsRes?.success) setReviews(reviewsRes.data || [])
       } catch (error) {
         console.error("Dashboard error:", error)
       } finally {
@@ -34,6 +38,10 @@ export default function TutorDashboard() {
   const totalEarnings = bookings
     .filter(b => b.status === 'COMPLETED')
     .reduce((sum, b) => sum + (b.totalPrice || 0), 0)
+    
+  const averageRating = reviews.length > 0 
+    ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
+    : "N/A"
 
   return (
     <div className="p-6 space-y-8">
@@ -49,11 +57,12 @@ export default function TutorDashboard() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {[
-          { label: "Courses", value: subjects.length, icon: BookOpen, color: "text-blue-500", bg: "bg-blue-500/10 border-blue-500/20" },
+          { label: "My Growth", value: subjects.length, icon: BookOpen, color: "text-blue-500", bg: "bg-blue-500/10 border-blue-500/20" },
           { label: "Bookings", value: bookings.length, icon: Calendar, color: "text-orange-500", bg: "bg-orange-500/10 border-orange-500/20" },
           { label: "Active", value: confirmedBookings.length, icon: Clock, color: "text-purple-500", bg: "bg-purple-500/10 border-purple-500/20" },
+          { label: "Rating", value: averageRating, icon: Star, color: "text-yellow-500", bg: "bg-yellow-500/10 border-yellow-500/20" },
           { label: "Earnings", value: `$${totalEarnings}`, icon: DollarSign, color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20" },
         ].map((stat, i) => (
           <div key={i} className={`p-6 rounded-3xl border-2 backdrop-blur-xl ${stat.bg} transition-all hover:scale-[1.03] group`}>

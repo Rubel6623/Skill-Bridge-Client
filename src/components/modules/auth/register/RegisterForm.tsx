@@ -9,7 +9,7 @@ import Image from "next/image";
 import { Loader2, Mail, Lock, ArrowLeft, User, ShieldCheck } from "lucide-react";
 import { registerUser } from "../../../../services/auth";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters long" }),
@@ -25,6 +25,10 @@ export default function RegisterForm() {
   const [serverError, setServerError] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<string | null>(null);
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const roleParam = searchParams.get("role") || "student";
+
   const {
     register,
     handleSubmit,
@@ -32,11 +36,9 @@ export default function RegisterForm() {
   } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      role: "student",
+      role: (roleParam === "tutor" || roleParam === "student") ? roleParam : "student",
     }
   });
-
-  const router = useRouter();
 
   const onSubmit = async (data: RegisterFormValues) => {
     setIsLoading(true);

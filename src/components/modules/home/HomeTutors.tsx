@@ -65,7 +65,10 @@ export const HomeTutors = () => {
         })
         const result = await res.json()
         if (result?.success && result.data?.data?.length > 0) {
-          setTutors(result.data.data.slice(0, 4))
+          const topTutors = result.data.data
+            .sort((a: any, b: any) => (b.rating || 0) - (a.rating || 0))
+            .slice(0, 4)
+          setTutors(topTutors)
         } else {
           setTutors(staticTutors)
         }
