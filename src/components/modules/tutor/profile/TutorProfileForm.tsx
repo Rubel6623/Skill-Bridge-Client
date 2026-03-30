@@ -168,7 +168,7 @@ export default function TutorProfileForm() {
             {/* Experience */}
             <div className="space-y-3">
               <label className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-zinc-400">
-                 <Briefcase size={14} className="text-orange-500" /> Tenure (Years)
+                 <Briefcase size={14} className="text-orange-500" /> Experience (Years)
               </label>
               <input
                 {...register("experience", { valueAsNumber: true })}
