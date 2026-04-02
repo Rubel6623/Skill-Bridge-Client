@@ -24,12 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="dark" suppressHydrationWarning>
       
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-[#0a0a14] text-white antialiased`}
       >
-        <time dateTime="2016-10-25" suppressHydrationWarning />        
+        <time dateTime="2016-10-25"/>        
         
         {/* Global Background Glow */}
         <div className="fixed inset-0 -z-10">

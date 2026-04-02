@@ -60,9 +60,15 @@ interface CustomJwtPayload {
 export const getUser = async () => {
   const storeCookie = await cookies();
   const token = storeCookie.get("token")?.value;
-  let decodedData = null;
+  let decodedData: CustomJwtPayload | null = null;
   if (token) {
-    decodedData = await jwtDecode<CustomJwtPayload>(token);
+    decodedData = jwtDecode<CustomJwtPayload>(token);
+    
+    // Check if token has expired
+    if (decodedData.exp && decodedData.exp < Date.now() / 1000) {
+      return null;
+    }
+    
     return decodedData;
   } else {
     return null;
