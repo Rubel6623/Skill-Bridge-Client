@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { HiMenu, HiX } from "react-icons/hi";
 import { getUser, UserLogOut } from "../../services/auth";
 import { useRouter } from "next/navigation";
+import logo from "../../../public/logo.png";
 
 export function Navbar() {
 
@@ -48,11 +50,12 @@ export function Navbar() {
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
-          <div
+        <Image src={logo} alt="S" width={70} height={70} />
+          {/* <div
             className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-red-500 flex items-center justify-center font-bold text-lg text-white font-serif flex-shrink-0"
           >
-            S
-          </div>
+            S          
+          </div> */}
           <span className="font-serif font-bold text-xl text-white tracking-tight">
             Skill<span className="text-blue-400">Bridge</span>
           </span>
