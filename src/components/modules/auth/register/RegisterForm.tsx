@@ -10,6 +10,7 @@ import { Loader2, Mail, Lock, ArrowLeft, User, ShieldCheck } from "lucide-react"
 import { registerUser } from "../../../../services/auth";
 import { toast } from "sonner";
 import { useRouter, useSearchParams } from "next/navigation";
+import SocialLoginButtons from "../SocialLoginButtons";
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters long" }),
@@ -199,6 +200,8 @@ export default function RegisterForm() {
               {isLoading ? <Loader2 size={18} className="animate-spin" /> : "Sign Up"}
             </button>
           </form>
+
+          <SocialLoginButtons />
 
           <p className="text-center mt-6 text-sm text-white/50">
             Already have an account?{" "}

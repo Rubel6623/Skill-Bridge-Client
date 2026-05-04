@@ -13,7 +13,17 @@ export const registerUser = async (userData: FieldValues) => {
       },
       body: JSON.stringify(userData),
     });
-    return await res.json();
+    
+    const text = await res.text();
+    try {
+      return JSON.parse(text);
+    } catch (e) {
+      console.error("Non-JSON response from server:", text);
+      return {
+        success: false,
+        message: "Server is currently unavailable or returning an invalid response. Please try again later."
+      };
+    }
   } catch (error: any) {
     return {
       success: false,
@@ -43,6 +53,31 @@ export const loginUser = async (userData: FieldValues) => {
     return {
       success: false,
       message: (error as Error).message || "An unexpected error occurred"
+    };
+  }
+};
+
+export const socialLogin = async (userData: { email: string; name: string; avatar?: string }) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/social-login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
+    const result = await res.json();
+    const storeCookie = await cookies();
+
+    if (result.success) {
+      storeCookie.set("token", result?.data?.token);
+    }
+    return result;
+  } catch (error) {
+    return {
+      success: false,
+      message: (error as Error).message || "An unexpected error occurred",
     };
   }
 };

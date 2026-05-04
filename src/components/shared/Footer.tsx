@@ -3,7 +3,7 @@ import { Facebook, Twitter, Instagram, Linkedin, Youtube, Mail, MapPin, Phone } 
 
 const footerLinks = {
   Product: [
-    { label: "Browse Tutors", href: "/tutors" },
+    { label: "Tutors", href: "/tutors" },
     { label: "Categories", href: "/categories" },
     { label: "How It Works", href: "/how-it-works" },
     { label: "Pricing", href: "/pricing" },

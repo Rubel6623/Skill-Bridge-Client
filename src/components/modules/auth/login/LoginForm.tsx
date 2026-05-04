@@ -10,6 +10,7 @@ import { Loader2, Mail, Lock, ArrowLeft } from "lucide-react";
 import { loginUser } from "../../../../services/auth";
 import { toast } from "sonner";
 import { useSearchParams, useRouter } from "next/navigation";
+import SocialLoginButtons from "../SocialLoginButtons";
 
 const loginSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
@@ -251,6 +252,8 @@ export default function LoginPage() {
               )}
             </button>
           </form>
+
+          <SocialLoginButtons />
 
           <p className="text-center mt-8 text-sm text-white/50">
             Don’t have an account?{" "}

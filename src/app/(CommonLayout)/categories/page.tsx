@@ -123,7 +123,7 @@ export default function CategoriesPage() {
                         {cat._count?.tutorSubjects || 0} Tutors Available
                       </p>
                       <div className="flex items-center text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
-                        Browse Tutors <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                        Tutors <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
                   </Link>

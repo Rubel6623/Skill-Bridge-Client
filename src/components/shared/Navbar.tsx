@@ -73,10 +73,10 @@ export function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-8">
           <nav className="flex gap-8 items-center">
-            {["Browse Tutors", "Categories", "How It Works", "Pricing"].map((item) => (
+            {["Tutors", "Categories", "How It Works", "Pricing"].map((item) => (
               <Link
                 key={item}
-                href={item === "Browse Tutors" ? "/tutors" : item === "Categories" ? "/categories" : item === "How It Works" ? "/how-it-works" : "/pricing"}
+                href={item === "Tutors" ? "/tutors" : item === "Categories" ? "/categories" : item === "How It Works" ? "/how-it-works" : "/pricing"}
                 className="text-gray-300 no-underline text-sm font-serif tracking-wide transition-colors duration-200 hover:text-white"
               >
                 {item}
@@ -85,26 +85,98 @@ export function Navbar() {
           </nav>
 
           {/* Right side: Auth */}
-          <div className="flex gap-2 items-center">
+          <div className="flex gap-4 items-center">
             {user ? (
-              <>
-                <span className="text-gray-200 text-sm font-serif mr-2">
-                  Hi, {user.name}
-                </span>
-                <Link
-                  href="/dashboard/profile"
-                  className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-gray-700"
-                >
-                  Profile
-                </Link>
+              <div className="relative group">
                 <button
-                  onClick={handleLogout}
-                  className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-red-500/10 hover:border-red-500/50 hover:text-red-400"
+                  className="flex items-center gap-3 p-1 rounded-full hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/10"
                 >
-                  Logout
+                  <div className="flex flex-col items-end text-right">
+                    <span className="text-white text-xs font-bold tracking-tight leading-none mb-1 capitalize">
+                      {user.name}
+                    </span>
+                    <span className="text-gray-400 text-[10px] leading-none uppercase tracking-widest font-medium">
+                      {user.role}
+                    </span>
+                  </div>
+                  
+                  <div className="relative h-9 w-9 rounded-full overflow-hidden ring-2 ring-orange-500/20 group-hover:ring-orange-500/50 transition-all">
+                    {user.avatar ? (
+                      <Image
+                        src={user.avatar}
+                        alt={user.name}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white font-bold text-sm shadow-inner">
+                        {user.name?.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </div>
                 </button>
 
-              </>
+                {/* Advanced Dropdown Menu */}
+                <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-2xl bg-[#0d0d1a] border border-white/10 shadow-2xl backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
+                  <div className="p-4 border-b border-white/5">
+                    <p className="text-sm font-semibold text-white truncate">{user.name}</p>
+                    <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                  </div>
+                  
+                  <div className="p-2">
+                    <Link
+                      href="/dashboard"
+                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                        </svg>
+                      </div>
+                      Dashboard
+                    </Link>
+                    
+                    <Link
+                      href="/dashboard/profile"
+                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </div>
+                      My Profile
+                    </Link>
+                    
+                    <Link
+                      href="/dashboard/settings"
+                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                      </div>
+                      Settings
+                    </Link>
+                  </div>
+                  
+                  <div className="p-2 border-t border-white/5">
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/5 rounded-xl transition-all"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                      </div>
+                      Log Out
+                    </button>
+                  </div>
+                </div>
+              </div>
             ) : (
               <>
                 <Link
@@ -129,10 +201,10 @@ export function Navbar() {
           <nav
             className="lg:hidden absolute top-16 left-0 w-full bg-gray-800 shadow-md flex flex-col items-center gap-4 py-4 z-40"
           >
-            {["Browse Tutors", "Categories", "How It Works", "Pricing", "About Us"].map((item) => (
+            {["Tutors", "Categories", "How It Works", "Pricing", "About Us"].map((item) => (
               <Link
                 key={item}
-                href={item === "Browse Tutors" ? "/tutors" : item === "Categories" ? "/categories" : item === "How It Works" ? "/how-it-works" : item === "Pricing" ? "/pricing" : "/about-us"}
+                href={item === "Tutors" ? "/tutors" : item === "Categories" ? "/categories" : item === "How It Works" ? "/how-it-works" : item === "Pricing" ? "/pricing" : "/about-us"}
                 className="text-gray-300 no-underline text-sm font-serif tracking-wide transition-colors duration-200 hover:text-white"
                 onClick={() => setMenuOpen(false)}
               >
@@ -142,27 +214,61 @@ export function Navbar() {
 
             {/* Auth Links */}
             {user ? (
-              <div className="flex flex-col items-center gap-4 w-full px-8">
-                <div className="text-white font-serif text-sm bg-gray-700/50 w-full text-center py-2 rounded-lg border border-gray-600">
-                  User: <span className="font-bold text-blue-400">{user?.name}</span>
+              <div className="w-full px-6 space-y-4">
+                <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10">
+                  <div className="h-12 w-12 rounded-full overflow-hidden ring-2 ring-orange-500/20">
+                    {user.avatar ? (
+                      <Image
+                        src={user.avatar}
+                        alt={user.name}
+                        width={48}
+                        height={48}
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="h-full w-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white font-bold">
+                        {user.name?.charAt(0).toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-white font-bold text-sm">{user.name}</p>
+                    <p className="text-gray-400 text-xs">{user.email}</p>
+                  </div>
                 </div>
-                <Link
-                  href="/dashboard/profile"
-                  className="w-full text-center text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 hover:bg-gray-700"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  My Profile
-                </Link>
-                <button
-                  onClick={() => {
-                    handleLogout();
-                    setMenuOpen(false);
-                  }}
-                  className="w-full text-white no-underline text-sm font-serif px-4 py-2 rounded-lg bg-red-500/20 border border-red-500/50 font-semibold transition-all duration-200 transform hover:bg-red-500/30"
-                >
-                  Logout
-                </button>
 
+                <div className="grid grid-cols-1 gap-2">
+                  <Link
+                    href="/dashboard"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 bg-white/5 rounded-xl border border-white/5"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/dashboard/profile"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 bg-white/5 rounded-xl border border-white/5"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    My Profile
+                  </Link>
+                  <Link
+                    href="/dashboard/settings"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 bg-white/5 rounded-xl border border-white/5"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    Settings
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-red-400 bg-red-500/5 rounded-xl border border-red-500/10 font-semibold"
+                  >
+                    Logout
+                  </button>
+                </div>
               </div>
             ) : (
               <div className="flex flex-col items-center gap-2 w-full px-8">
