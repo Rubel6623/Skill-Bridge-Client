@@ -1,119 +1,269 @@
-import React from 'react';
-import { getAllBlogs } from '@/services/blog';
-import { getAllBlogCategories } from '@/services/blogCategory';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
-import Image from 'next/image';
-import { Calendar, User, ArrowRight, Filter } from 'lucide-react';
+"use client";
 
-interface Props {
-  searchParams: Promise<{
-    category?: string;
-  }>;
-}
+import React, { useEffect, useState, useCallback } from "react";
+import { getAllBlogs } from "@/services/blog";
+import { getAllBlogCategories } from "@/services/blogCategory";
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import Image from "next/image";
+import { Calendar, User, ArrowRight, Search, SlidersHorizontal, ChevronLeft, ChevronRight, BookOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-const BlogPage = async ({ searchParams }: Props) => {
-  const params = await searchParams;
-  const categoryId = params.category;
-  
-  const [blogsRes, categoriesRes] = await Promise.all([
-    getAllBlogs(categoryId ? `categoryId=${categoryId}` : ''),
-    getAllBlogCategories()
-  ]);
+const BLOGS_PER_PAGE = 8;
 
-  const blogs = blogsRes?.data || [];
-  const categories = categoriesRes?.data || [];
+const BlogCard = ({ blog }: { blog: any }) => (
+  <div className="group flex flex-col overflow-hidden rounded-[2rem] bg-white/[0.02] border border-white/10 hover:border-orange-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/5 hover:-translate-y-1 h-full">
+    <div className="relative h-52 w-full overflow-hidden flex-shrink-0">
+      <Image
+        src={blog.thumbnail || "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop"}
+        alt={blog.title}
+        fill
+        className="object-cover group-hover:scale-110 transition-transform duration-500"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      <div className="absolute top-4 left-4">
+        <Badge className="bg-orange-500/80 backdrop-blur-md border-none text-[10px] font-black uppercase tracking-widest">
+          {blog.category?.name || "General"}
+        </Badge>
+      </div>
+    </div>
+    <div className="flex flex-col flex-1 p-6">
+      <div className="flex items-center gap-4 text-xs text-white/30 mb-3 font-bold uppercase tracking-widest">
+        <span className="flex items-center gap-1.5">
+          <Calendar size={12} className="text-orange-500" />
+          {new Date(blog.createdAt).toLocaleDateString()}
+        </span>
+        <span className="flex items-center gap-1.5">
+          <User size={12} className="text-purple-500" />
+          {blog.author?.name || "SkillBridge"}
+        </span>
+      </div>
+      <h2 className="text-lg font-black text-white line-clamp-2 group-hover:text-orange-400 transition-colors mb-3 tracking-tight leading-tight flex-1">
+        {blog.title}
+      </h2>
+      <p className="text-white/40 text-sm line-clamp-2 mb-5 leading-relaxed">
+        {blog.content?.slice(0, 120)}...
+      </p>
+      <Link
+        href={`/blogs/${blog.id}`}
+        className="inline-flex items-center gap-2 text-orange-500 font-black text-xs uppercase tracking-widest hover:text-orange-400 transition-colors group/link mt-auto"
+      >
+        Read Article <ArrowRight size={14} className="group-hover/link:translate-x-1 transition-transform" />
+      </Link>
+    </div>
+  </div>
+);
 
-  console.log("BlogPage - blogs count:", blogs.length);
-  console.log("BlogPage - categories count:", categories.length);
+const SkeletonCard = () => (
+  <div className="rounded-[2rem] bg-white/[0.02] border border-white/10 overflow-hidden animate-pulse">
+    <div className="h-52 bg-white/5" />
+    <div className="p-6 space-y-3">
+      <div className="h-3 bg-white/5 rounded w-1/2" />
+      <div className="h-5 bg-white/5 rounded w-full" />
+      <div className="h-5 bg-white/5 rounded w-3/4" />
+      <div className="h-3 bg-white/5 rounded w-full" />
+      <div className="h-3 bg-white/5 rounded w-2/3" />
+    </div>
+  </div>
+);
+
+export default function BlogPage() {
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [categories, setCategories] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [sortBy, setSortBy] = useState("newest");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const [blogsRes, categoriesRes] = await Promise.all([
+        getAllBlogs(""),
+        getAllBlogCategories(),
+      ]);
+      setBlogs(blogsRes?.data || []);
+      setCategories(categoriesRes?.data || []);
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+  // Filter + Sort
+  const processedBlogs = blogs
+    .filter((b) => {
+      const matchesSearch =
+        !searchTerm ||
+        b.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        b.content?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        b.author?.name?.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "all" || b.categoryId === selectedCategory || b.category?.id === selectedCategory;
+      return matchesSearch && matchesCategory;
+    })
+    .sort((a, b) => {
+      if (sortBy === "newest") return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      if (sortBy === "oldest") return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+      if (sortBy === "title-asc") return a.title.localeCompare(b.title);
+      if (sortBy === "title-desc") return b.title.localeCompare(a.title);
+      return 0;
+    });
+
+  const totalPages = Math.max(1, Math.ceil(processedBlogs.length / BLOGS_PER_PAGE));
+  const paginatedBlogs = processedBlogs.slice(
+    (currentPage - 1) * BLOGS_PER_PAGE,
+    currentPage * BLOGS_PER_PAGE
+  );
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm, selectedCategory, sortBy]);
 
   return (
-    <div className="py-20 min-h-screen bg-transparent">
+    <div className="py-20 min-h-screen bg-transparent text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="py-4 text-4xl md:text-6xl font-bold bg-gradient-to-r from-orange-400 to-purple-500 bg-clip-text text-transparent">
-            Insightful Blogs
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-[10px] font-black tracking-[0.3em] uppercase mb-6">
+            <BookOpen size={12} /> Knowledge Hub
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-6">
+            Insightful <span className="bg-gradient-to-r from-orange-400 to-purple-500 bg-clip-text text-transparent">Articles</span>
           </h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Stay updated with the latest trends in education, skill development, and expert advice from our tutors and community.
+          <p className="text-white/40 text-lg max-w-2xl mx-auto font-medium italic">
+            Expert insights, tutorials, and thought leadership from top educators in the SkillBridge ecosystem.
           </p>
         </div>
 
-        {/* Filter Section */}
-        <div className="mb-12 flex flex-wrap justify-center gap-3">
-           <Link href="/blogs">
-            <Badge 
-                variant={!categoryId ? "default" : "outline"}
-                className={`px-4 py-2 text-sm cursor-pointer transition-all ${!categoryId ? "bg-orange-500 hover:bg-orange-600" : "hover:border-orange-500"}`}
+        {/* Search + Sort Controls */}
+        <div className="flex flex-col md:flex-row gap-4 mb-10">
+          <div className="relative flex-1 group">
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 size-4 text-white/30 group-focus-within:text-orange-500 transition-colors" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search articles, topics, or authors..."
+              className="w-full pl-14 pr-6 py-5 bg-white/[0.03] border border-white/10 rounded-2xl text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/20 transition-all tracking-wide"
+            />
+          </div>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="px-6 py-5 bg-white/[0.03] border border-white/10 rounded-2xl text-sm font-black text-white/70 focus:outline-none focus:border-orange-500/50 transition-all cursor-pointer appearance-none tracking-widest uppercase md:w-56"
+          >
+            <option value="newest" className="bg-[#0d0d1a]">Newest First</option>
+            <option value="oldest" className="bg-[#0d0d1a]">Oldest First</option>
+            <option value="title-asc" className="bg-[#0d0d1a]">Title: A → Z</option>
+            <option value="title-desc" className="bg-[#0d0d1a]">Title: Z → A</option>
+          </select>
+        </div>
+
+        {/* Category Filter */}
+        <div className="flex flex-wrap gap-3 mb-12">
+          <button
+            onClick={() => setSelectedCategory("all")}
+            className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${
+              selectedCategory === "all"
+                ? "bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/20"
+                : "bg-white/5 border-white/10 text-white/50 hover:border-white/30 hover:text-white"
+            }`}
+          >
+            All Posts {!loading && `(${blogs.length})`}
+          </button>
+          {categories.map((cat: any) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${
+                selectedCategory === cat.id
+                  ? "bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/20"
+                  : "bg-white/5 border-white/10 text-white/50 hover:border-white/30 hover:text-white"
+              }`}
             >
-                All Posts
-            </Badge>
-          </Link>
-          {categories?.map((cat: any) => (
-            <Link key={cat.id} href={`/blogs?category=${cat.id}`}>
-                <Badge 
-                    variant={categoryId === cat.id ? "default" : "outline"}
-                    className={`px-4 py-2 text-sm cursor-pointer transition-all ${categoryId === cat.id ? "bg-orange-500 hover:bg-orange-600" : "hover:border-orange-500"}`}
-                >
-                    {cat.name}
-                </Badge>
-            </Link>
+              {cat.name}
+            </button>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogs?.map((blog: any) => (
-            <Card key={blog.id} className="group overflow-hidden bg-accent/30 dark:bg-white/5 border-border hover:border-orange-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10">
-              <div className="relative h-56 w-full overflow-hidden">
-                <Image
-                  src={blog.thumbnail || 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop'}
-                  alt={blog.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge className="bg-purple-500/80 backdrop-blur-md border-none">{blog.category?.name || 'Uncategorized'}</Badge>
-                </div>
-              </div>
-              <CardHeader className="pb-2">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-2">
-                  <span className="flex items-center gap-1">
-                    <Calendar size={14} className="text-orange-500" />
-                    {new Date(blog.createdAt).toLocaleDateString()}
-                  </span>
-                  <span className="flex items-center gap-1">
-                    <User size={14} className="text-purple-500" />
-                    {blog.author?.name}
-                  </span>
-                </div>
-                <CardTitle className="text-xl font-bold line-clamp-2 group-hover:text-orange-400 transition-colors text-foreground">
-                  {blog.title}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground line-clamp-3 mb-6">
-                  {blog.content.slice(0, 150)}...
-                </p>
-                <Link 
-                  href={`/blogs/${blog.id}`}
-                  className="inline-flex items-center gap-2 text-orange-500 font-semibold hover:text-orange-400 transition-colors"
-                >
-                  Read More <ArrowRight size={16} />
-                </Link>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {/* Results info */}
+        {!loading && (
+          <div className="flex items-center justify-between mb-8">
+            <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.2em]">
+              {processedBlogs.length} article{processedBlogs.length !== 1 ? "s" : ""} found
+            </p>
+            {totalPages > 1 && (
+              <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.2em]">
+                Page {currentPage} of {totalPages}
+              </p>
+            )}
+          </div>
+        )}
 
-        {(!blogs || blogs.length === 0) && (
-          <div className="text-center py-20">
-            <p className="text-muted-foreground text-xl">No blog posts found in this category. Check back later!</p>
+        {/* Blog Grid */}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
+          </div>
+        ) : paginatedBlogs.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {paginatedBlogs.map((blog: any) => (
+              <BlogCard key={blog.id} blog={blog} />
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center py-32 gap-8 bg-white/[0.02] border border-dashed border-white/10 rounded-[3rem]">
+            <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
+              <BookOpen size={32} className="text-white/10" />
+            </div>
+            <div className="text-center">
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight">No Articles Found</h3>
+              <p className="text-white/40 mt-2 italic">Try a different search term or category.</p>
+            </div>
+            <Button
+              onClick={() => { setSearchTerm(""); setSelectedCategory("all"); }}
+              className="bg-orange-500 hover:bg-orange-600 rounded-2xl h-14 px-10 font-black uppercase tracking-widest text-xs shadow-lg shadow-orange-500/20"
+            >
+              Clear Filters
+            </Button>
+          </div>
+        )}
+
+        {/* Pagination */}
+        {!loading && totalPages > 1 && (
+          <div className="flex items-center justify-center gap-3 mt-16">
+            <button
+              onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+              disabled={currentPage === 1}
+              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            {Array.from({ length: totalPages }).map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`w-12 h-12 rounded-xl text-sm font-black transition-all ${
+                  currentPage === i + 1
+                    ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30"
+                    : "bg-white/5 border border-white/10 text-white/50 hover:bg-white/10 hover:text-white"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+            <button
+              onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+              disabled={currentPage === totalPages}
+              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+            >
+              <ChevronRight size={18} />
+            </button>
           </div>
         )}
       </div>
     </div>
   );
-};
-
-export default BlogPage;
+}

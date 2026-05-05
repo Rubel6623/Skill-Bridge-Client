@@ -7,11 +7,12 @@ import { HomeTutors } from "../../components/modules/home/HomeTutors";
 import { HomeAbout } from "../../components/modules/home/HomeAbout";
 import { HomeStats } from "../../components/modules/home/HomeStats";
 import { HomeTestimonials } from "../../components/modules/home/HomeTestimonials";
+import { HomeFAQ } from "../../components/modules/home/HomeFAQ";
 
 
 export default function Home() {
   return (
-    <main className="" style={{ background: "#0a0a14" }}>          
+    <main>          
       <HeroSection />
       <HomeCategories />
       <HomeStats />
@@ -19,6 +20,7 @@ export default function Home() {
       <HomeTutors />
       <HomeTestimonials />
       <HomeAbout />
+      <HomeFAQ />
     </main>
   );
 }

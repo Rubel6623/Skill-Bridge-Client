@@ -48,7 +48,7 @@ export const Footer = () => {
     fetchUser();
   }, []);
   return (
-    <footer className="bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a] border-t border-white/5 relative overflow-hidden">
+    <footer className="bg-slate-50 dark:bg-gradient-to-br dark:from-[#1e293b] dark:via-[#11181c] dark:to-[#0f172a] border-t border-black/5 dark:border-white/5 relative overflow-hidden">
       <div className="absolute top-0 left-1/4 w-[600px] h-[300px] bg-orange-500/3 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 right-1/4 w-[400px] h-[200px] bg-blue-500/3 rounded-full blur-[120px] pointer-events-none" />
 
@@ -63,25 +63,25 @@ export const Footer = () => {
               <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-blue-500 to-red-500 flex items-center justify-center font-bold text-lg text-white font-serif flex-shrink-0">
                 S
               </div>
-              <span className="font-serif font-bold text-xl text-white tracking-tight">
-                Skill<span className="text-blue-400">Bridge</span>
+              <span className="font-serif font-bold text-xl text-gray-900 dark:text-white tracking-tight">
+                Skill<span className="text-blue-500 dark:text-blue-400">Bridge</span>
               </span>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 max-w-sm">
               Connecting passionate learners with world-class tutors. Master new skills, ace your exams, and unlock your full potential with personalized one-on-one sessions.
             </p>
 
             <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <Mail className="w-4 h-4 text-gray-500" />
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                <Mail className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                 <span>support@skillbridge.com</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <Phone className="w-4 h-4 text-gray-500" />
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                <Phone className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                 <span>+1 (555) 123-4567</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-gray-400">
-                <MapPin className="w-4 h-4 text-gray-500" />
+              <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                <MapPin className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                 <span>San Francisco, CA</span>
               </div>
             </div>
@@ -90,7 +90,7 @@ export const Footer = () => {
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-white font-bold text-sm mb-5 uppercase tracking-wider">{title}</h4>
+              <h4 className="text-gray-900 dark:text-white font-bold text-sm mb-5 uppercase tracking-wider">{title}</h4>
               <ul className="space-y-3">
                 {links
                   .filter((link: any) => !link.isPrivate || (link.isPrivate && user))
@@ -98,7 +98,7 @@ export const Footer = () => {
                     <li key={link.label}>
                       <Link
                         href={link.href}
-                        className="text-gray-400 hover:text-white text-sm transition-colors duration-200 no-underline"
+                        className="text-gray-600 dark:text-gray-400 hover:text-orange-500 dark:hover:text-white text-sm transition-colors duration-200 no-underline"
                       >
                         {link.label}
                       </Link>
@@ -110,7 +110,7 @@ export const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-white/5" />
+        <div className="border-t border-black/5 dark:border-white/5" />
 
         {/* Bottom Bar */}
         <div className="py-6 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -124,7 +124,7 @@ export const Footer = () => {
               <Link
                 key={social.label}
                 href={social.href}
-                className="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 hover:border-white/20 transition-all duration-200 no-underline"
+                className="w-9 h-9 rounded-lg bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-orange-500 dark:hover:text-white hover:bg-orange-50 dark:hover:bg-white/10 hover:border-orange-500/30 dark:hover:border-white/20 transition-all duration-200 no-underline shadow-sm dark:shadow-none"
                 aria-label={social.label}
               >
                 <social.icon className="w-4 h-4" />

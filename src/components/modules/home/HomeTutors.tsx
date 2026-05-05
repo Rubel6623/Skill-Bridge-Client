@@ -82,7 +82,7 @@ export const HomeTutors = () => {
   const displayTutors = tutors.length > 0 ? tutors : staticTutors
 
   return (
-    <section className="py-24 bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a] relative overflow-hidden">
+    <section className="py-24 bg-white dark:bg-gradient-to-br dark:from-[#1e293b] dark:via-[#11181c] dark:to-[#0f172a] relative overflow-hidden">
       <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-purple-500/8 rounded-full blur-[140px] pointer-events-none" />
       <div className="absolute -bottom-32 -left-32 w-[500px] h-[500px] bg-orange-500/8 rounded-full blur-[140px] pointer-events-none" />
 
@@ -93,15 +93,15 @@ export const HomeTutors = () => {
               <GraduationCap className="w-4 h-4" />
               <span>Expert Tutors</span>
             </div>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 tracking-tight">
-              Meet Our <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">Top Tutors</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-5 tracking-tight">
+              Meet Our <span className="bg-gradient-to-r from-purple-500 to-pink-500 dark:from-purple-400 dark:to-pink-500 bg-clip-text text-transparent">Top Tutors</span>
             </h2>
-            <p className="text-gray-400 text-lg md:text-xl font-medium leading-relaxed max-w-xl">
+            <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-medium leading-relaxed max-w-xl">
               Learn from the best. Our tutors are verified experts with proven track records and thousands of happy students.
             </p>
           </div>
           <Link href="/tutors" className="shrink-0 group">
-            <Button variant="outline" className="border-white/10 hover:border-purple-500/50 text-white hover:text-purple-400 bg-white/5 hover:bg-white/10 transition-all h-12 px-6 rounded-xl font-semibold text-base py-6">
+            <Button variant="outline" className="border-gray-200 dark:border-white/10 hover:border-purple-500/50 text-gray-900 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 transition-all h-12 px-6 rounded-xl font-semibold text-base py-6 shadow-sm dark:shadow-none">
               Browse All Tutors <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1.5 transition-transform" />
             </Button>
           </Link>
@@ -111,7 +111,7 @@ export const HomeTutors = () => {
           {displayTutors.map((tutor: any, index: number) => (
             <div
               key={tutor.id || index}
-              className="group relative p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm hover:border-purple-500/30 hover:bg-white/[0.06] transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.1)]"
+              className="group relative p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-black/5 dark:border-white/10 backdrop-blur-sm hover:border-purple-500/30 dark:hover:border-purple-500/30 hover:bg-slate-100 dark:hover:bg-white/[0.06] transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.1)] shadow-sm dark:shadow-none"
             >
               <div className="flex flex-col items-center text-center">
                 <div className="relative w-24 h-24 rounded-full overflow-hidden mb-5 border-2 border-purple-500/30 shadow-[0_0_20px_rgba(168,85,247,0.2)] group-hover:border-purple-500/60 transition-all">
@@ -123,13 +123,13 @@ export const HomeTutors = () => {
                   />
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-1">{tutor.name || tutor.user?.name}</h3>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">{tutor.name || tutor.user?.name}</h3>
                 
                 <div className="flex items-center gap-1.5 mb-3">
-                  <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                  <span className="text-sm font-semibold text-yellow-400">{tutor.rating?.toFixed(1) || "4.8"}</span>
-                  <span className="text-xs text-gray-500">•</span>
-                  <span className="text-xs text-gray-400 flex items-center gap-1">
+                  <Star className="w-4 h-4 text-yellow-500 dark:text-yellow-400 fill-yellow-500 dark:fill-yellow-400" />
+                  <span className="text-sm font-semibold text-yellow-600 dark:text-yellow-400">{tutor.rating?.toFixed(1) || "4.8"}</span>
+                  <span className="text-xs text-gray-400 dark:text-gray-500">•</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                     <Users className="w-3 h-3" /> {tutor.students || "200+"} students
                   </span>
                 </div>
@@ -138,24 +138,24 @@ export const HomeTutors = () => {
                   {(tutor.subjects || tutor.tutorSubjects || []).slice(0, 2).map((sub: any, i: number) => (
                     <span
                       key={i}
-                      className="text-xs px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300"
+                      className="text-xs px-2.5 py-1 rounded-full bg-gray-100 dark:bg-white/5 border border-black/5 dark:border-white/10 text-gray-600 dark:text-gray-300"
                     >
                       {typeof sub === "string" ? sub : sub?.category?.name || sub?.title || "Subject"}
                     </span>
                   ))}
                 </div>
 
-                <p className="text-sm text-gray-400 line-clamp-2 mb-5 leading-relaxed">
+                <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2 mb-5 leading-relaxed">
                   {tutor.bio || "Experienced tutor dedicated to helping students achieve their goals."}
                 </p>
 
-                <div className="flex items-center justify-between w-full pt-4 border-t border-white/10">
+                <div className="flex items-center justify-between w-full pt-4 border-t border-black/5 dark:border-white/10">
                   <div>
-                    <span className="text-xl font-bold text-white">${tutor.pricePerHour || "40"}</span>
-                    <span className="text-xs text-gray-400">/hr</span>
+                    <span className="text-xl font-bold text-gray-900 dark:text-white">${tutor.pricePerHour || "40"}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">/hr</span>
                   </div>
                   <Link href={`/tutors/${tutor.id}`}>
-                    <Button size="sm" className="bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 hover:text-purple-200 border border-purple-500/30 rounded-lg font-medium text-xs">
+                    <Button size="sm" className="bg-purple-50 dark:bg-purple-500/20 hover:bg-purple-100 dark:hover:bg-purple-500/30 text-purple-600 dark:text-purple-300 hover:text-purple-700 dark:hover:text-purple-200 border border-purple-200 dark:border-purple-500/30 rounded-lg font-medium text-xs">
                       View Profile
                     </Button>
                   </Link>

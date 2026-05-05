@@ -30,29 +30,29 @@ const stats = [
 
 export const HomeStats = () => {
   return (
-    <section className="py-24 bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a] relative overflow-hidden">
+    <section className="py-24 bg-slate-50 dark:bg-gradient-to-br dark:from-[#1e293b] dark:via-[#11181c] dark:to-[#0f172a] relative overflow-hidden">
       {/* Background Decorative Elements */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-orange-500/10 dark:bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
       
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
             <div 
               key={index}
-              className="group p-8 rounded-3xl border border-white/5 bg-white/5 backdrop-blur-xl hover:border-orange-500/30 transition-all duration-500 hover:-translate-y-2 shadow-2xl"
+              className="group p-8 rounded-3xl border border-black/5 dark:border-white/5 bg-white dark:bg-white/5 backdrop-blur-xl hover:border-orange-500/30 dark:hover:border-orange-500/30 transition-all duration-500 hover:-translate-y-2 shadow-xl dark:shadow-2xl"
             >
-              <div className="mb-6 p-4 rounded-2xl bg-white/5 w-fit group-hover:scale-110 transition-transform duration-500">
+              <div className="mb-6 p-4 rounded-2xl bg-slate-100 dark:bg-white/5 w-fit group-hover:scale-110 transition-transform duration-500">
                 {stat.icon}
               </div>
               
               <div className="space-y-2">
-                <h3 className="text-4xl font-bold text-white tracking-tight">
+                <h3 className="text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
                   {stat.value}
                 </h3>
-                <p className="text-white/80 font-semibold text-lg">
+                <p className="text-gray-700 dark:text-white/80 font-semibold text-lg">
                   {stat.label}
                 </p>
-                <p className="text-white/40 text-sm leading-relaxed">
+                <p className="text-gray-500 dark:text-white/40 text-sm leading-relaxed">
                   {stat.description}
                 </p>
               </div>

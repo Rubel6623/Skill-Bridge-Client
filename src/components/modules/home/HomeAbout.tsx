@@ -42,23 +42,11 @@ const values = [
 
 export const HomeAbout = () => {
   return (
-    <section className="py-24 bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a] relative overflow-hidden">
+    <section className="py-24 bg-slate-50 dark:bg-gradient-to-br dark:from-[#1e293b] dark:via-[#11181c] dark:to-[#0f172a] relative overflow-hidden">
       <div className="absolute top-1/3 right-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-orange-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
-        
-        {/* Stats Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
-          {stats.map((stat, i) => (
-            <div key={i} className="text-center p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm hover:bg-white/[0.06] transition-all">
-              <div className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent mb-2">
-                {stat.value}
-              </div>
-              <p className="text-sm text-gray-400 font-medium">{stat.label}</p>
-            </div>
-          ))}
-        </div>
 
         {/* About Content */}
         <div className="flex flex-col lg:flex-row gap-16 items-center">
@@ -69,10 +57,10 @@ export const HomeAbout = () => {
               <Lightbulb className="w-4 h-4" />
               <span>About SkillBridge</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-              Bridging the Gap Between <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">Knowledge</span> and <span className="bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Opportunity</span>
+            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight leading-tight">
+              Bridging the Gap Between <span className="bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">Knowledge</span> and <span className="bg-gradient-to-r from-orange-500 to-red-500 dark:from-orange-400 dark:to-red-500 bg-clip-text text-transparent">Opportunity</span>
             </h2>
-            <p className="text-gray-400 text-lg font-medium leading-relaxed mb-8">
+            <p className="text-gray-600 dark:text-gray-400 text-lg font-medium leading-relaxed mb-8">
               SkillBridge connects passionate learners with world-class tutors. Whether you&apos;re preparing for exams, mastering a new skill, or exploring a passion, we provide the platform and tools to make learning effective, enjoyable, and accessible to everyone.
             </p>
 
@@ -84,8 +72,8 @@ export const HomeAbout = () => {
                 "Progress tracking and review system",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <span className="text-gray-300 font-medium">{item}</span>
+                  <CheckCircle2 className="w-5 h-5 text-emerald-500 dark:text-emerald-400 shrink-0" />
+                  <span className="text-gray-700 dark:text-gray-300 font-medium">{item}</span>
                 </div>
               ))}
             </div>
@@ -104,11 +92,11 @@ export const HomeAbout = () => {
                 key={i}
                 className={`p-5 rounded-2xl border backdrop-blur-sm hover:scale-[1.03] transition-all duration-300 ${val.bg}`}
               >
-                <div className={`w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4 ${val.color}`}>
+                <div className={`w-12 h-12 rounded-xl bg-white dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center justify-center mb-4 ${val.color}`}>
                   <val.icon className="w-6 h-6" />
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{val.title}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{val.description}</p>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{val.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{val.description}</p>
               </div>
             ))}
           </div>

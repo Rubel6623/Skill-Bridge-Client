@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowRight, Clock, Filter, GraduationCap, Search, Star } from "lucide-react"
+import { ArrowRight, ChevronLeft, ChevronRight, Clock, Filter, GraduationCap, Search, Star } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
+
+const TUTORS_PER_PAGE = 8;
 
 export default function TutorsContent() {
   const searchParams = useSearchParams()
@@ -16,6 +18,7 @@ export default function TutorsContent() {
   const [searchTerm, setSearchTerm] = useState(initialQuery)
   const [sortBy, setSortBy] = useState("rating")
   const [selectedCategory, setSelectedCategory] = useState("all")
+  const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -77,6 +80,15 @@ export default function TutorsContent() {
       if (sortBy === "experience") return (b.experience || 0) - (a.experience || 0)
       return 0
     })
+
+  // Reset page on filter change
+  useEffect(() => { setCurrentPage(1) }, [searchTerm, selectedCategory, sortBy])
+
+  const totalPages = Math.max(1, Math.ceil(filteredTutors.length / TUTORS_PER_PAGE))
+  const paginatedTutors = filteredTutors.slice(
+    (currentPage - 1) * TUTORS_PER_PAGE,
+    currentPage * TUTORS_PER_PAGE
+  )
 
   return (
     <>
@@ -146,14 +158,15 @@ export default function TutorsContent() {
       <section className="pb-24 pt-12">
         <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
           {loading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
                 <div key={i} className="h-[360px] bg-white/5 animate-pulse rounded-2xl border border-white/10" />
               ))}
             </div>
           ) : filteredTutors.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredTutors.map((tutor: any, index: number) => (
+            <>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {paginatedTutors.map((tutor: any, index: number) => (
                 <div
                   key={tutor.id || index}
                   className="group relative p-6 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm hover:border-purple-500/30 hover:bg-white/[0.06] transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.1)]"
@@ -205,6 +218,39 @@ export default function TutorsContent() {
                 </div>
               ))}
             </div>
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-3 mt-16">
+                <button
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                {Array.from({ length: totalPages }).map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setCurrentPage(i + 1)}
+                    className={`w-12 h-12 rounded-xl text-sm font-black transition-all ${
+                      currentPage === i + 1
+                        ? "bg-purple-500 text-white shadow-lg shadow-purple-500/30"
+                        : "bg-white/5 border border-white/10 text-white/50 hover:bg-white/10 hover:text-white"
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            )}
+            </>
           ) : (
             <div className="text-center py-20 bg-white/[0.02] border border-white/5 rounded-3xl">
               <GraduationCap className="w-12 h-12 text-gray-600 mx-auto mb-4" />

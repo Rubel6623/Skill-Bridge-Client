@@ -17,7 +17,7 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-24 bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a]">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-24 bg-slate-50 dark:bg-gradient-to-br dark:from-[#1e293b] dark:via-[#11181c] dark:to-[#0f172a]">
 
       {/* Ambient Glow Background */}
       <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-orange-500/20 blur-[120px] pointer-events-none" />
@@ -32,16 +32,16 @@ export const HeroSection = () => {
         </div>
 
         {/* Heading */}
-        <h1 className="font-serif text-white font-bold leading-tight mb-6 text-4xl md:text-6xl lg:text-7xl tracking-tight">
+        <h1 className="font-serif text-gray-900 dark:text-white font-bold leading-tight mb-6 text-4xl md:text-6xl lg:text-7xl tracking-tight">
           Learn Anything from{" "}
-          <span className="bg-gradient-to-r from-orange-400 via-red-500 to-pink-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-orange-500 via-red-500 to-pink-600 dark:from-orange-400 dark:via-red-500 dark:to-pink-500 bg-clip-text text-transparent">
             World-Class
           </span>{" "}
           Tutors
         </h1>
 
         {/* Description */}
-        <p className="text-white/60 text-base md:text-lg max-w-xl mx-auto mb-12 leading-relaxed font-serif">
+        <p className="text-gray-600 dark:text-white/60 text-base md:text-lg max-w-xl mx-auto mb-12 leading-relaxed font-serif">
           Connect with verified expert tutors for personalized one-on-one sessions.
           Book instantly and learn at your own pace.
         </p>
@@ -51,10 +51,10 @@ export const HeroSection = () => {
           className={`flex max-w-xl mx-auto mb-10 rounded-xl backdrop-blur-lg transition-all duration-300
           ${focused
               ? "border border-orange-500/60 shadow-[0_0_0_4px_rgba(249,115,22,0.1)]"
-              : "border border-white/10"}
-          bg-white/5`}
+              : "border border-black/10 dark:border-white/10"}
+          bg-white dark:bg-white/5 shadow-md dark:shadow-none`}
         >
-          <span className="flex items-center px-4 text-white/40 text-lg">
+          <span className="flex items-center px-4 text-gray-400 dark:text-white/40 text-lg">
             🔍
           </span>
 
@@ -66,7 +66,7 @@ export const HeroSection = () => {
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className="flex-1 bg-transparent outline-none text-white placeholder:text-white/40 py-4 text-sm font-serif"
+            className="flex-1 bg-transparent outline-none text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-white/40 py-4 text-sm font-serif"
           />
 
           <button 
@@ -79,7 +79,7 @@ export const HeroSection = () => {
 
         {/* Popular Tags */}
         <div className="flex flex-wrap justify-center gap-3 mb-16">
-          <span className="text-white/40 text-xs font-serif self-center">
+          <span className="text-gray-500 dark:text-white/40 text-xs font-serif self-center">
             Popular:
           </span>
 
@@ -87,7 +87,7 @@ export const HeroSection = () => {
             <button
               key={t}
               onClick={() => handlePopularSearch(t)}
-              className="px-4 py-1 text-xs rounded-full border border-white/10 bg-white/5 text-white/60 hover:bg-orange-500/15 hover:border-orange-500/40 hover:text-orange-400 transition"
+              className="px-4 py-1 text-xs rounded-full border border-black/10 dark:border-white/10 bg-white dark:bg-white/5 text-gray-600 dark:text-white/60 hover:bg-orange-50 dark:hover:bg-orange-500/15 hover:border-orange-500/40 hover:text-orange-600 dark:hover:text-orange-400 transition shadow-sm dark:shadow-none"
             >
               {t}
             </button>
@@ -101,7 +101,7 @@ export const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-white/30 text-xs tracking-widest animate-bounce">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-gray-400 dark:text-white/30 text-xs tracking-widest animate-bounce">
         <span>SCROLL</span>
         <span className="text-lg">↓</span>
       </div>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "../components/ui/sonner";
+import { ThemeProvider } from "../components/shared/ThemeProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,24 +28,31 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-[#0a0a14] text-white antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <time dateTime="2016-10-25"/>        
-        
-        {/* Global Background Glow */}
-        <div className="fixed inset-0 -z-10">
-          <div className="absolute top-[-200px] right-[-200px] h-[500px] w-[500px] rounded-full bg-orange-500/20 blur-[120px]" />
-          <div className="absolute bottom-[-200px] left-[-200px] h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-[120px]" />
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange={false}
+        >
+          <time dateTime="2016-10-25"/>        
+          
+          {/* Global Background Glow */}
+          <div className="fixed inset-0 -z-10 dark:block hidden">
+            <div className="absolute top-[-200px] right-[-200px] h-[500px] w-[500px] rounded-full bg-orange-500/20 blur-[120px]" />
+            <div className="absolute bottom-[-200px] left-[-200px] h-[500px] w-[500px] rounded-full bg-purple-500/20 blur-[120px]" />
+          </div>
 
-        {/* Page Content */}
-        <div className="container mx-auto px-4">
-          {children}
-        </div>
-        <Toaster></Toaster>
+          {/* Page Content */}
+          <div className="container mx-auto px-4">
+            {children}
+          </div>
+          <Toaster></Toaster>
+        </ThemeProvider>
       </body>
     </html>
   );

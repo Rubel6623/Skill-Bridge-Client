@@ -8,6 +8,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 import { getUser, UserLogOut } from "../../services/auth";
 import { useRouter } from "next/navigation";
 import logo from "../../../public/logo.png";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function Navbar() {
 
@@ -62,7 +63,11 @@ export function Navbar() {
   return (
     <main className="pb-4">
       <header
-        className={`fixed top-0 left-0 right-0 z-50 px-8 h-16 flex items-center justify-between transition-all duration-300 ${scrolled ? "bg-gray-800/90 backdrop-blur border-b border-gray-700" : "bg-gray-800 "}`}
+        className={`fixed top-0 left-0 right-0 z-50 px-8 h-16 flex items-center justify-between transition-all duration-300 ${
+          scrolled
+            ? "bg-gray-800/90 dark:bg-gray-800/90 backdrop-blur border-b border-gray-700 dark:border-gray-700 light:bg-white/90 light:border-gray-200"
+            : "bg-gray-800 dark:bg-gray-800"
+        } dark:bg-gray-800 bg-white/95 border-b border-gray-100 dark:border-transparent`}
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
@@ -72,7 +77,7 @@ export function Navbar() {
           >
             S          
           </div> */}
-          <span className="font-serif font-bold text-xl text-white tracking-tight">
+          <span className="font-serif font-bold text-xl dark:text-white text-gray-900 tracking-tight">
             Skill<span className="text-blue-400">Bridge</span>
           </span>
         </Link>
@@ -93,15 +98,16 @@ export function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-300 no-underline text-sm font-serif tracking-wide transition-colors duration-200 hover:text-white"
+                className="dark:text-gray-300 text-gray-600 no-underline text-sm font-serif tracking-wide transition-colors duration-200 dark:hover:text-white hover:text-orange-500"
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
-          {/* Right side: Auth */}
+          {/* Right side: Auth + Theme Toggle */}
           <div className="flex gap-4 items-center">
+            <ThemeToggle />
             {user ? (
               <div className="relative group">
                 <button
@@ -197,13 +203,13 @@ export function Navbar() {
               <>
                 <Link
                   href="/login"
-                  className="text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 whitespace-nowrap hover:bg-gray-700"
+                  className="dark:text-gray-300 text-gray-600 no-underline text-sm font-serif px-4 py-2 rounded-lg border dark:border-gray-600 border-gray-300 transition-all duration-200 dark:hover:bg-gray-700 hover:bg-gray-100"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="text-white no-underline text-sm font-serif px-4 py-2 rounded-lg bg-blue-500 font-semibold shadow-md transition-all duration-200 whitespace-nowrap transform hover:translate-y-[-1px] hover:brightness-110"
+                  className="text-white no-underline text-sm font-serif px-4 py-2 rounded-lg bg-orange-500 hover:bg-orange-600 font-semibold shadow-md transition-all duration-200 whitespace-nowrap transform hover:translate-y-[-1px]"
                 >
                   Get Started
                 </Link>
@@ -215,8 +221,13 @@ export function Navbar() {
         {/* Mobile Menu */}
         {menuOpen && (
           <nav
-            className="lg:hidden absolute top-16 left-0 w-full bg-gray-800 shadow-md flex flex-col items-center gap-4 py-4 z-40"
+            className="lg:hidden absolute top-16 left-0 w-full dark:bg-gray-800 bg-white shadow-md flex flex-col items-center gap-4 py-4 z-40 border-t dark:border-gray-700 border-gray-100"
           >
+            {/* Theme Toggle Row */}
+            <div className="flex items-center justify-between w-full px-8 py-1">
+              <span className="text-sm font-bold dark:text-gray-400 text-gray-500 uppercase tracking-widest text-[10px]">Theme</span>
+              <ThemeToggle />
+            </div>
             {routes.map((item) => (
               <Link
                 key={item.name}
