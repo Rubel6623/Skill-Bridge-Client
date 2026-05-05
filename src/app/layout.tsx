@@ -28,9 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-[#0a0a14] text-white antialiased`}
+        suppressHydrationWarning
       >
         <time dateTime="2016-10-25"/>        
         

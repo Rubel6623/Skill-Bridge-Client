@@ -29,6 +29,7 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -36,6 +37,16 @@ export default function LoginPage() {
 
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  const handleDemoLogin = (role: 'admin' | 'tutor') => {
+    if (role === 'admin') {
+      setValue("email", "admin@gmail.com");
+      setValue("password", "admin123");
+    } else {
+      setValue("email", "saifulalam@gmail.com");
+      setValue("password", "123456");
+    }
+  };
 
   const onSubmit = async (data: LoginFormValues) => {
   setIsLoading(true);
@@ -251,6 +262,26 @@ export default function LoginPage() {
                 "Sign In to Account"
               )}
             </button>
+
+            {/* Demo Login Buttons */}
+            <div className="grid grid-cols-2 gap-4 mt-4">
+              <button
+                type="button"
+                onClick={() => handleDemoLogin('admin')}
+                className="w-full bg-white/5 hover:bg-white/10 border border-white/10 transition rounded-xl py-2.5 text-[10px] font-black uppercase tracking-widest text-white/70 hover:text-white flex items-center justify-center gap-2"
+              >
+                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                Admin Demo
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDemoLogin('tutor')}
+                className="w-full bg-white/5 hover:bg-white/10 border border-white/10 transition rounded-xl py-2.5 text-[10px] font-black uppercase tracking-widest text-white/70 hover:text-white flex items-center justify-center gap-2"
+              >
+                <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+                Tutor Demo
+              </button>
+            </div>
           </form>
 
           <SocialLoginButtons />

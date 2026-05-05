@@ -79,6 +79,11 @@ const ManageBlogsAdmin = () => {
           <h1 className="text-5xl font-black text-foreground tracking-tight">Manage <span className="text-orange-500">Blogs</span></h1>
           <p className="text-muted-foreground text-lg mt-2 font-medium italic">Moderate and curate the platform's knowledge base.</p>
         </div>
+        <Link href="/dashboard/post-blog">
+          <Button className="rounded-2xl bg-orange-500 hover:bg-orange-600 font-black px-8 py-6 shadow-[0_0_20px_rgba(249,115,22,0.3)] transition-all">
+            Create New Blog
+          </Button>
+        </Link>
       </div>
 
       <div className="card-modern overflow-hidden">

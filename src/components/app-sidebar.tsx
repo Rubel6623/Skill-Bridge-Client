@@ -83,8 +83,16 @@ const ADMIN_navMain = [
         url: "/dashboard/manage-subjects",
       },
       {
-        title: "Manage Categories",
-        url: "/dashboard/manage-categories",
+        title: "Manage Blogs",
+        url: "/dashboard/manage-blogs",
+      },
+      {
+        title: "Post Blog",
+        url: "/dashboard/post-blog",
+      },
+      {
+        title: "Blog Categories",
+        url: "/dashboard/manage-blog-categories",
       },
       {
         title: "Home",

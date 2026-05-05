@@ -25,12 +25,17 @@ export const createBlog = async (blogData: any) => {
 };
 
 export const getAllBlogs = async (query?: string) => {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/blogs?${query || ""}`, {
+    const url = `${baseUrl}/blogs?${query || ""}`;
+    console.log("Fetching Blogs from:", url);
+    const res = await fetch(url, {
       method: "GET",
       next: { revalidate: 60 },
     });
-    return await res.json();
+    const data = await res.json();
+    console.log("getAllBlogs Response Data:", data);
+    return data;
   } catch (error: any) {
     return {
       success: false,

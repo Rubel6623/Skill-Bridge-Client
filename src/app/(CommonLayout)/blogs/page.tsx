@@ -17,10 +17,16 @@ const BlogPage = async ({ searchParams }: Props) => {
   const params = await searchParams;
   const categoryId = params.category;
   
-  const [{ data: blogs }, { data: categories }] = await Promise.all([
+  const [blogsRes, categoriesRes] = await Promise.all([
     getAllBlogs(categoryId ? `categoryId=${categoryId}` : ''),
     getAllBlogCategories()
   ]);
+
+  const blogs = blogsRes?.data || [];
+  const categories = categoriesRes?.data || [];
+
+  console.log("BlogPage - blogs count:", blogs.length);
+  console.log("BlogPage - categories count:", categories.length);
 
   return (
     <div className="py-20 min-h-screen bg-transparent">
