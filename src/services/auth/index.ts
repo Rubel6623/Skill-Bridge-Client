@@ -42,7 +42,18 @@ export const loginUser = async (userData: FieldValues) => {
       body: JSON.stringify(userData),
     });
 
-    const result = await res.json();
+    const text = await res.text();
+    let result;
+    try {
+      result = JSON.parse(text);
+    } catch (e) {
+      console.error("Non-JSON response from login server:", text);
+      return {
+        success: false,
+        message: `Authentication server error (${res.status}). Please check your connection or try again later.`
+      };
+    }
+
     const storeCookie = await cookies();
 
     if (result.success) {
@@ -67,7 +78,18 @@ export const socialLogin = async (userData: { email: string; name: string; avata
       body: JSON.stringify(userData),
     });
 
-    const result = await res.json();
+    const text = await res.text();
+    let result;
+    try {
+      result = JSON.parse(text);
+    } catch (e) {
+      console.error("Non-JSON response from social login server:", text);
+      return {
+        success: false,
+        message: `Social Authentication server error (${res.status}). The requested endpoint might be missing or unavailable on production.`
+      };
+    }
+
     const storeCookie = await cookies();
 
     if (result.success) {
