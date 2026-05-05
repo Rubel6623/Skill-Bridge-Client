@@ -1,5 +1,9 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link"
 import { Facebook, Twitter, Instagram, Linkedin, Youtube, Mail, MapPin, Phone } from "lucide-react"
+import { getUser } from "../../services/auth";
 
 const footerLinks = {
   Product: [
@@ -10,21 +14,18 @@ const footerLinks = {
   ],
   Company: [
     { label: "About Us", href: "/about-us" },
-    { label: "Careers", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Press", href: "#" },
+    { label: "Careers", href: "/careers" },
+    { label: "Blog", href: "/blogs", isPrivate: true },
   ],
   Support: [
-    { label: "Help Center", href: "#" },
-    { label: "Contact Us", href: "#" },
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
+    { label: "Help Center", href: "/help-center" },
+    { label: "Contact Us", href: "/contact-us", isPrivate: true },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+    { label: "Terms of Service", href: "/terms-of-service" },
   ],
   "For Tutors": [
     { label: "Become a Tutor", href: "/register" },
-    { label: "Tutor Guidelines", href: "#" },
-    { label: "Tutor Dashboard", href: "/dashboard" },
-    { label: "Resources", href: "#" },
+    { label: "Tutor Guidelines", href: "/tutor-guidelines", isPrivate: true },
   ],
 }
 
@@ -37,6 +38,15 @@ const socialLinks = [
 ]
 
 export const Footer = () => {
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userData = await getUser();
+      setUser(userData);
+    };
+    fetchUser();
+  }, []);
   return (
     <footer className="bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a] border-t border-white/5 relative overflow-hidden">
       <div className="absolute top-0 left-1/4 w-[600px] h-[300px] bg-orange-500/3 rounded-full blur-[150px] pointer-events-none" />
@@ -82,16 +92,18 @@ export const Footer = () => {
             <div key={title}>
               <h4 className="text-white font-bold text-sm mb-5 uppercase tracking-wider">{title}</h4>
               <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-gray-400 hover:text-white text-sm transition-colors duration-200 no-underline"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {links
+                  .filter((link: any) => !link.isPrivate || (link.isPrivate && user))
+                  .map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-gray-400 hover:text-white text-sm transition-colors duration-200 no-underline"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
               </ul>
             </div>
           ))}

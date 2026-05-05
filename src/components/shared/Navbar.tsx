@@ -43,6 +43,22 @@ export function Navbar() {
     return null;
   }
 
+  const publicRoutes = [
+    { name: "Tutors", href: "/tutors" },
+    { name: "Categories", href: "/categories" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Careers", href: "/careers" },
+  ];
+
+  const loggedInRoutes = [
+    ...publicRoutes,
+    { name: "Guidelines", href: "/tutor-guidelines" },
+    { name: "Blogs", href: "/blogs" },
+    { name: "Contact Us", href: "/contact-us" },
+  ];
+
+  const routes = user ? loggedInRoutes : publicRoutes;
+
   return (
     <main className="pb-4">
       <header
@@ -73,13 +89,13 @@ export function Navbar() {
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-8">
           <nav className="flex gap-8 items-center">
-            {["Tutors", "Categories", "How It Works", "Pricing"].map((item) => (
+            {routes.map((item) => (
               <Link
-                key={item}
-                href={item === "Tutors" ? "/tutors" : item === "Categories" ? "/categories" : item === "How It Works" ? "/how-it-works" : "/pricing"}
+                key={item.name}
+                href={item.href}
                 className="text-gray-300 no-underline text-sm font-serif tracking-wide transition-colors duration-200 hover:text-white"
               >
-                {item}
+                {item.name}
               </Link>
             ))}
           </nav>
@@ -201,14 +217,14 @@ export function Navbar() {
           <nav
             className="lg:hidden absolute top-16 left-0 w-full bg-gray-800 shadow-md flex flex-col items-center gap-4 py-4 z-40"
           >
-            {["Tutors", "Categories", "How It Works", "Pricing", "About Us"].map((item) => (
+            {routes.map((item) => (
               <Link
-                key={item}
-                href={item === "Tutors" ? "/tutors" : item === "Categories" ? "/categories" : item === "How It Works" ? "/how-it-works" : item === "Pricing" ? "/pricing" : "/about-us"}
+                key={item.name}
+                href={item.href}
                 className="text-gray-300 no-underline text-sm font-serif tracking-wide transition-colors duration-200 hover:text-white"
                 onClick={() => setMenuOpen(false)}
               >
-                {item}
+                {item.name}
               </Link>
             ))}
 
