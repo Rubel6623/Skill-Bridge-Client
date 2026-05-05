@@ -12,12 +12,12 @@ export default function Loading() {
       <div className="relative group">
         {/* Orbital Rings - Elegant CSS animations */}
         <div className="absolute -inset-12 border border-orange-500/10 rounded-full animate-[spin_10s_linear_infinite]" />
-        <div className="absolute -inset-10 border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+        <div className="absolute -inset-10 border border-gray-200 dark:border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
         
         {/* Main Spinner */}
         <div className="relative w-24 h-24 md:w-32 md:h-32 flex items-center justify-center">
           <div className="absolute inset-0 border-t-2 border-l-2 border-orange-500/80 rounded-full animate-spin shadow-[0_0_15px_rgba(249,115,22,0.4)]" />
-          <div className="absolute inset-4 border-b-2 border-r-2 border-zinc-800 rounded-full animate-[spin_1.5s_linear_infinite_reverse]" />
+          <div className="absolute inset-4 border-b-2 border-r-2 border-gray-200 dark:border-zinc-800 rounded-full animate-[spin_1.5s_linear_infinite_reverse]" />
           
           {/* Logo or Brand Element in Center */}
           <div className="text-orange-500 font-black text-xl tracking-tighter drop-shadow-lg select-none animate-sbPulse">
@@ -27,7 +27,7 @@ export default function Loading() {
       </div>
 
       <div className="text-center space-y-3 relative z-10">
-        <h2 className="text-xs md:text-sm font-black uppercase tracking-[0.5em] text-zinc-400">
+        <h2 className="text-xs md:text-sm font-black uppercase tracking-[0.5em] text-gray-500 dark:text-zinc-400">
            Syncing Dashboard Hub
         </h2>
         
@@ -41,7 +41,7 @@ export default function Loading() {
           ))}
         </div>
         
-        <p className="text-[9px] uppercase font-bold tracking-[0.4em] text-zinc-600 italic">
+        <p className="text-[9px] uppercase font-bold tracking-[0.4em] text-gray-400 dark:text-zinc-600 italic">
            Loading secure session data...
         </p>
       </div>

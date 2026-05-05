@@ -138,8 +138,8 @@ const ManageBlogsTutor = () => {
            <div className="flex items-center gap-2 text-orange-500 mb-2 font-black uppercase tracking-[0.3em] text-[10px]">
              <Plus className="w-4 h-4" /> Intellectual Property
           </div>
-          <h1 className="text-5xl font-black text-foreground tracking-tight">My <span className="text-orange-500">Publications</span></h1>
-          <p className="text-muted-foreground text-lg mt-2 font-medium italic">Broadcast your insights. New modules require core validation.</p>
+          <h1 className="text-5xl font-black text-gray-900 dark:text-foreground tracking-tight">My <span className="text-orange-500">Publications</span></h1>
+          <p className="text-gray-500 dark:text-muted-foreground text-lg mt-2 font-medium italic">Broadcast your insights. New modules require core validation.</p>
         </div>
         <Button onClick={handleCreate} className="btn-modern h-14 px-8">
           <Plus size={20} className="mr-2" strokeWidth={3} /> Initialize Publication
@@ -165,7 +165,7 @@ const ManageBlogsTutor = () => {
                     fill 
                     className="object-cover group-hover:scale-110 transition-transform duration-1000" 
                  />
-                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a14] via-transparent to-transparent opacity-80" />
+                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 dark:from-[#0a0a14] via-transparent to-transparent opacity-80" />
                  
                  <div className="absolute top-6 right-6">
                     <span className={`text-[10px] px-4 py-1.5 rounded-xl font-black uppercase tracking-widest border-2 backdrop-blur-md ${
@@ -216,9 +216,9 @@ const ManageBlogsTutor = () => {
             </div>
           ))}
           {blogs.length === 0 && (
-            <div className="col-span-full card-modern py-32 flex flex-col items-center gap-8 text-center border-4 border-dotted border-border/50">
-               <div className="bg-accent/30 dark:bg-white/5 p-8 rounded-full border border-border shadow-2xl">
-                  <Plus className="w-16 h-16 text-gray-700" />
+            <div className="col-span-full card-modern py-32 flex flex-col items-center gap-8 text-center border-4 border-dotted border-gray-200 dark:border-border/50">
+               <div className="bg-gray-50 dark:bg-white/5 p-8 rounded-full border border-gray-200 dark:border-border shadow-lg dark:shadow-2xl">
+                  <Plus className="w-16 h-16 text-gray-400 dark:text-gray-700" />
                </div>
                <div>
                   <h3 className="text-3xl font-black text-foreground uppercase tracking-tighter">Manuscript Zero</h3>
@@ -233,7 +233,7 @@ const ManageBlogsTutor = () => {
       )}
 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[700px] rounded-[2.5rem] border border-border shadow-2xl overflow-hidden p-0 bg-[#0d0d1a]">
+        <DialogContent className="sm:max-w-[700px] rounded-[2.5rem] border border-gray-200 dark:border-border shadow-lg dark:shadow-2xl overflow-hidden p-0 bg-white dark:bg-[#0d0d1a]">
           <div className="bg-orange-500 h-1.5 w-full shadow-[0_0_20px_rgba(249,115,22,0.3)]" />
           <div className="p-10 space-y-8">
             <DialogHeader>
@@ -249,7 +249,7 @@ const ManageBlogsTutor = () => {
                     value={formData.title}
                     onChange={(e) => setFormData({...formData, title: e.target.value})}
                     placeholder="Enter identifying title"
-                    className="h-14 bg-accent/30 dark:bg-white/5 border-border rounded-2xl focus:ring-0 focus:border-orange-500/50 font-bold text-foreground transition-all"
+                    className="h-14 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-border rounded-2xl focus:ring-0 focus:border-orange-500/50 font-bold text-gray-900 dark:text-foreground transition-all"
                     required
                   />
                 </div>
@@ -259,10 +259,10 @@ const ManageBlogsTutor = () => {
                     value={formData.categoryId} 
                     onValueChange={(val) => setFormData({...formData, categoryId: val})}
                   >
-                    <SelectTrigger className="h-14 bg-accent/30 dark:bg-white/5 border-border rounded-2xl focus:ring-0 focus:border-orange-500/50 font-bold text-foreground transition-all">
+                    <SelectTrigger className="h-14 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-border rounded-2xl focus:ring-0 focus:border-orange-500/50 font-bold text-gray-900 dark:text-foreground transition-all">
                       <SelectValue placeholder="Select classification" />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#0d0d1a] border-border text-foreground rounded-2xl p-2">
+                    <SelectContent className="bg-white dark:bg-[#0d0d1a] border border-gray-200 dark:border-border text-gray-900 dark:text-foreground rounded-2xl p-2">
                       {categories.map((cat) => (
                         <SelectItem key={cat.id} value={cat.id} className="rounded-xl font-bold">{cat.name}</SelectItem>
                       ))}
@@ -276,7 +276,7 @@ const ManageBlogsTutor = () => {
                   value={formData.thumbnail}
                   onChange={(e) => setFormData({...formData, thumbnail: e.target.value})}
                   placeholder="https://images.unsplash.com/..."
-                  className="h-14 bg-accent/30 dark:bg-white/5 border-border rounded-2xl focus:ring-0 focus:border-orange-500/50 font-bold text-foreground transition-all"
+                  className="h-14 bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-border rounded-2xl focus:ring-0 focus:border-orange-500/50 font-bold text-gray-900 dark:text-foreground transition-all"
                 />
               </div>
               <div className="space-y-2">
@@ -286,7 +286,7 @@ const ManageBlogsTutor = () => {
                   onChange={(e) => setFormData({...formData, content: e.target.value})}
                   placeholder="Synthesize your insights here..."
                   rows={8}
-                  className="bg-accent/30 dark:bg-white/5 border-border rounded-[2rem] focus:ring-0 focus:border-orange-500/50 font-bold text-foreground transition-all resize-none p-6 italic"
+                  className="bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-border rounded-[2rem] focus:ring-0 focus:border-orange-500/50 font-bold text-gray-900 dark:text-foreground transition-all resize-none p-6 italic"
                   required
                 />
               </div>

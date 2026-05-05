@@ -95,13 +95,13 @@ export default function AdminManageUsersPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
         <Loader2 className="w-10 h-10 animate-spin text-orange-500" />
-        <p className="font-black text-white/40 tracking-[0.3em] uppercase text-[10px]">Accessing User Core...</p>
+        <p className="font-black text-gray-400 dark:text-white/40 tracking-[0.3em] uppercase text-[10px]">Accessing User Core...</p>
       </div>
     )
   }
 
   return (
-    <div className="p-8 space-y-12 bg-transparent text-white animate-in fade-in duration-700">
+    <div className="p-8 space-y-12 bg-transparent text-gray-900 dark:text-white animate-in fade-in duration-700">
       {/* Header Section */}
       <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-8">
         <div>
@@ -111,26 +111,26 @@ export default function AdminManageUsersPage() {
           <h1 className="text-6xl font-black tracking-tighter leading-none">
             User <span className="text-orange-500">Node</span>
           </h1>
-          <p className="text-white/50 text-lg mt-3 font-medium">Oversee the growth and conduct of your experts.</p>
+          <p className="text-gray-500 dark:text-white/50 text-lg mt-3 font-medium">Oversee the growth and conduct of your experts.</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-4">
           <div className="relative group">
-            <Search className="w-4 h-4 absolute left-5 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-orange-500 transition-colors" />
+            <Search className="w-4 h-4 absolute left-5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-white/30 group-focus-within:text-orange-500 transition-colors" />
             <input
               type="text"
               placeholder="Filter Citizens..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-14 pr-8 py-5 bg-white/5 border border-white/10 rounded-[1.5rem] focus:ring-2 focus:ring-orange-500/30 outline-none w-80 shadow-2xl font-black text-xs transition-all placeholder:text-white/20 uppercase tracking-widest"
+              className="pl-14 pr-8 py-5 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-[1.5rem] focus:ring-2 focus:ring-orange-500/30 outline-none w-80 shadow-lg dark:shadow-2xl font-black text-xs transition-all placeholder:text-gray-400 dark:placeholder:text-white/20 uppercase tracking-widest text-gray-900 dark:text-white"
             />
           </div>
           
-          <div className="flex gap-2 bg-white/5 p-2 rounded-[1.5rem] border border-white/10 backdrop-blur-xl">
+          <div className="flex gap-2 bg-white dark:bg-white/5 p-2 rounded-[1.5rem] border border-gray-200 dark:border-white/10 backdrop-blur-xl">
              <select 
                value={roleFilter} 
                onChange={(e) => setRoleFilter(e.target.value)}
-               className="bg-transparent text-[10px] font-black uppercase tracking-[0.2em] px-5 py-3 outline-none cursor-pointer text-white/60 focus:text-white transition-colors appearance-none border-r border-white/5"
+               className="bg-transparent text-[10px] font-black uppercase tracking-[0.2em] px-5 py-3 outline-none cursor-pointer text-gray-500 dark:text-white/60 focus:text-gray-900 dark:focus:text-white transition-colors appearance-none border-r border-gray-200 dark:border-white/5"
              >
                <option value="ALL">All Roles</option>
                <option value="STUDENT">Students</option>
@@ -140,7 +140,7 @@ export default function AdminManageUsersPage() {
              <select 
                value={statusFilter} 
                onChange={(e) => setStatusFilter(e.target.value)}
-               className="bg-transparent text-[10px] font-black uppercase tracking-[0.2em] px-5 py-3 outline-none cursor-pointer text-white/60 focus:text-white transition-colors appearance-none"
+               className="bg-transparent text-[10px] font-black uppercase tracking-[0.2em] px-5 py-3 outline-none cursor-pointer text-gray-500 dark:text-white/60 focus:text-gray-900 dark:focus:text-white transition-colors appearance-none"
              >
                <option value="ALL">All Status</option>
                <option value="ACTIVE">Active</option>
@@ -151,21 +151,21 @@ export default function AdminManageUsersPage() {
       </div>
 
       {filteredUsers.length > 0 ? (
-        <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] overflow-hidden shadow-2xl backdrop-blur-xl">
+        <div className="bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 rounded-[3rem] overflow-hidden shadow-lg dark:shadow-2xl backdrop-blur-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-white/5 border-b border-white/5">
-                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">Identity</th>
-                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">Classification</th>
-                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">Registry</th>
-                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">Status</th>
-                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em] text-right">Directives</th>
+                <tr className="bg-gray-50 dark:bg-white/5 border-b border-gray-200 dark:border-white/5">
+                  <th className="px-10 py-8 text-[10px] font-black text-gray-400 dark:text-white/30 uppercase tracking-[0.4em]">Identity</th>
+                  <th className="px-10 py-8 text-[10px] font-black text-gray-400 dark:text-white/30 uppercase tracking-[0.4em]">Classification</th>
+                  <th className="px-10 py-8 text-[10px] font-black text-gray-400 dark:text-white/30 uppercase tracking-[0.4em]">Registry</th>
+                  <th className="px-10 py-8 text-[10px] font-black text-gray-400 dark:text-white/30 uppercase tracking-[0.4em]">Status</th>
+                  <th className="px-10 py-8 text-[10px] font-black text-gray-400 dark:text-white/30 uppercase tracking-[0.4em] text-right">Directives</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5">
+              <tbody className="divide-y divide-gray-200 dark:divide-white/5">
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="group hover:bg-white/[0.03] transition-all">
+                  <tr key={user.id} className="group hover:bg-gray-50 dark:hover:bg-white/[0.03] transition-all">
                     <td className="px-10 py-8">
                       <div className="flex items-center gap-6">
                         <div className={cn(
@@ -177,8 +177,8 @@ export default function AdminManageUsersPage() {
                           <span className="relative z-10">{user.name?.[0]}</span>
                         </div>
                         <div>
-                          <p className="font-black text-white text-lg tracking-tight uppercase leading-none mb-2">{user.name}</p>
-                          <div className="flex items-center gap-2 text-white/30 font-black text-[10px] uppercase tracking-widest">
+                          <p className="font-black text-gray-900 dark:text-white text-lg tracking-tight uppercase leading-none mb-2">{user.name}</p>
+                          <div className="flex items-center gap-2 text-gray-400 dark:text-white/30 font-black text-[10px] uppercase tracking-widest">
                             <Mail className="w-3 h-3" />
                             {user.email}
                           </div>
@@ -196,8 +196,8 @@ export default function AdminManageUsersPage() {
                        </span>
                     </td>
                     <td className="px-10 py-8">
-                       <div className="flex items-center gap-3 text-white/40 font-black text-[10px] uppercase tracking-widest">
-                          <Calendar size={14} className="text-white/20" />
+                       <div className="flex items-center gap-3 text-gray-400 dark:text-white/40 font-black text-[10px] uppercase tracking-widest">
+                          <Calendar size={14} className="text-gray-300 dark:text-white/20" />
                           {format(new Date(user.createdAt), "MMM dd • yyyy")}
                        </div>
                     </td>
@@ -221,8 +221,8 @@ export default function AdminManageUsersPage() {
                       ) : (
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-12 w-12 p-0 rounded-2xl hover:bg-white/10 transition-all">
-                              <MoreVertical size={20} className="text-white/20 group-hover:text-orange-500" />
+                            <Button variant="ghost" className="h-12 w-12 p-0 rounded-2xl hover:bg-gray-100 dark:hover:bg-white/10 transition-all">
+                              <MoreVertical size={20} className="text-gray-300 dark:text-white/20 group-hover:text-orange-500" />
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="w-64 rounded-[2rem] p-3 border border-white/10 shadow-2xl bg-[#0d0d1a] backdrop-blur-2xl">
@@ -251,23 +251,23 @@ export default function AdminManageUsersPage() {
               </tbody>
             </table>
           </div>
-          <div className="bg-white/5 px-10 py-8 flex items-center justify-between">
-             <div className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">
+          <div className="bg-gray-50 dark:bg-white/5 px-10 py-8 flex items-center justify-between">
+             <div className="text-[10px] font-black text-gray-400 dark:text-white/30 uppercase tracking-[0.3em]">
                 Registry Volume: <span className="text-orange-500">{filteredUsers.length}</span> Active Nodes
              </div>
-             <div className="flex items-center gap-3 text-emerald-400 text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 px-5 py-2.5 rounded-xl border border-emerald-500/20">
+             <div className="flex items-center gap-3 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 px-5 py-2.5 rounded-xl border border-emerald-500/20">
                 <ArrowUpRight size={14} /> Synchronized with Core
              </div>
           </div>
         </div>
       ) : (
-        <div className="text-center py-32 bg-white/[0.02] border-2 border-dashed border-white/10 rounded-[3rem] flex flex-col items-center gap-8 shadow-2xl">
-           <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center border border-white/5">
-              <Filter className="w-10 h-10 text-white/10" />
+        <div className="text-center py-32 bg-gray-50 dark:bg-white/[0.02] border-2 border-dashed border-gray-200 dark:border-white/10 rounded-[3rem] flex flex-col items-center gap-8 shadow-lg dark:shadow-2xl">
+           <div className="w-24 h-24 bg-white dark:bg-white/5 rounded-full flex items-center justify-center border border-gray-100 dark:border-white/5">
+              <Filter className="w-10 h-10 text-gray-200 dark:text-white/10" />
            </div>
            <div>
-             <h3 className="text-3xl font-black text-white tracking-tight uppercase">Registry Zero</h3>
-             <p className="text-white/40 mt-3 font-medium max-w-sm mx-auto italic">No identification matches found within the global database.</p>
+             <h3 className="text-3xl font-black text-gray-900 dark:text-white tracking-tight uppercase">Registry Zero</h3>
+             <p className="text-gray-400 dark:text-white/40 mt-3 font-medium max-w-sm mx-auto italic">No identification matches found within the global database.</p>
            </div>
            <Button 
             onClick={() => { setSearchTerm(""); setRoleFilter("ALL"); setStatusFilter("ALL"); }}

@@ -5,9 +5,9 @@ import React,{ Suspense } from 'react';
 
 const CommonLayout = ({children}: {children : React.ReactNode} ) => {
   return (
-    <div className="">
+    <div className="w-full mx-auto  dark:bg-gray-900">
 
-      <Suspense fallback={<div className="h-16 bg-gray-900" />}>
+      <Suspense fallback={<div className="h-16 bg-white dark:bg-gray-900" />}>
         <Navbar />
       </Suspense>
 

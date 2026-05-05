@@ -65,9 +65,9 @@ export function Navbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 px-8 h-16 flex items-center justify-between transition-all duration-300 ${
           scrolled
-            ? "bg-gray-800/90 dark:bg-gray-800/90 backdrop-blur border-b border-gray-700 dark:border-gray-700 light:bg-white/90 light:border-gray-200"
-            : "bg-gray-800 dark:bg-gray-800"
-        } dark:bg-gray-800 bg-white/95 border-b border-gray-100 dark:border-transparent`}
+            ? "bg-white/90 dark:bg-gray-800/90 backdrop-blur border-b border-gray-200 dark:border-gray-700"
+            : "bg-white dark:bg-gray-800"
+        } border-b border-gray-100 dark:border-transparent`}
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 no-underline">
@@ -84,7 +84,7 @@ export function Navbar() {
 
         {/* Hamburger Menu Button */}
         <button
-          className="lg:hidden text-gray-200 text-2xl"
+          className="lg:hidden text-gray-900 dark:text-gray-200 text-2xl"
           onClick={() => setMenuOpen((prev) => !prev)}
           aria-label="Toggle menu"
         >
@@ -111,13 +111,13 @@ export function Navbar() {
             {user ? (
               <div className="relative group">
                 <button
-                  className="flex items-center gap-3 p-1 rounded-full hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-white/10"
+                  className="flex items-center gap-3 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-white/5 transition-all duration-300 border border-transparent hover:border-gray-200 dark:hover:border-white/10"
                 >
                   <div className="flex flex-col items-end text-right">
-                    <span className="text-white text-xs font-bold tracking-tight leading-none mb-1 capitalize">
+                    <span className="text-gray-900 dark:text-white text-xs font-bold tracking-tight leading-none mb-1 capitalize">
                       {user.name}
                     </span>
-                    <span className="text-gray-400 text-[10px] leading-none uppercase tracking-widest font-medium">
+                    <span className="text-gray-500 dark:text-gray-400 text-[10px] leading-none uppercase tracking-widest font-medium">
                       {user.role}
                     </span>
                   </div>
@@ -139,16 +139,16 @@ export function Navbar() {
                 </button>
 
                 {/* Advanced Dropdown Menu */}
-                <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-2xl bg-[#0d0d1a] border border-white/10 shadow-2xl backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
-                  <div className="p-4 border-b border-white/5">
-                    <p className="text-sm font-semibold text-white truncate">{user.name}</p>
-                    <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-2xl bg-white dark:bg-[#0d0d1a] border border-gray-200 dark:border-white/10 shadow-2xl backdrop-blur-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
+                  <div className="p-4 border-b border-gray-100 dark:border-white/5">
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{user.name}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{user.email}</p>
                   </div>
                   
                   <div className="p-2">
                     <Link
                       href="/dashboard"
-                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-all"
                     >
                       <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +160,7 @@ export function Navbar() {
                     
                     <Link
                       href="/dashboard/profile"
-                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-all"
                     >
                       <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-500">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -172,7 +172,7 @@ export function Navbar() {
                     
                     <Link
                       href="/dashboard/settings"
-                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                      className="flex items-center gap-3 px-3 py-2.5 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 rounded-xl transition-all"
                     >
                       <div className="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-500">
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -184,7 +184,7 @@ export function Navbar() {
                     </Link>
                   </div>
                   
-                  <div className="p-2 border-t border-white/5">
+                  <div className="p-2 border-t border-gray-100 dark:border-white/5">
                     <button
                       onClick={handleLogout}
                       className="w-full flex items-center gap-3 px-3 py-2.5 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/5 rounded-xl transition-all"
@@ -221,7 +221,7 @@ export function Navbar() {
         {/* Mobile Menu */}
         {menuOpen && (
           <nav
-            className="lg:hidden absolute top-16 left-0 w-full dark:bg-gray-800 bg-white shadow-md flex flex-col items-center gap-4 py-4 z-40 border-t dark:border-gray-700 border-gray-100"
+            className="lg:hidden absolute top-16 left-0 w-full bg-white dark:bg-gray-800 shadow-md flex flex-col items-center gap-4 py-4 z-40 border-t border-gray-100 dark:border-gray-700"
           >
             {/* Theme Toggle Row */}
             <div className="flex items-center justify-between w-full px-8 py-1">
@@ -232,7 +232,7 @@ export function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-300 no-underline text-sm font-serif tracking-wide transition-colors duration-200 hover:text-white"
+                className="text-gray-600 dark:text-gray-300 no-underline text-sm font-serif tracking-wide transition-colors duration-200 hover:text-orange-500 dark:hover:text-white"
                 onClick={() => setMenuOpen(false)}
               >
                 {item.name}
@@ -242,7 +242,7 @@ export function Navbar() {
             {/* Auth Links */}
             {user ? (
               <div className="w-full px-6 space-y-4">
-                <div className="flex items-center gap-4 p-4 bg-white/5 rounded-2xl border border-white/10">
+                <div className="flex items-center gap-4 p-4 bg-gray-50 dark:bg-white/5 rounded-2xl border border-gray-100 dark:border-white/10">
                   <div className="h-12 w-12 rounded-full overflow-hidden ring-2 ring-orange-500/20">
                     {user.avatar ? (
                       <Image
@@ -250,7 +250,7 @@ export function Navbar() {
                         alt={user.name}
                         width={48}
                         height={48}
-                        className="object-cover"
+                        className="object-cover hover:scale-110 transition-transform duration-200 ease-out"
                       />
                     ) : (
                       <div className="h-full w-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white font-bold">
@@ -259,29 +259,29 @@ export function Navbar() {
                     )}
                   </div>
                   <div>
-                    <p className="text-white font-bold text-sm">{user.name}</p>
-                    <p className="text-gray-400 text-xs">{user.email}</p>
+                    <p className="text-gray-900 dark:text-white font-bold text-sm">{user.name}</p>
+                    <p className="text-gray-500 dark:text-gray-400 text-xs">{user.email}</p>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 gap-2">
                   <Link
                     href="/dashboard"
-                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 bg-white/5 rounded-xl border border-white/5"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/5"
                     onClick={() => setMenuOpen(false)}
                   >
                     Dashboard
                   </Link>
                   <Link
                     href="/dashboard/profile"
-                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 bg-white/5 rounded-xl border border-white/5"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/5"
                     onClick={() => setMenuOpen(false)}
                   >
                     My Profile
                   </Link>
                   <Link
                     href="/dashboard/settings"
-                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-300 bg-white/5 rounded-xl border border-white/5"
+                    className="flex items-center gap-3 px-4 py-3 text-sm text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-white/5 rounded-xl border border-gray-100 dark:border-white/5"
                     onClick={() => setMenuOpen(false)}
                   >
                     Settings
@@ -301,7 +301,7 @@ export function Navbar() {
               <div className="flex flex-col items-center gap-2 w-full px-8">
                 <Link
                   href="/login"
-                  className="w-full text-center text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-600 transition-all duration-200 hover:bg-gray-700"
+                  className="w-full text-center text-gray-600 dark:text-gray-300 no-underline text-sm font-serif px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                   onClick={() => setMenuOpen(false)}
                 >
                   Login

@@ -70,7 +70,7 @@ export default function TutorAvailabilityPage() {
   }
 
   return (
-    <div className="p-8 space-y-12 bg-transparent text-white animate-in fade-in duration-700">
+    <div className="p-8 space-y-12 bg-transparent text-gray-900 dark:text-white animate-in fade-in duration-700">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
@@ -80,12 +80,12 @@ export default function TutorAvailabilityPage() {
           <h1 className="text-6xl font-black tracking-tighter leading-none">
             Time <span className="text-orange-500">Nodes</span>
           </h1>
-          <p className="text-white/50 text-lg mt-3 font-medium">Define your weekly operational windows.</p>
+          <p className="text-gray-500 dark:text-white/50 text-lg mt-3 font-medium">Define your weekly operational windows.</p>
         </div>
         <div className="flex items-center gap-4">
            <Button 
              onClick={addSlot}
-             className="bg-white/5 hover:bg-white/10 text-white font-black h-14 px-8 rounded-2xl border border-white/5 transition-all flex items-center gap-3"
+             className="bg-white dark:bg-white/5 hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-white font-black h-14 px-8 rounded-2xl border border-gray-200 dark:border-white/5 transition-all flex items-center gap-3 shadow-lg dark:shadow-none"
            >
              <Plus className="size-4" /> ADD SLOT
            </Button>
@@ -101,13 +101,13 @@ export default function TutorAvailabilityPage() {
       </div>
 
       {slots.length > 0 ? (
-        <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+        <div className="bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 rounded-[3rem] p-10 backdrop-blur-xl shadow-lg dark:shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-10 opacity-[0.02] group-hover:scale-110 transition-transform">
                <Calendar size={200} />
             </div>
 
             <div className="space-y-6 relative z-10">
-              <div className="grid grid-cols-12 gap-6 text-[10px] font-black text-white/30 uppercase tracking-[0.3em] px-6">
+              <div className="grid grid-cols-12 gap-6 text-[10px] font-black text-gray-400 dark:text-white/30 uppercase tracking-[0.3em] px-6">
                  <div className="col-span-4">Weekly Cycle</div>
                  <div className="col-span-3 text-center">Inception</div>
                  <div className="col-span-3 text-center">Termination</div>
@@ -116,7 +116,7 @@ export default function TutorAvailabilityPage() {
 
               <div className="space-y-4">
                 {slots.map((slot, index) => (
-                  <div key={index} className="grid grid-cols-12 gap-6 items-center p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white/10 transition-all group/item shadow-xl">
+                  <div key={index} className="grid grid-cols-12 gap-6 items-center p-6 bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 rounded-[2rem] hover:bg-gray-100 dark:hover:bg-white/10 transition-all group/item shadow-sm dark:shadow-xl">
                     <div className="col-span-4">
                       <div className="flex items-center gap-4">
                         <div className="w-11 h-11 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center border border-orange-500/20 group-hover/item:scale-110 transition-transform">
@@ -125,7 +125,7 @@ export default function TutorAvailabilityPage() {
                         <select
                           value={slot.dayOfWeek}
                           onChange={(e) => updateSlot(index, "dayOfWeek", e.target.value)}
-                          className="w-full bg-[#0d0d1a] border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none cursor-pointer"
+                          className="w-full bg-white dark:bg-[#0d0d1a] border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none cursor-pointer"
                         >
                           {DAYS.map(day => (
                             <option key={day} value={day}>{day}</option>
@@ -138,7 +138,7 @@ export default function TutorAvailabilityPage() {
                          type="time"
                          value={slot.startTime}
                          onChange={(e) => updateSlot(index, "startTime", e.target.value)}
-                         className="w-full bg-[#0d0d1a] border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none text-center"
+                         className="w-full bg-white dark:bg-[#0d0d1a] border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none text-center"
                        />
                     </div>
                     <div className="col-span-3">
@@ -146,7 +146,7 @@ export default function TutorAvailabilityPage() {
                          type="time"
                          value={slot.endTime}
                          onChange={(e) => updateSlot(index, "endTime", e.target.value)}
-                         className="w-full bg-[#0d0d1a] border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none text-center"
+                         className="w-full bg-white dark:bg-[#0d0d1a] border border-gray-200 dark:border-white/10 text-gray-900 dark:text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none text-center"
                        />
                     </div>
                     <div className="col-span-2 text-right">
@@ -162,13 +162,13 @@ export default function TutorAvailabilityPage() {
               </div>
             </div>
             
-            <div className="mt-10 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="mt-10 pt-8 border-t border-gray-100 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="px-4 py-2 rounded-xl bg-white/5 border border-white/5 text-[10px] font-black text-white/40 uppercase tracking-widest">
+                <div className="px-4 py-2 rounded-xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 text-[10px] font-black text-gray-400 dark:text-white/40 uppercase tracking-widest">
                   Active Nodes: {slots.length}
                 </div>
               </div>
-              <div className="flex items-center gap-3 text-emerald-400 font-black text-[10px] uppercase tracking-widest bg-emerald-500/10 px-6 py-3 rounded-2xl border border-emerald-500/20">
+              <div className="flex items-center gap-3 text-emerald-600 dark:text-emerald-400 font-black text-[10px] uppercase tracking-widest bg-emerald-500/10 px-6 py-3 rounded-2xl border border-emerald-500/20">
                 <CheckCircle2 size={16} /> Changes require manual synchronization to deploy.
               </div>
             </div>

@@ -59,7 +59,7 @@ export default function CategoriesPage() {
   )
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a]">
+    <main className="min-h-screen bg-slate-50 dark:bg-gradient-to-br dark:from-[#1e293b] dark:via-[#11181c] dark:to-[#0f172a]">
       {/* Hero Header */}
       <section className="pt-12 pb-16 relative overflow-hidden">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-orange-500/10 blur-[120px] pointer-events-none" />
@@ -71,24 +71,24 @@ export default function CategoriesPage() {
               <BookOpen className="w-4 h-4" />
               <span>All Categories</span>
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 tracking-tight font-serif">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-5 tracking-tight font-serif">
               Explore <span className="bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Categories</span>
             </h1>
-            <p className="text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 text-lg md:text-xl font-medium leading-relaxed">
               Browse through our wide range of subjects and find the perfect tutor for your learning goals.
             </p>
           </div>
 
           {/* Search */}
           <div className="max-w-xl mx-auto mb-12">
-            <div className="flex items-center rounded-xl bg-white/5 border border-white/10 backdrop-blur-lg px-4">
-              <Search className="w-5 h-5 text-gray-400 shrink-0" />
+            <div className="flex items-center rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-lg px-4 shadow-sm dark:shadow-none">
+              <Search className="w-5 h-5 text-gray-500 dark:text-gray-400 shrink-0" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search categories..."
-                className="flex-1 bg-transparent outline-none text-white placeholder:text-white/40 py-4 px-3 text-sm font-serif"
+                className="flex-1 bg-transparent outline-none text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-white/40 py-4 px-3 text-sm font-serif"
               />
             </div>
           </div>
@@ -115,14 +115,14 @@ export default function CategoriesPage() {
                 return (
                   <Link href={`/categories/${cat.slug}`} key={cat.id} className="no-underline group">
                     <div className={`relative p-6 rounded-2xl bg-gradient-to-br ${colorClass} border backdrop-blur-sm transition-all duration-300 hover:scale-[1.03] hover:shadow-xl h-full`}>
-                      <div className={`w-14 h-14 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform ${iconColor}`}>
+                      <div className={`w-14 h-14 rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform ${iconColor}`}>
                         <IconComponent className="w-7 h-7" />
                       </div>
-                      <h3 className="text-lg font-bold text-white mb-2">{cat.name}</h3>
-                      <p className="text-sm text-gray-400 mb-4">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{cat.name}</h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                         {cat._count?.tutorSubjects || 0} Tutors Available
                       </p>
-                      <div className="flex items-center text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
+                      <div className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
                         Tutors <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </div>
@@ -131,16 +131,16 @@ export default function CategoriesPage() {
               })}
             </div>
           ) : (
-            <div className="text-center py-20 bg-white/[0.02] border border-white/5 rounded-3xl">
-              <BookOpen className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">
+            <div className="text-center py-20 bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/5 rounded-3xl shadow-sm dark:shadow-none">
+              <BookOpen className="w-12 h-12 text-gray-400 dark:text-gray-600 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                 {searchTerm ? "No matching categories" : "No Categories Yet"}
               </h3>
-              <p className="text-gray-400 mb-6">
+              <p className="text-gray-500 dark:text-gray-400 mb-6">
                 {searchTerm ? "Try a different search term." : "Categories will appear here once available."}
               </p>
               {searchTerm && (
-                <Button variant="outline" className="border-white/10 text-white" onClick={() => setSearchTerm("")}>
+                <Button variant="outline" className="border-gray-200 dark:border-white/10 text-gray-900 dark:text-white" onClick={() => setSearchTerm("")}>
                   Clear Search
                 </Button>
               )}

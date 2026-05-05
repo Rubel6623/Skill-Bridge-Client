@@ -36,7 +36,7 @@ export default function ServicesPage() {
   })
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white pt-24 pb-16 relative overflow-hidden">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#0a0a0f] text-gray-900 dark:text-white pt-24 pb-16 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[150px] rounded-full pointer-events-none" />
       <div className="absolute top-[20%] right-[-10%] w-[50%] h-[50%] bg-blue-600/10 blur-[150px] rounded-full pointer-events-none" />
@@ -47,25 +47,25 @@ export default function ServicesPage() {
             <Sparkles className="w-4 h-4" />
             <span>Premium Learning Hub</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4">
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-4 text-gray-900 dark:text-white">
             Elite <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Courses</span>
           </h1>
-          <p className="text-xl text-zinc-400 font-medium leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-zinc-400 font-medium leading-relaxed">
             Discover specialized tutoring sessions led by industry experts and academic masters. Your journey to excellence starts here.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto pt-6">
-            <div className="flex-1 flex items-center bg-white/5 border border-white/10 rounded-2xl px-5 py-2 hover:border-primary/50 transition-all group">
+            <div className="flex-1 flex items-center bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl px-5 py-2 hover:border-primary/50 transition-all group shadow-sm dark:shadow-none">
               <Search className="w-5 h-5 text-zinc-500 group-hover:text-primary transition-colors" />
               <input
                 type="text"
                 placeholder="Search subjects, tutors or categories..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-transparent border-none outline-none flex-1 px-4 py-3 text-sm font-medium placeholder:text-zinc-600"
+                className="bg-transparent border-none outline-none flex-1 px-4 py-3 text-sm font-medium placeholder:text-gray-500 dark:placeholder:text-zinc-600 text-gray-900 dark:text-white"
               />
             </div>
-            <Button className="h-full bg-white text-black hover:bg-primary hover:text-white font-black rounded-2xl px-10 py-5 transition-all shadow-xl text-xs uppercase tracking-widest">
+            <Button className="h-full bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-primary hover:text-white font-black rounded-2xl px-10 py-5 transition-all shadow-xl text-xs uppercase tracking-widest">
               Explore
             </Button>
           </div>
@@ -74,7 +74,7 @@ export default function ServicesPage() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-              <div key={i} className="h-[400px] bg-white/5 animate-pulse rounded-[2.5rem] border border-white/10" />
+              <div key={i} className="h-[400px] bg-slate-100 dark:bg-white/5 animate-pulse rounded-[2.5rem] border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none" />
             ))}
           </div>
         ) : filteredServices.length > 0 ? (
@@ -84,16 +84,16 @@ export default function ServicesPage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-32 bg-white/[0.02] border border-white/10 rounded-[4rem] backdrop-blur-xl">
-             <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-white/10">
-                <BookOpen className="w-10 h-10 text-zinc-600" />
+          <div className="text-center py-32 bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 rounded-[4rem] backdrop-blur-xl shadow-sm dark:shadow-none">
+             <div className="w-24 h-24 bg-slate-50 dark:bg-white/5 rounded-full flex items-center justify-center mx-auto mb-8 border border-gray-200 dark:border-white/10">
+                <BookOpen className="w-10 h-10 text-gray-500 dark:text-zinc-600" />
              </div>
-             <h3 className="text-3xl font-black text-white mb-4 tracking-tight">No courses found</h3>
-             <p className="text-zinc-500 max-w-md mx-auto font-medium text-lg px-6">
+             <h3 className="text-3xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">No courses found</h3>
+             <p className="text-gray-600 dark:text-zinc-500 max-w-md mx-auto font-medium text-lg px-6">
                Try adjusting your search terms or filters to find the perfect mentor.
              </p>
              <div className="pt-10">
-                <Button onClick={() => setSearchTerm("")} className="bg-white text-black hover:bg-primary hover:text-white rounded-2xl px-10 py-5 transition-all font-black text-xs uppercase tracking-widest shadow-2xl">
+                <Button onClick={() => setSearchTerm("")} className="bg-gray-900 dark:bg-white text-white dark:text-black hover:bg-primary hover:text-white rounded-2xl px-10 py-5 transition-all font-black text-xs uppercase tracking-widest shadow-2xl">
                    Clear Filters
                 </Button>
              </div>

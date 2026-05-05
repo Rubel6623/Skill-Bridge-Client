@@ -97,23 +97,23 @@ export default function AdminManageBookingsPage() {
             <Fingerprint className="w-5 h-5" />
             <span className="text-sm font-black uppercase tracking-[0.2em]">Operations Command</span>
           </div>
-          <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-50 tracking-tight">Manage <span className="text-orange-500">Bookings</span></h1>
-          <p className="text-zinc-500 mt-1 font-medium italic">Control and audit all sessions across the Skill-Bridge platform.</p>
+          <h1 className="text-4xl font-black text-gray-900 dark:text-zinc-50 tracking-tight">Manage <span className="text-orange-500">Bookings</span></h1>
+          <p className="text-gray-500 dark:text-zinc-500 mt-1 font-medium italic">Control and audit all sessions across the Skill-Bridge platform.</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-4">
           <div className="relative group">
-            <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-orange-500 transition-colors" />
+            <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-zinc-400 group-focus-within:text-orange-500 transition-colors" />
             <input
               type="text"
               placeholder="Search ID, Student, Tutor..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-12 pr-6 py-3.5 bg-white dark:bg-zinc-900 border-2 border-zinc-100 dark:border-zinc-800 rounded-2xl focus:ring-0 focus:border-orange-500/50 outline-none w-80 shadow-sm font-bold text-sm transition-all"
+              className="pl-12 pr-6 py-3.5 bg-white dark:bg-zinc-900 border-2 border-gray-100 dark:border-zinc-800 rounded-2xl focus:ring-0 focus:border-orange-500/50 outline-none w-80 shadow-sm font-bold text-sm transition-all text-gray-900 dark:text-white"
             />
           </div>
           
-          <div className="flex items-center bg-zinc-100 dark:bg-zinc-900 p-1.5 rounded-2xl border-2 border-zinc-100 dark:border-zinc-800 shadow-sm">
+          <div className="flex items-center bg-gray-100 dark:bg-zinc-900 p-1.5 rounded-2xl border-2 border-gray-100 dark:border-zinc-800 shadow-sm">
             {['ALL', 'PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELLED'].map((status) => (
               <button
                 key={status}
@@ -122,7 +122,7 @@ export default function AdminManageBookingsPage() {
                   "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all",
                   statusFilter === status 
                     ? "bg-white dark:bg-zinc-800 text-orange-500 shadow-md" 
-                    : "text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+                    : "text-gray-400 hover:text-gray-600 dark:text-zinc-400 dark:hover:text-zinc-300"
                 )}
               >
                 {status === 'ALL' ? 'Everything' : status}
@@ -133,31 +133,31 @@ export default function AdminManageBookingsPage() {
       </div>
 
       {loading ? (
-        <div className="flex flex-col items-center justify-center py-32 gap-6 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-[3rem] shadow-2xl">
+        <div className="flex flex-col items-center justify-center py-32 gap-6 bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-[3rem] shadow-lg dark:shadow-2xl">
           <div className="relative">
             <Loader2 className="w-16 h-16 animate-spin text-orange-500" />
             <div className="absolute inset-0 blur-2xl bg-orange-500/20 rounded-full" />
           </div>
           <div className="text-center group">
-            <p className="font-black text-2xl text-zinc-900 dark:text-zinc-100 tracking-tight">Accessing Platform Logs</p>
-            <p className="text-zinc-500 font-bold animate-pulse uppercase tracking-[0.2em] text-xs mt-2">Initializing Secure Connection...</p>
+            <p className="font-black text-2xl text-gray-900 dark:text-zinc-100 tracking-tight">Accessing Platform Logs</p>
+            <p className="text-gray-500 dark:text-zinc-500 font-bold animate-pulse uppercase tracking-[0.2em] text-xs mt-2">Initializing Secure Connection...</p>
           </div>
         </div>
       ) : filteredBookings.length > 0 ? (
-        <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-[3rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)]">
+        <div className="bg-white dark:bg-zinc-950 border border-gray-200 dark:border-zinc-800 rounded-[3rem] overflow-hidden shadow-lg dark:shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)]">
           <div className="overflow-x-auto">
             <table className="w-full text-left">
               <thead>
-                <tr className="bg-zinc-50/50 dark:bg-zinc-900/50 border-b border-zinc-100 dark:border-zinc-800/50">
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">Session Data</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">Tutor & Expertise</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">Schedule</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">Financials</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em] text-center">Status</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em] text-right">Audit</th>
+                <tr className="bg-gray-50/50 dark:bg-zinc-900/50 border-b border-gray-100 dark:border-zinc-800/50">
+                  <th className="px-8 py-6 text-[10px] font-black text-gray-400 dark:text-zinc-400 uppercase tracking-[0.25em]">Session Data</th>
+                  <th className="px-8 py-6 text-[10px] font-black text-gray-400 dark:text-zinc-400 uppercase tracking-[0.25em]">Tutor & Expertise</th>
+                  <th className="px-8 py-6 text-[10px] font-black text-gray-400 dark:text-zinc-400 uppercase tracking-[0.25em]">Schedule</th>
+                  <th className="px-8 py-6 text-[10px] font-black text-gray-400 dark:text-zinc-400 uppercase tracking-[0.25em]">Financials</th>
+                  <th className="px-8 py-6 text-[10px] font-black text-gray-400 dark:text-zinc-400 uppercase tracking-[0.25em] text-center">Status</th>
+                  <th className="px-8 py-6 text-[10px] font-black text-gray-400 dark:text-zinc-400 uppercase tracking-[0.25em] text-right">Audit</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50 text-sm font-medium">
+              <tbody className="divide-y divide-gray-100 dark:divide-zinc-800/50 text-sm font-medium">
                 {filteredBookings.map((booking: any) => (
                   <tr key={booking.id} className="group hover:bg-orange-50/30 dark:hover:bg-orange-400/5 transition-all duration-300">
                     <td className="px-8 py-6">
@@ -166,9 +166,9 @@ export default function AdminManageBookingsPage() {
                           {booking.student?.name?.[0]}
                         </div>
                         <div>
-                          <p className="font-black text-zinc-900 dark:text-zinc-50 text-base">{booking.student?.name}</p>
-                          <p className="text-zinc-400 font-bold flex items-center gap-1.5 mt-0.5">
-                            <span className="text-[10px] bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-zinc-500">ID: {booking.id.split('-')[0]}</span>
+                          <p className="font-black text-gray-900 dark:text-zinc-50 text-base">{booking.student?.name}</p>
+                          <p className="text-gray-400 dark:text-zinc-400 font-bold flex items-center gap-1.5 mt-0.5">
+                            <span className="text-[10px] bg-gray-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-gray-500 dark:text-zinc-500">ID: {booking.id.split('-')[0]}</span>
                             {booking.student?.email}
                           </p>
                         </div>
@@ -187,12 +187,12 @@ export default function AdminManageBookingsPage() {
                     </td>
                     <td className="px-8 py-6">
                       <div className="space-y-2">
-                        <div className="flex items-center gap-2 text-zinc-900 dark:text-zinc-100 font-black">
+                        <div className="flex items-center gap-2 text-gray-900 dark:text-zinc-100 font-black">
                           <Calendar className="w-4 h-4 text-orange-500" />
                           {format(new Date(booking.startTime), "PPP")}
                         </div>
-                        <div className="flex items-center gap-2 text-[11px] text-zinc-500 font-black tracking-widest uppercase bg-zinc-100 dark:bg-zinc-900 w-fit px-3 py-1 rounded-full">
-                          <Clock className="w-3 h-3 text-zinc-400" />
+                        <div className="flex items-center gap-2 text-[11px] text-gray-500 dark:text-zinc-500 font-black tracking-widest uppercase bg-gray-100 dark:bg-zinc-900 w-fit px-3 py-1 rounded-full">
+                          <Clock className="w-3 h-3 text-gray-400 dark:text-zinc-400" />
                           {format(new Date(booking.startTime), "p")} – {format(new Date(booking.endTime), "p")}
                         </div>
                       </div>
@@ -231,7 +231,7 @@ export default function AdminManageBookingsPage() {
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="h-12 w-12 p-0 rounded-2xl hover:bg-orange-100 dark:hover:bg-orange-900/20 transition-all border-2 border-transparent hover:border-orange-200">
-                              <MoreVertical className="h-6 w-6 text-zinc-400 group-hover:text-orange-500 transition-colors" />
+                              <MoreVertical className="h-6 w-6 text-gray-300 dark:text-zinc-400 group-hover:text-orange-500 transition-colors" />
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="w-56 bg-white dark:bg-zinc-900 border-2 border-zinc-100 dark:border-zinc-800 rounded-3xl shadow-2xl p-3">
@@ -268,21 +268,21 @@ export default function AdminManageBookingsPage() {
               </tbody>
             </table>
           </div>
-          <div className="bg-zinc-50 dark:bg-zinc-900/50 px-8 py-6 border-t border-zinc-100 dark:border-zinc-800/50 flex items-center justify-between text-zinc-500 font-bold text-xs uppercase tracking-widest">
+          <div className="bg-gray-50 dark:bg-zinc-900/50 px-8 py-6 border-t border-gray-100 dark:border-zinc-800/50 flex items-center justify-between text-gray-400 dark:text-zinc-500 font-bold text-xs uppercase tracking-widest">
              <div>Showing <span className="text-orange-500">{filteredBookings.length}</span> individual records</div>
-             <div className="flex gap-2 text-zinc-400">
-               <span className="text-zinc-900 dark:text-zinc-100">Live Audit</span> • <span>Syncing with Mainframe</span>
+             <div className="flex gap-2 text-gray-300 dark:text-zinc-400">
+                <span className="text-gray-900 dark:text-zinc-100">Live Audit</span> • <span>Syncing with Mainframe</span>
              </div>
           </div>
         </div>
       ) : (
-        <div className="text-center py-32 bg-zinc-50/50 dark:bg-zinc-900/50 rounded-[3rem] border-4 border-dotted border-zinc-200 dark:border-zinc-800 flex flex-col items-center gap-6">
-           <div className="bg-white dark:bg-zinc-900 p-8 rounded-full shadow-inner border-2 border-zinc-100 dark:border-zinc-800">
-             <Filter className="w-20 h-20 text-zinc-200" />
+        <div className="text-center py-32 bg-gray-50/50 dark:bg-zinc-900/50 rounded-[3rem] border-4 border-dotted border-gray-100 dark:border-zinc-800 flex flex-col items-center gap-6">
+           <div className="bg-white dark:bg-zinc-900 p-8 rounded-full shadow-inner border-2 border-gray-100 dark:border-zinc-800">
+             <Filter className="w-20 h-20 text-gray-200 dark:text-zinc-200" />
            </div>
            <div>
-             <h3 className="text-3xl font-black text-zinc-900 dark:text-zinc-100 tracking-tight">System Empty</h3>
-             <p className="text-zinc-500 mt-2 font-bold max-w-sm mx-auto">No records match the current security protocols or filter parameters.</p>
+             <h3 className="text-3xl font-black text-gray-900 dark:text-zinc-100 tracking-tight">System Empty</h3>
+             <p className="text-gray-500 dark:text-zinc-500 mt-2 font-bold max-w-sm mx-auto">No records match the current security protocols or filter parameters.</p>
            </div>
            <Button 
             variant="outline" 

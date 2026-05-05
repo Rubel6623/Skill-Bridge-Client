@@ -12,7 +12,7 @@ import { HomeFAQ } from "../../components/modules/home/HomeFAQ";
 
 export default function Home() {
   return (
-    <main>          
+    <main className="w-full mx-auto bg-white dark:bg-gray-900">          
       <HeroSection />
       <HomeCategories />
       <HomeStats />

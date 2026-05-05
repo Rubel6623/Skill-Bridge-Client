@@ -97,7 +97,7 @@ const handbookSections = [
 
 export default function TutorGuidelinesPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a] pt-24 pb-20 relative overflow-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-gradient-to-br dark:from-[#1e293b] dark:via-[#11181c] dark:to-[#0f172a] pt-24 pb-20 relative overflow-hidden">
       {/* Ambient Glows */}
       <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-orange-500/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
@@ -109,10 +109,10 @@ export default function TutorGuidelinesPage() {
             <BookOpen size={14} />
             For Our Educators
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white tracking-tight">
             Tutor <span className="bg-gradient-to-r from-orange-400 to-red-500 bg-clip-text text-transparent">Guidelines</span>
           </h1>
-          <p className="text-white/40 max-w-2xl mx-auto text-lg">
+          <p className="text-gray-500 dark:text-white/40 max-w-2xl mx-auto text-lg">
             Our mission is to provide world-class education. These guidelines ensure consistency, 
             quality, and success for both you and your students.
           </p>
@@ -121,13 +121,13 @@ export default function TutorGuidelinesPage() {
         {/* General Principles Bar */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
           {generalPrinciples.map((item, idx) => (
-            <div key={idx} className="flex items-start gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:border-orange-500/30 transition-all duration-300">
+            <div key={idx} className="flex items-start gap-4 p-6 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 backdrop-blur-sm hover:border-orange-500/30 transition-all duration-300 shadow-sm dark:shadow-none">
               <div className="p-3 rounded-xl bg-orange-500/10 text-orange-500">
                 {item.icon}
               </div>
               <div>
-                <h3 className="text-white font-bold mb-1">{item.title}</h3>
-                <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-gray-900 dark:text-white font-bold mb-1">{item.title}</h3>
+                <p className="text-gray-500 dark:text-white/40 text-sm leading-relaxed">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -138,23 +138,23 @@ export default function TutorGuidelinesPage() {
           {guidelines.map((group, idx) => (
             <div 
               key={idx} 
-              className={`relative p-8 rounded-3xl border border-white/5 bg-gradient-to-br from-white/5 to-transparent backdrop-blur-xl group hover:border-white/20 transition-all duration-500`}
+              className={`relative p-8 rounded-3xl border border-gray-200 dark:border-white/5 bg-white dark:bg-gradient-to-br dark:from-white/5 dark:to-transparent backdrop-blur-xl group hover:border-gray-300 dark:hover:border-white/20 transition-all duration-500 shadow-sm dark:shadow-none`}
             >
               {/* Internal Glow */}
               <div className={`absolute top-0 right-0 w-32 h-32 ${group.bgGlow} blur-3xl rounded-full pointer-events-none group-hover:opacity-100 transition-opacity`} />
               
               <div className="flex items-center gap-4 mb-8">
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 shadow-xl">
+                <div className="p-4 rounded-2xl bg-slate-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-xl dark:shadow-none">
                   {group.icon}
                 </div>
-                <h2 className="text-2xl font-bold text-white tracking-tight">{group.title}</h2>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">{group.title}</h2>
               </div>
 
               <ul className="space-y-4">
                 {group.rules.map((rule, rIdx) => (
                   <li key={rIdx} className="flex items-start gap-3 group/item">
                     <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-orange-500 group-hover/item:scale-125 transition-transform" />
-                    <p className="text-white/60 group-hover/item:text-white/90 transition-colors leading-relaxed">
+                    <p className="text-gray-600 dark:text-white/60 group-hover/item:text-gray-900 dark:group-hover/item:text-white/90 transition-colors leading-relaxed">
                       {rule}
                     </p>
                   </li>
@@ -181,13 +181,13 @@ export default function TutorGuidelinesPage() {
                       View Complete Handbook
                     </button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-2xl bg-[#0d0d1a] border-white/10 text-white max-h-[80vh] overflow-y-auto">
+                  <DialogContent className="sm:max-w-2xl bg-white dark:bg-[#0d0d1a] border-gray-200 dark:border-white/10 text-gray-900 dark:text-white max-h-[80vh] overflow-y-auto">
                     <DialogHeader>
-                      <DialogTitle className="text-2xl font-bold flex items-center gap-2 text-white">
+                      <DialogTitle className="text-2xl font-bold flex items-center gap-2 text-gray-900 dark:text-white">
                         <BookOpen className="text-orange-500" />
                         Tutor Handbook v1.0
                       </DialogTitle>
-                      <DialogDescription className="text-white/40">
+                      <DialogDescription className="text-gray-500 dark:text-white/40">
                         Everything you need to know about tutoring at SkillBridge.
                       </DialogDescription>
                     </DialogHeader>
@@ -195,16 +195,16 @@ export default function TutorGuidelinesPage() {
                     <div className="space-y-8 py-6">
                       {handbookSections.map((section, idx) => (
                         <div key={idx} className="space-y-2">
-                          <h4 className="text-orange-400 font-bold uppercase tracking-wider text-xs">Section {idx + 1}: {section.title}</h4>
-                          <p className="text-white/70 leading-relaxed italic">
+                          <h4 className="text-orange-500 dark:text-orange-400 font-bold uppercase tracking-wider text-xs">Section {idx + 1}: {section.title}</h4>
+                          <p className="text-gray-600 dark:text-white/70 leading-relaxed italic">
                             {section.content}
                           </p>
                         </div>
                       ))}
                     </div>
 
-                    <div className="flex justify-end pt-6 border-t border-white/5 gap-3">
-                      <button className="px-4 py-2 rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-sm transition-colors flex items-center gap-2">
+                    <div className="flex justify-end pt-6 border-t border-gray-200 dark:border-white/5 gap-3">
+                      <button className="px-4 py-2 rounded-lg bg-slate-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/10 text-gray-900 dark:text-white text-sm transition-colors flex items-center gap-2">
                         <Download size={16} />
                         Download PDF
                       </button>

@@ -23,12 +23,12 @@ const HelpCenter = () => {
         
         {/* Hero Search */}
         <div className="text-center mb-20">
-          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-white">How can we help?</h1>
+          <h1 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900 dark:text-white">How can we help?</h1>
           <div className="max-w-2xl mx-auto relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
             <Input 
                 placeholder="Search for articles, guides..." 
-                className="h-16 pl-12 bg-white/5 border-white/10 rounded-2xl focus:ring-orange-500 focus:border-orange-500 text-lg shadow-2xl"
+                className="h-16 pl-12 bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 rounded-2xl focus:ring-orange-500 focus:border-orange-500 text-gray-900 dark:text-white text-lg shadow-2xl dark:shadow-none"
             />
           </div>
         </div>
@@ -36,15 +36,15 @@ const HelpCenter = () => {
         {/* Categories Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-24">
           {categories.map((cat, i) => (
-            <div key={i} className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-orange-500/30 transition-all group cursor-pointer">
+            <div key={i} className="p-8 rounded-3xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-orange-500/30 transition-all group cursor-pointer shadow-sm dark:shadow-none">
               <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <cat.icon className="text-orange-500" size={28} />
               </div>
-              <h3 className="text-xl font-bold mb-2 text-white">{cat.title}</h3>
-              <p className="text-gray-400 text-sm mb-4">{cat.description}</p>
+              <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">{cat.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{cat.description}</p>
               <div className="flex items-center justify-between mt-auto">
                 <span className="text-xs font-medium text-orange-500 bg-orange-500/10 px-2 py-1 rounded-md">{cat.count} Articles</span>
-                <ArrowRight size={16} className="text-gray-600 group-hover:text-white transition-colors" />
+                <ArrowRight size={16} className="text-gray-500 dark:text-gray-600 group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
               </div>
             </div>
           ))}
@@ -57,9 +57,9 @@ const HelpCenter = () => {
           </h2>
           <div className="space-y-6">
             {faqs.map((faq, i) => (
-              <div key={i} className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                <h4 className="text-lg font-bold mb-3 text-white">{faq.question}</h4>
-                <p className="text-gray-400 leading-relaxed">{faq.answer}</p>
+              <div key={i} className="p-6 rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 shadow-sm dark:shadow-none">
+                <h4 className="text-lg font-bold mb-3 text-gray-900 dark:text-white">{faq.question}</h4>
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{faq.answer}</p>
               </div>
             ))}
           </div>
@@ -78,10 +78,10 @@ const HelpCenter = () => {
                     Can&apos;t find what you&apos;re looking for? Our friendly support team is always ready to assist you.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                    <Link href="/contact-us" className="px-8 py-4 bg-white text-orange-500 font-bold rounded-2xl hover:bg-orange-50 transition-all flex items-center gap-2">
+                    <Link href="/contact-us" className="px-8 py-4 bg-slate-50 dark:bg-white text-orange-500 font-bold rounded-2xl hover:bg-orange-50 transition-all flex items-center gap-2">
                         <MessageCircle size={20} /> Chat with Support
                     </Link>
-                    <a href="mailto:support@skillbridge.com" className="px-8 py-4 bg-white/20 backdrop-blur-md text-white font-bold rounded-2xl hover:bg-white/30 transition-all border border-white/30 inline-block">
+                    <a href="mailto:support@skillbridge.com" className="px-8 py-4 bg-white dark:bg-white/20 backdrop-blur-md text-orange-500 dark:text-white font-bold rounded-2xl hover:bg-slate-50 dark:hover:bg-white/30 transition-all border border-gray-200 dark:border-white/30 inline-block">
                         Email Us Directly
                     </a>
                 </div>

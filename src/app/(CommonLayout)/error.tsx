@@ -18,7 +18,7 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center p-8 bg-transparent text-white relative overflow-hidden font-mono">
+    <div className="min-h-[70vh] flex flex-col items-center justify-center p-8 bg-transparent text-gray-900 dark:text-white relative overflow-hidden font-mono">
       {/* Cinematic Pulse Background Layer */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/10 blur-[150px] rounded-full pointer-events-none animate-pulse" />
@@ -28,9 +28,9 @@ export default function Error({
       {/* Hero Visual Unit */}
       <div className="relative mb-14 group">
         <div className="absolute -inset-10 border border-red-500/20 rounded-full animate-[spin_10s_linear_infinite]" />
-        <div className="absolute -inset-8 border border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
+        <div className="absolute -inset-8 border border-gray-300 dark:border-white/5 rounded-full animate-[spin_15s_linear_infinite_reverse]" />
         
-        <div className="relative bg-zinc-900 border border-red-500/50 p-8 rounded-3xl shadow-2xl shadow-red-500/20">
+        <div className="relative bg-white dark:bg-zinc-900 border border-red-500/50 p-8 rounded-3xl shadow-2xl shadow-red-500/20">
           <div className="relative">
              <AlertCircle className="w-16 h-16 text-red-500 animate-bounce" />
              <div className="absolute top-0 right-0 h-4 w-4 bg-red-500 rounded-full animate-ping" />
@@ -41,7 +41,7 @@ export default function Error({
       {/* Message and Context */}
       <div className="max-w-xl text-center space-y-8 relative z-10">
         <div className="space-y-4">
-           <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-white/90">
+           <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-gray-900 dark:text-white/90">
              Synchronization <span className="text-red-500 drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]">Failed</span>
            </h1>
            <div className="flex justify-center gap-2 items-center opacity-30 select-none">
@@ -55,13 +55,13 @@ export default function Error({
         </p>
 
         {/* Technical Logs Reveal (Styled as a code block) */}
-        <div className="bg-zinc-950/80 border border-zinc-800 p-6 rounded-2xl font-mono text-left space-y-2 group/log max-w-lg mx-auto shadow-inner relative overflow-hidden backdrop-blur-md">
+        <div className="bg-gray-100 dark:bg-zinc-950/80 border border-gray-300 dark:border-zinc-800 p-6 rounded-2xl font-mono text-left space-y-2 group/log max-w-lg mx-auto shadow-inner relative overflow-hidden backdrop-blur-md">
            <div className="absolute top-0 left-0 w-1 h-full bg-red-500/30 group-hover/log:bg-red-500/80 transition-all duration-500" />
            <p className="text-xs text-red-400 font-bold uppercase tracking-widest flex items-center gap-2">
              Diagnostic Summary
            </p>
-           <div className="h-px bg-zinc-800 w-full mb-3" />
-           <p className="text-[11px] text-zinc-300 leading-relaxed font-mono">
+           <div className="h-px bg-gray-300 dark:bg-zinc-800 w-full mb-3" />
+           <p className="text-[11px] text-gray-700 dark:text-zinc-300 leading-relaxed font-mono">
              {error.message || "An unexpected error occurred. No further stack trace available in secure mode."}
            </p>
         </div>
@@ -77,7 +77,7 @@ export default function Error({
           </Button>
           
           <Link href="/">
-            <button className="flex items-center gap-3 text-zinc-500 hover:text-white font-black uppercase tracking-[0.2em] text-[10px] transition-all group">
+            <button className="flex items-center gap-3 text-zinc-500 hover:text-gray-900 dark:hover:text-white font-black uppercase tracking-[0.2em] text-[10px] transition-all group">
               <Home size={16} /> 
               Core Terminal
             </button>

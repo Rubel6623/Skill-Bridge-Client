@@ -142,7 +142,7 @@ export default function AdminManageBlogCategoriesPage() {
                 <Plus size={20} strokeWidth={3} className="mr-2" /> Create Category
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] rounded-[2.5rem] border border-border shadow-2xl overflow-hidden p-0 bg-[#0d0d1a]">
+            <DialogContent className="sm:max-w-[425px] rounded-[2.5rem] border border-gray-200 dark:border-border shadow-lg dark:shadow-2xl overflow-hidden p-0 bg-white dark:bg-[#0d0d1a]">
                <div className="bg-orange-500 h-1.5 w-full shadow-[0_0_20px_rgba(249,115,22,0.3)]" />
                <div className="p-10 space-y-8">
                  <DialogHeader>
@@ -157,7 +157,7 @@ export default function AdminManageBlogCategoriesPage() {
                        <input 
                          required
                          type="text" 
-                         className="w-full bg-accent/30 dark:bg-white/5 border border-border rounded-2xl px-6 py-4 outline-none focus:border-orange-500/50 font-bold text-foreground transition-all"
+                         className="w-full bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-border rounded-2xl px-6 py-4 outline-none focus:border-orange-500/50 font-bold text-gray-900 dark:text-foreground transition-all"
                          placeholder="e.g. Theoretical Framework"
                          value={formData.name}
                          onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -191,8 +191,8 @@ export default function AdminManageBlogCategoriesPage() {
           </div>
         ) : filteredCategories.length > 0 ? (
           <Table>
-            <TableHeader className="bg-accent/10 dark:bg-white/2">
-              <TableRow className="border-border/50">
+            <TableHeader className="bg-gray-100 dark:bg-white/2">
+              <TableRow className="border-gray-200 dark:border-border/50">
                 <TableHead className="text-muted-foreground uppercase text-[10px] font-black tracking-[0.4em] px-10 py-6">Classification Domain</TableHead>
                 <TableHead className="text-muted-foreground uppercase text-[10px] font-black tracking-[0.4em]">Manuscript Volume</TableHead>
                 <TableHead className="text-right text-muted-foreground uppercase text-[10px] font-black tracking-[0.4em] px-10">Operations</TableHead>
@@ -200,7 +200,7 @@ export default function AdminManageBlogCategoriesPage() {
             </TableHeader>
             <TableBody>
               {filteredCategories.map((category: any) => (
-                <TableRow key={category.id} className="border-border/50 hover:bg-accent/30 dark:bg-white/5 transition-colors group">
+                <TableRow key={category.id} className="border-gray-200 dark:border-border/50 hover:bg-gray-100 dark:bg-white/5 transition-colors group">
                   <TableCell className="px-10 py-8 font-black text-foreground text-lg">
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 border border-orange-500/20 group-hover:scale-110 transition-transform">
@@ -235,9 +235,9 @@ export default function AdminManageBlogCategoriesPage() {
             </TableBody>
           </Table>
         ) : (
-          <div className="py-32 flex flex-col items-center gap-8 text-center border-4 border-dotted border-border/50">
-             <div className="bg-accent/30 dark:bg-white/5 p-8 rounded-full border border-border shadow-2xl">
-                <Tag className="w-16 h-16 text-gray-700" />
+          <div className="py-32 flex flex-col items-center gap-8 text-center border-4 border-dotted border-gray-200 dark:border-border/50">
+             <div className="bg-gray-50 dark:bg-white/5 p-8 rounded-full border border-gray-200 dark:border-border shadow-lg dark:shadow-2xl">
+                <Tag className="w-16 h-16 text-gray-400 dark:text-gray-700" />
              </div>
              <div>
                 <h3 className="text-3xl font-black text-foreground uppercase tracking-tighter">Database Void</h3>

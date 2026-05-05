@@ -12,12 +12,12 @@ export default function Loading() {
       <div className="relative group">
         {/* Orbital Rings - Elegant CSS animations */}
         <div className="absolute -inset-10 border border-orange-500/10 rounded-full animate-[spin_8s_linear_infinite]" />
-        <div className="absolute -inset-8 border border-white/5 rounded-full animate-[spin_12s_linear_infinite_reverse]" />
+        <div className="absolute -inset-8 border border-gray-300 dark:border-white/5 rounded-full animate-[spin_12s_linear_infinite_reverse]" />
         
         {/* Main Spinner */}
         <div className="relative w-32 h-32 md:w-36 md:h-36 flex items-center justify-center">
           <div className="absolute inset-0 border-t-2 border-l-2 border-orange-500/80 rounded-full animate-spin shadow-[0_0_15px_rgba(249,115,22,0.4)]" />
-          <div className="absolute inset-4 border-b-2 border-r-2 border-zinc-800 rounded-full animate-[spin_1.5s_linear_infinite_reverse]" />
+          <div className="absolute inset-4 border-b-2 border-r-2 border-gray-300 dark:border-zinc-800 rounded-full animate-[spin_1.5s_linear_infinite_reverse]" />
           
           {/* Logo or Brand Element in Center */}
           <div className="text-orange-500 font-black text-2xl tracking-tighter drop-shadow-lg select-none animate-sbPulse">

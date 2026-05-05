@@ -109,7 +109,7 @@ export default function AdminManageCategoriesPage() {
   )
 
   return (
-    <div className="p-6 space-y-8 bg-[#fdfdfd] dark:bg-black min-h-screen">
+    <div className="p-6 space-y-8 bg-slate-50 dark:bg-[#0a0a14] min-h-screen">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter mb-2">Category Ecosystem</h1>
@@ -140,11 +140,11 @@ export default function AdminManageCategoriesPage() {
                 <Plus size={18} strokeWidth={3} /> Create Category
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px] rounded-[2rem] border-none shadow-2xl overflow-hidden p-0 dark:bg-zinc-950">
+            <DialogContent className="sm:max-w-[425px] rounded-[2rem] border border-gray-200 dark:border-zinc-800 shadow-lg dark:shadow-2xl overflow-hidden p-0 bg-white dark:bg-zinc-950">
                <div className="bg-orange-500 h-2 w-full" />
                <div className="p-8 space-y-6">
                  <DialogHeader>
-                    <DialogTitle className="text-2xl font-black tracking-tighter uppercase">
+                    <DialogTitle className="text-2xl font-black tracking-tighter uppercase text-gray-900 dark:text-zinc-100">
                         {editingCategory ? "Update Category" : "Build New Category"}
                     </DialogTitle>
                  </DialogHeader>
@@ -155,7 +155,7 @@ export default function AdminManageCategoriesPage() {
                        <input 
                          required
                          type="text" 
-                         className="w-full bg-zinc-100 dark:bg-zinc-900 border-none rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-orange-500 font-bold"
+                         className="w-full bg-gray-100 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-orange-500 font-bold text-gray-900 dark:text-white transition-all"
                          placeholder="e.g. Machine Learning"
                          value={formData.name}
                          onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -166,7 +166,7 @@ export default function AdminManageCategoriesPage() {
                        <input 
                          required
                          type="text" 
-                         className="w-full bg-zinc-100 dark:bg-zinc-900 border-none rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-orange-500 font-bold"
+                         className="w-full bg-gray-100 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-orange-500 font-bold text-gray-900 dark:text-white transition-all"
                          placeholder="e.g. machine-learning"
                          value={formData.slug}
                          onChange={(e) => setFormData({...formData, slug: e.target.value})}
@@ -176,7 +176,7 @@ export default function AdminManageCategoriesPage() {
                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-500">Thumbnail Image URL</label>
                        <input 
                          type="text" 
-                         className="w-full bg-zinc-100 dark:bg-zinc-900 border-none rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-orange-500 font-bold"
+                         className="w-full bg-gray-100 dark:bg-zinc-900 border border-gray-200 dark:border-zinc-800 rounded-2xl px-5 py-4 outline-none focus:ring-2 focus:ring-orange-500 font-bold text-gray-900 dark:text-white transition-all"
                          placeholder="https://images.unsplash.com/..."
                          value={formData.thumbnail}
                          onChange={(e) => setFormData({...formData, thumbnail: e.target.value})}
@@ -220,14 +220,14 @@ export default function AdminManageCategoriesPage() {
                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
 
-              <div className="px-4 pb-4">
+                <div className="px-4 pb-4">
                 <div className="flex items-center gap-2 mb-2">
                    <div className="w-8 h-8 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-500">
                       <Tag size={14} />
                    </div>
-                   <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Hub ID: {category.slug}</span>
+                   <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 dark:text-zinc-400">Hub ID: {category.slug}</span>
                 </div>
-                <h3 className="text-2xl font-black text-zinc-900 dark:text-zinc-100 tracking-tighter leading-none group-hover:text-orange-500 transition-colors uppercase truncate">
+                <h3 className="text-2xl font-black text-gray-900 dark:text-zinc-100 tracking-tighter leading-none group-hover:text-orange-500 transition-colors uppercase truncate">
                     {category.name}
                 </h3>
               </div>
@@ -253,10 +253,10 @@ export default function AdminManageCategoriesPage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-32 bg-zinc-50 dark:bg-zinc-900/40 rounded-[4rem] border-2 border-dashed border-zinc-200 dark:border-zinc-800">
-           <ImageIcon className="w-20 h-20 text-zinc-300 mx-auto mb-6" />
-           <h3 className="text-3xl font-black text-zinc-900 dark:text-zinc-100 uppercase tracking-tighter">No hubs found</h3>
-           <p className="text-zinc-500 mt-2 font-medium">Create your first category hub to start populating the platform.</p>
+        <div className="text-center py-32 bg-gray-50 dark:bg-zinc-900/40 rounded-[4rem] border-2 border-dashed border-gray-200 dark:border-zinc-800">
+           <ImageIcon className="w-20 h-20 text-gray-300 dark:text-zinc-300 mx-auto mb-6" />
+           <h3 className="text-3xl font-black text-gray-900 dark:text-zinc-100 uppercase tracking-tighter">No hubs found</h3>
+           <p className="text-gray-500 dark:text-zinc-500 mt-2 font-medium">Create your first category hub to start populating the platform.</p>
            <Button 
                 onClick={() => setIsDialogOpen(true)}
                 className="mt-10 bg-black dark:bg-white text-white dark:text-black rounded-2xl h-14 px-10 font-black uppercase text-xs tracking-widest shadow-2xl transition-transform hover:scale-105"

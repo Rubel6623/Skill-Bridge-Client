@@ -159,7 +159,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="p-8 space-y-10 max-w-[1600px] mx-auto bg-transparent min-h-screen text-white">
+    <div className="p-8 space-y-10 max-w-[1600px] mx-auto bg-transparent min-h-screen text-gray-900 dark:text-white">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
@@ -178,7 +178,7 @@ export default function AdminDashboard() {
             </Button>
           </Link>
           <Link href="/dashboard/manage-bookings">
-            <Button variant="outline" className="rounded-2xl gap-2 font-bold px-8 py-6 border-white/10 hover:bg-white/5 transition-all">
+            <Button variant="outline" className="rounded-2xl gap-2 font-bold px-8 py-6 border-gray-300 dark:border-white/10 hover:bg-gray-100 dark:hover:bg-white/5 transition-all text-gray-900 dark:text-white">
               Live Monitoring <ArrowUpRight className="w-4 h-4" />
             </Button>
           </Link>
@@ -213,7 +213,7 @@ export default function AdminDashboard() {
         <div className="xl:col-span-2 space-y-8">
           
           {/* Booking Trend Chart */}
-          <div className="rounded-[3rem] border border-white/5 bg-white/[0.02] p-10 shadow-2xl">
+          <div className="rounded-[3rem] border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-10 shadow-lg dark:shadow-2xl">
             <div className="flex items-center justify-between mb-10">
                <div>
                   <h3 className="text-2xl font-black mb-1">Booking Velocity</h3>
@@ -268,7 +268,7 @@ export default function AdminDashboard() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* User Distribution Pie Chart */}
-            <div className="rounded-[3rem] border border-white/5 bg-white/[0.02] p-10 shadow-2xl">
+            <div className="rounded-[3rem] border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-10 shadow-lg dark:shadow-2xl">
                <h3 className="text-xl font-black mb-8 flex items-center gap-3">
                   <Users className="w-5 h-5 text-blue-400" /> User Demographics
                </h3>
@@ -305,7 +305,7 @@ export default function AdminDashboard() {
             </div>
 
             {/* Booking Status Bar Chart */}
-            <div className="rounded-[3rem] border border-white/5 bg-white/[0.02] p-10 shadow-2xl">
+            <div className="rounded-[3rem] border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-10 shadow-lg dark:shadow-2xl">
                <h3 className="text-xl font-black mb-8 flex items-center gap-3">
                   <ShieldCheck className="w-5 h-5 text-emerald-400" /> Operational Status
                </h3>
@@ -334,7 +334,7 @@ export default function AdminDashboard() {
         <div className="space-y-8">
           
           {/* Recent Activity */}
-          <div className="rounded-[3rem] border border-white/5 bg-white/[0.02] p-8 shadow-2xl">
+          <div className="rounded-[3rem] border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] p-8 shadow-lg dark:shadow-2xl">
             <div className="flex items-center justify-between mb-8 px-2">
                <h3 className="text-xl font-black flex items-center gap-3">
                   <Layers className="w-5 h-5 text-orange-500" /> Activity Log
@@ -346,7 +346,7 @@ export default function AdminDashboard() {
             
             <div className="space-y-4">
               {recentBookings.map((booking, idx) => (
-                <div key={booking.id || idx} className="p-4 rounded-3xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-all group">
+                <div key={booking.id || idx} className="p-4 rounded-3xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/5 hover:bg-gray-100 dark:hover:bg-white/[0.05] transition-all group">
                    <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center font-black text-orange-500 border border-orange-500/20 group-hover:scale-110 transition-transform">
                          {booking.student?.name?.[0] || 'S'}
@@ -367,7 +367,7 @@ export default function AdminDashboard() {
           </div>
 
           {/* Quick Actions / Links */}
-          <div className="rounded-[3rem] border border-white/5 bg-gradient-to-br from-orange-500/10 to-transparent p-10 shadow-2xl">
+          <div className="rounded-[3rem] border border-gray-200 dark:border-white/5 bg-white dark:bg-gradient-to-br dark:from-orange-500/10 dark:to-transparent p-10 shadow-lg dark:shadow-2xl">
              <h3 className="text-xl font-black mb-6">Internal Systems</h3>
              <div className="grid grid-cols-1 gap-3">
                 {[
@@ -377,12 +377,12 @@ export default function AdminDashboard() {
                   { label: "Blog Editorial", href: "/dashboard/manage-blogs", icon: Activity },
                 ].map((action, i) => (
                   <Link key={i} href={action.href}>
-                    <button className="w-full p-4 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all flex items-center justify-between group">
+                    <button className="w-full p-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/5 hover:bg-gray-100 dark:hover:bg-white/10 hover:border-gray-300 dark:hover:border-white/20 transition-all flex items-center justify-between group">
                        <div className="flex items-center gap-3">
                           <action.icon className="w-4 h-4 text-orange-500" />
                           <span className="text-xs font-black uppercase tracking-widest">{action.label}</span>
                        </div>
-                       <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-white transition-colors" />
+                       <ArrowUpRight className="w-4 h-4 text-gray-500 dark:text-muted-foreground group-hover:text-gray-900 dark:group-hover:text-white transition-colors" />
                     </button>
                   </Link>
                 ))}

@@ -18,10 +18,10 @@ const TutorsPageContent = dynamic(() => import("./TutorsPageContent"), {
 export default function TutorsPage() {
   
   return (
-    <main className="min-h-screen bg-gradient-to-br from-[#1e293b] via-[#11181c] to-[#0f172a]">
+    <main className="min-h-screen bg-slate-50 dark:bg-gradient-to-br dark:from-[#1e293b] dark:via-[#11181c] dark:to-[#0f172a]">
     <Suspense
         fallback={
-          <div className="min-h-screen flex flex-col items-center justify-center text-white">
+          <div className="min-h-screen flex flex-col items-center justify-center text-gray-900 dark:text-white">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-500"></div>
             <p className="ml-4 mt-4 font-serif">Loading expert tutors...</p>
           </div>

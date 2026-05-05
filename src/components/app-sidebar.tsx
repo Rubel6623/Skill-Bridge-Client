@@ -183,8 +183,8 @@ export function AppSidebar({userRole, ...props }: AppSidebarProps) {
   }
 
   return (
-    <Sidebar collapsible="icon" {...props} className="border-r border-white/5 bg-[#0a0a14]">
-      <SidebarHeader className="h-20 flex items-center justify-center border-b border-white/5 bg-[#0d0d1a]/50">
+    <Sidebar collapsible="icon" {...props} className="border-r border-gray-200 dark:border-white/5 bg-white dark:bg-[#0a0a14]">
+      <SidebarHeader className="h-20 flex items-center justify-center border-b border-gray-200 dark:border-white/5 bg-slate-50 dark:bg-[#0d0d1a]/50">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild className="hover:bg-transparent focus:bg-transparent">
@@ -193,7 +193,7 @@ export function AppSidebar({userRole, ...props }: AppSidebarProps) {
                   <GalleryVerticalEnd className="size-6" />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-black text-xl tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+                  <span className="truncate font-black text-xl tracking-tight bg-gradient-to-r from-gray-900 to-gray-500 dark:from-white dark:to-white/60 bg-clip-text text-transparent">
                     SkillBridge
                   </span>
                   <span className="truncate text-[10px] font-bold uppercase tracking-widest text-orange-500/80">
@@ -208,7 +208,7 @@ export function AppSidebar({userRole, ...props }: AppSidebarProps) {
       <SidebarContent className="py-4">
         <NavMain items={navItems!} />
       </SidebarContent>
-      <SidebarFooter className="border-t border-white/5 p-4">
+      <SidebarFooter className="border-t border-gray-200 dark:border-white/5 p-4">
         {user && (
           <NavUser 
             user={{

@@ -17,8 +17,8 @@ export default function Settings() {
   return (
     <div className="max-w-6xl mx-auto py-8 px-4">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-white mb-2">Settings</h1>
-        <p className="text-gray-400">Manage your account settings and preferences.</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Settings</h1>
+        <p className="text-gray-500 dark:text-gray-400">Manage your account settings and preferences.</p>
       </div>
 
       <div className="flex flex-col md:flex-row gap-8">
@@ -33,7 +33,7 @@ export default function Settings() {
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   activeTab === tab.id
                     ? "bg-orange-500 text-white shadow-lg shadow-orange-500/20"
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                    : "text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5"
                 }`}
               >
                 <Icon size={18} />
@@ -44,31 +44,31 @@ export default function Settings() {
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8">
+        <div className="flex-1 bg-white dark:bg-white/5 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-3xl p-8 shadow-lg dark:shadow-2xl">
           {activeTab === "profile" && (
             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
               <div>
-                <h2 className="text-xl font-bold text-white mb-6">Profile Information</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Profile Information</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-1">Full Name</label>
+                    <label className="text-xs font-semibold text-gray-400 dark:text-gray-400 uppercase tracking-wider px-1">Full Name</label>
                     <div className="relative">
-                      <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                      <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                       <input 
                         type="text" 
                         placeholder="Your Name" 
-                        className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm text-white focus:border-orange-500/50 outline-none transition-all"
+                        className="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm text-gray-900 dark:text-white focus:border-orange-500/50 outline-none transition-all"
                       />
                     </div>
                   </div>
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-1">Email Address</label>
+                    <label className="text-xs font-semibold text-gray-400 dark:text-gray-400 uppercase tracking-wider px-1">Email Address</label>
                     <div className="relative">
-                      <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                      <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                       <input 
                         type="email" 
                         placeholder="email@example.com" 
-                        className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm text-white focus:border-orange-500/50 outline-none transition-all"
+                        className="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm text-gray-900 dark:text-white focus:border-orange-500/50 outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -76,16 +76,16 @@ export default function Settings() {
               </div>
 
               <div>
-                <h2 className="text-xl font-bold text-white mb-6">Change Password</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Change Password</h2>
                 <div className="grid grid-cols-1 gap-6">
                   <div className="space-y-2">
-                    <label className="text-xs font-semibold text-gray-400 uppercase tracking-wider px-1">New Password</label>
+                    <label className="text-xs font-semibold text-gray-400 dark:text-gray-400 uppercase tracking-wider px-1">New Password</label>
                     <div className="relative">
-                      <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                      <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                       <input 
                         type="password" 
                         placeholder="••••••••" 
-                        className="w-full bg-black/20 border border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm text-white focus:border-orange-500/50 outline-none transition-all"
+                        className="w-full bg-gray-50 dark:bg-black/20 border border-gray-200 dark:border-white/10 rounded-xl py-3 pl-12 pr-4 text-sm text-gray-900 dark:text-white focus:border-orange-500/50 outline-none transition-all"
                       />
                     </div>
                   </div>
@@ -102,12 +102,12 @@ export default function Settings() {
 
           {activeTab !== "profile" && (
             <div className="h-64 flex flex-col items-center justify-center text-center space-y-4 animate-in fade-in duration-500">
-              <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center text-gray-500">
+              <div className="w-16 h-16 rounded-full bg-gray-50 dark:bg-white/5 flex items-center justify-center text-gray-400 dark:text-gray-500">
                 <Settings2 size={32} />
               </div>
               <div>
-                <p className="text-white font-semibold">Coming Soon</p>
-                <p className="text-sm text-gray-400">This settings category is currently being developed.</p>
+                <p className="text-gray-900 dark:text-white font-semibold">Coming Soon</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">This settings category is currently being developed.</p>
               </div>
             </div>
           )}

@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 const BLOGS_PER_PAGE = 8;
 
 const BlogCard = ({ blog }: { blog: any }) => (
-  <div className="group flex flex-col overflow-hidden rounded-[2rem] bg-white/[0.02] border border-white/10 hover:border-orange-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/5 hover:-translate-y-1 h-full">
+  <div className="group flex flex-col overflow-hidden rounded-[2rem] bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 hover:border-orange-500/40 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/5 hover:-translate-y-1 h-full shadow-sm dark:shadow-none">
     <div className="relative h-52 w-full overflow-hidden flex-shrink-0">
       <Image
         src={blog.thumbnail || "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2070&auto=format&fit=crop"}
@@ -28,7 +28,7 @@ const BlogCard = ({ blog }: { blog: any }) => (
       </div>
     </div>
     <div className="flex flex-col flex-1 p-6">
-      <div className="flex items-center gap-4 text-xs text-white/30 mb-3 font-bold uppercase tracking-widest">
+      <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-white/30 mb-3 font-bold uppercase tracking-widest">
         <span className="flex items-center gap-1.5">
           <Calendar size={12} className="text-orange-500" />
           {new Date(blog.createdAt).toLocaleDateString()}
@@ -38,10 +38,10 @@ const BlogCard = ({ blog }: { blog: any }) => (
           {blog.author?.name || "SkillBridge"}
         </span>
       </div>
-      <h2 className="text-lg font-black text-white line-clamp-2 group-hover:text-orange-400 transition-colors mb-3 tracking-tight leading-tight flex-1">
+      <h2 className="text-lg font-black text-gray-900 dark:text-white line-clamp-2 group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors mb-3 tracking-tight leading-tight flex-1">
         {blog.title}
       </h2>
-      <p className="text-white/40 text-sm line-clamp-2 mb-5 leading-relaxed">
+      <p className="text-gray-600 dark:text-white/40 text-sm line-clamp-2 mb-5 leading-relaxed">
         {blog.content?.slice(0, 120)}...
       </p>
       <Link
@@ -55,14 +55,14 @@ const BlogCard = ({ blog }: { blog: any }) => (
 );
 
 const SkeletonCard = () => (
-  <div className="rounded-[2rem] bg-white/[0.02] border border-white/10 overflow-hidden animate-pulse">
-    <div className="h-52 bg-white/5" />
+  <div className="rounded-[2rem] bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 overflow-hidden animate-pulse shadow-sm dark:shadow-none">
+    <div className="h-52 bg-slate-100 dark:bg-white/5" />
     <div className="p-6 space-y-3">
-      <div className="h-3 bg-white/5 rounded w-1/2" />
-      <div className="h-5 bg-white/5 rounded w-full" />
-      <div className="h-5 bg-white/5 rounded w-3/4" />
-      <div className="h-3 bg-white/5 rounded w-full" />
-      <div className="h-3 bg-white/5 rounded w-2/3" />
+      <div className="h-3 bg-slate-100 dark:bg-white/5 rounded w-1/2" />
+      <div className="h-5 bg-slate-100 dark:bg-white/5 rounded w-full" />
+      <div className="h-5 bg-slate-100 dark:bg-white/5 rounded w-3/4" />
+      <div className="h-3 bg-slate-100 dark:bg-white/5 rounded w-full" />
+      <div className="h-3 bg-slate-100 dark:bg-white/5 rounded w-2/3" />
     </div>
   </div>
 );
@@ -122,17 +122,17 @@ export default function BlogPage() {
   }, [searchTerm, selectedCategory, sortBy]);
 
   return (
-    <div className="py-20 min-h-screen bg-transparent text-white">
+    <div className="py-20 min-h-screen bg-slate-50 dark:bg-[#0a0a0f] text-gray-900 dark:text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-orange-500/30 bg-orange-500/10 text-orange-400 text-[10px] font-black tracking-[0.3em] uppercase mb-6">
             <BookOpen size={12} /> Knowledge Hub
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-6">
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-none mb-6 text-gray-900 dark:text-white">
             Insightful <span className="bg-gradient-to-r from-orange-400 to-purple-500 bg-clip-text text-transparent">Articles</span>
           </h1>
-          <p className="text-white/40 text-lg max-w-2xl mx-auto font-medium italic">
+          <p className="text-gray-600 dark:text-white/40 text-lg max-w-2xl mx-auto font-medium italic">
             Expert insights, tutorials, and thought leadership from top educators in the SkillBridge ecosystem.
           </p>
         </div>
@@ -140,24 +140,24 @@ export default function BlogPage() {
         {/* Search + Sort Controls */}
         <div className="flex flex-col md:flex-row gap-4 mb-10">
           <div className="relative flex-1 group">
-            <Search className="absolute left-5 top-1/2 -translate-y-1/2 size-4 text-white/30 group-focus-within:text-orange-500 transition-colors" />
+            <Search className="absolute left-5 top-1/2 -translate-y-1/2 size-4 text-gray-400 dark:text-white/30 group-focus-within:text-orange-500 transition-colors" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search articles, topics, or authors..."
-              className="w-full pl-14 pr-6 py-5 bg-white/[0.03] border border-white/10 rounded-2xl text-sm font-bold text-white placeholder:text-white/20 focus:outline-none focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/20 transition-all tracking-wide"
+              className="w-full pl-14 pr-6 py-5 bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-2xl text-sm font-bold text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-white/20 focus:outline-none focus:border-orange-500/50 focus:ring-2 focus:ring-orange-500/20 transition-all tracking-wide shadow-sm dark:shadow-none"
             />
           </div>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-6 py-5 bg-white/[0.03] border border-white/10 rounded-2xl text-sm font-black text-white/70 focus:outline-none focus:border-orange-500/50 transition-all cursor-pointer appearance-none tracking-widest uppercase md:w-56"
+            className="px-6 py-5 bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 rounded-2xl text-sm font-black text-gray-700 dark:text-white/70 focus:outline-none focus:border-orange-500/50 transition-all cursor-pointer appearance-none tracking-widest uppercase md:w-56 shadow-sm dark:shadow-none"
           >
-            <option value="newest" className="bg-[#0d0d1a]">Newest First</option>
-            <option value="oldest" className="bg-[#0d0d1a]">Oldest First</option>
-            <option value="title-asc" className="bg-[#0d0d1a]">Title: A → Z</option>
-            <option value="title-desc" className="bg-[#0d0d1a]">Title: Z → A</option>
+            <option value="newest" className="bg-white dark:bg-[#0d0d1a]">Newest First</option>
+            <option value="oldest" className="bg-white dark:bg-[#0d0d1a]">Oldest First</option>
+            <option value="title-asc" className="bg-white dark:bg-[#0d0d1a]">Title: A → Z</option>
+            <option value="title-desc" className="bg-white dark:bg-[#0d0d1a]">Title: Z → A</option>
           </select>
         </div>
 
@@ -168,7 +168,7 @@ export default function BlogPage() {
             className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${
               selectedCategory === "all"
                 ? "bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/20"
-                : "bg-white/5 border-white/10 text-white/50 hover:border-white/30 hover:text-white"
+                : "bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/50 hover:border-gray-300 dark:hover:border-white/30 hover:text-gray-900 dark:hover:text-white"
             }`}
           >
             All Posts {!loading && `(${blogs.length})`}
@@ -180,7 +180,7 @@ export default function BlogPage() {
               className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] transition-all border ${
                 selectedCategory === cat.id
                   ? "bg-orange-500 border-orange-500 text-white shadow-lg shadow-orange-500/20"
-                  : "bg-white/5 border-white/10 text-white/50 hover:border-white/30 hover:text-white"
+                  : "bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/50 hover:border-gray-300 dark:hover:border-white/30 hover:text-gray-900 dark:hover:text-white"
               }`}
             >
               {cat.name}
@@ -191,11 +191,11 @@ export default function BlogPage() {
         {/* Results info */}
         {!loading && (
           <div className="flex items-center justify-between mb-8">
-            <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.2em]">
+            <p className="text-gray-500 dark:text-white/30 text-[10px] font-black uppercase tracking-[0.2em]">
               {processedBlogs.length} article{processedBlogs.length !== 1 ? "s" : ""} found
             </p>
             {totalPages > 1 && (
-              <p className="text-white/30 text-[10px] font-black uppercase tracking-[0.2em]">
+              <p className="text-gray-500 dark:text-white/30 text-[10px] font-black uppercase tracking-[0.2em]">
                 Page {currentPage} of {totalPages}
               </p>
             )}
@@ -214,13 +214,13 @@ export default function BlogPage() {
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center py-32 gap-8 bg-white/[0.02] border border-dashed border-white/10 rounded-[3rem]">
-            <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
-              <BookOpen size={32} className="text-white/10" />
+          <div className="flex flex-col items-center justify-center py-32 gap-8 bg-white dark:bg-white/[0.02] border border-dashed border-gray-200 dark:border-white/10 rounded-[3rem] shadow-sm dark:shadow-none">
+            <div className="w-20 h-20 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-gray-200 dark:border-white/5">
+              <BookOpen size={32} className="text-gray-400 dark:text-white/10" />
             </div>
             <div className="text-center">
-              <h3 className="text-2xl font-black text-white uppercase tracking-tight">No Articles Found</h3>
-              <p className="text-white/40 mt-2 italic">Try a different search term or category.</p>
+              <h3 className="text-2xl font-black text-gray-900 dark:text-white uppercase tracking-tight">No Articles Found</h3>
+              <p className="text-gray-500 dark:text-white/40 mt-2 italic">Try a different search term or category.</p>
             </div>
             <Button
               onClick={() => { setSearchTerm(""); setSelectedCategory("all"); }}
@@ -237,7 +237,7 @@ export default function BlogPage() {
             <button
               onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
               disabled={currentPage === 1}
-              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-12 h-12 rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-500 dark:text-white/50 hover:bg-slate-50 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-sm dark:shadow-none"
             >
               <ChevronLeft size={18} />
             </button>
@@ -248,7 +248,7 @@ export default function BlogPage() {
                 className={`w-12 h-12 rounded-xl text-sm font-black transition-all ${
                   currentPage === i + 1
                     ? "bg-orange-500 text-white shadow-lg shadow-orange-500/30"
-                    : "bg-white/5 border border-white/10 text-white/50 hover:bg-white/10 hover:text-white"
+                    : "bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-500 dark:text-white/50 hover:bg-slate-50 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white shadow-sm dark:shadow-none"
                 }`}
               >
                 {i + 1}
@@ -257,7 +257,7 @@ export default function BlogPage() {
             <button
               onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
               disabled={currentPage === totalPages}
-              className="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/50 hover:bg-white/10 hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+              className="w-12 h-12 rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-gray-500 dark:text-white/50 hover:bg-slate-50 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-sm dark:shadow-none"
             >
               <ChevronRight size={18} />
             </button>

@@ -30,32 +30,32 @@ export default function PricingPage() {
   ]
 
   return (
-    <main className="min-h-screen bg-[#0a0a0f] text-white pt-24 pb-16 relative overflow-hidden">
+    <main className="min-h-screen bg-slate-50 dark:bg-[#0a0a0f] text-gray-900 dark:text-white pt-24 pb-16 relative overflow-hidden">
       {/* Background Gradients */}
       <div className="absolute top-[-15%] right-[-5%] w-[45%] h-[45%] bg-blue-600/10 blur-[130px] rounded-full" />
       <div className="absolute bottom-[-15%] left-[-5%] w-[45%] h-[45%] bg-orange-600/10 blur-[130px] rounded-full" />
 
       <div className="container mx-auto px-4 max-w-7xl relative z-10">
         <div className="text-center space-y-6 mb-20 animate-in fade-in slide-in-from-bottom-5 duration-700">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-emerald-500 text-xs font-black uppercase tracking-widest shadow-xl">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 text-emerald-500 text-xs font-black uppercase tracking-widest shadow-xl">
              <Gift className="w-4 h-4" />
              <span>First Session 10% Off</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter">
-            Pricing that Makes <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-white to-orange-500">Sense</span>
+            Pricing that Makes <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-gray-900 to-orange-600 dark:from-blue-500 dark:via-white dark:to-orange-500">Sense</span>
           </h1>
-          <p className="text-xl text-zinc-400 max-w-2xl mx-auto font-medium leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-zinc-400 max-w-2xl mx-auto font-medium leading-relaxed">
             Invest in your future with transparent, affordable pricing. No hidden fees, just high-quality education.
           </p>
           
           <div className="flex items-center justify-center gap-8 pt-4">
-             <div className="flex items-center gap-2">
-                <Shield className="w-5 h-5 text-zinc-500" />
-                <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">Secure Payments</span>
+              <div className="flex items-center gap-2">
+                <Shield className="w-5 h-5 text-gray-400 dark:text-zinc-500" />
+                <span className="text-sm font-bold text-gray-500 dark:text-zinc-500 uppercase tracking-widest">Secure Payments</span>
              </div>
              <div className="flex items-center gap-2">
-                <Clock className="w-5 h-5 text-zinc-500" />
-                <span className="text-sm font-bold text-zinc-500 uppercase tracking-widest">Cancel Anytime</span>
+                <Clock className="w-5 h-5 text-gray-400 dark:text-zinc-500" />
+                <span className="text-sm font-bold text-gray-500 dark:text-zinc-500 uppercase tracking-widest">Cancel Anytime</span>
              </div>
           </div>
         </div>
@@ -66,8 +66,8 @@ export default function PricingPage() {
               key={i} 
               className={`relative rounded-[3rem] p-8 md:p-10 border-2 transition-all duration-500 group overflow-hidden h-full flex flex-col ${
                 tier.popular 
-                ? "bg-white/5 border-orange-500 shadow-[0_0_50px_rgba(249,115,22,0.15)] scale-105 z-20" 
-                : "bg-white/[0.02] border-white/10 hover:border-zinc-700 z-10"
+                ? "bg-white dark:bg-white/5 border-orange-500 shadow-[0_0_50px_rgba(249,115,22,0.15)] scale-105 z-20" 
+                : "bg-white dark:bg-white/[0.02] border-gray-200 dark:border-white/10 hover:border-gray-400 dark:hover:border-zinc-700 z-10 shadow-lg dark:shadow-none"
               }`}
             >
               {tier.popular && (
@@ -79,23 +79,23 @@ export default function PricingPage() {
               <div className="space-y-6 flex-1">
                 <div>
                   <h3 className="text-2xl font-black mb-2 tracking-tight transition-colors group-hover:text-orange-500 uppercase">{tier.name}</h3>
-                  <p className="text-zinc-500 text-sm font-medium leading-relaxed">{tier.description}</p>
+                  <p className="text-gray-500 dark:text-zinc-500 text-sm font-medium leading-relaxed">{tier.description}</p>
                 </div>
 
                 <div className="flex items-baseline gap-2">
-                  <span className="text-5xl font-black text-white tracking-tighter">${tier.price}</span>
-                  <span className="text-zinc-500 font-bold uppercase tracking-widest text-xs">/ average session</span>
+                  <span className="text-5xl font-black text-gray-900 dark:text-white tracking-tighter">${tier.price}</span>
+                  <span className="text-gray-500 dark:text-zinc-500 font-bold uppercase tracking-widest text-xs">/ average session</span>
                 </div>
 
                 <div className="space-y-4 pt-6">
                   {tier.features.map((feature, idx) => (
                     <div key={idx} className="flex items-center gap-3 group/feat">
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center border transition-all ${
-                        tier.popular ? "bg-orange-500 text-white border-orange-400" : "bg-white/10 text-zinc-400 border-white/5 group-hover/feat:bg-white group-hover/feat:text-black"
+                        tier.popular ? "bg-orange-500 text-white border-orange-400" : "bg-gray-100 dark:bg-white/10 text-gray-500 dark:text-zinc-400 border-gray-200 dark:border-white/5 group-hover/feat:bg-gray-900 dark:group-hover/feat:bg-white group-hover/feat:text-white dark:group-hover/feat:text-black"
                       }`}>
                          <Check size={12} className="stroke-[4px]" />
                       </div>
-                      <span className="text-sm font-bold text-zinc-300 group-hover/feat:text-white transition-colors">{feature}</span>
+                      <span className="text-sm font-bold text-gray-700 dark:text-zinc-300 group-hover/feat:text-gray-900 dark:group-hover/feat:text-white transition-colors">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -106,7 +106,7 @@ export default function PricingPage() {
                   <button className={`w-full py-5 rounded-2xl font-black transition-all flex items-center justify-center gap-2 group-hover:gap-4 ${
                     tier.popular 
                     ? "bg-orange-500 hover:bg-orange-600 text-white shadow-xl shadow-orange-500/20" 
-                    : "bg-white/10 hover:bg-white text-zinc-400 hover:text-black"
+                    : "bg-gray-100 dark:bg-white/10 hover:bg-gray-900 dark:hover:bg-white text-gray-600 dark:text-zinc-400 hover:text-white dark:hover:text-black"
                   }`}>
                     Get Started <ArrowRight size={20} className="transition-all" />
                   </button>
@@ -126,9 +126,9 @@ export default function PricingPage() {
                 { q: "Is there a free trial?", a: "Most of our tutors offer a free 15-minute consultation to discuss your learning goals before you book." },
                 { q: "How are tutors verified?", a: "Our tutors undergo a rigorous screening process, including identity checks, academic certification, and a demo lesson." }
               ].map((faq, i) => (
-                 <div key={i} className="p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] transition-all">
-                    <h4 className="font-black text-lg mb-3 tracking-tight text-white">{faq.q}</h4>
-                    <p className="text-sm font-medium text-zinc-500 leading-relaxed">{faq.a}</p>
+                 <div key={i} className="p-8 rounded-[2rem] bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-white/[0.05] transition-all shadow-sm dark:shadow-none">
+                    <h4 className="font-black text-lg mb-3 tracking-tight text-gray-900 dark:text-white">{faq.q}</h4>
+                    <p className="text-sm font-medium text-gray-500 dark:text-zinc-500 leading-relaxed">{faq.a}</p>
                  </div>
               ))}
            </div>

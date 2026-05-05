@@ -97,7 +97,7 @@ const ManageBlogsAdmin = () => {
           </div>
         ) : (
           <Table>
-            <TableHeader className="bg-accent/30 dark:bg-white/5">
+            <TableHeader className="bg-gray-100 dark:bg-white/5">
               <TableRow className="border-border/50">
                 <TableHead className="text-muted-foreground uppercase text-[10px] font-black tracking-widest px-8">Thumbnail</TableHead>
                 <TableHead className="text-muted-foreground uppercase text-[10px] font-black tracking-widest">Title & Category</TableHead>
@@ -109,7 +109,7 @@ const ManageBlogsAdmin = () => {
             </TableHeader>
             <TableBody>
               {blogs.map((blog) => (
-                <TableRow key={blog.id} className="border-border/50 hover:bg-accent/30 dark:bg-white/5 transition-colors group">
+                <TableRow key={blog.id} className="border-border/50 hover:bg-gray-100 dark:bg-white/5 transition-colors group">
                   <TableCell className="px-8 py-6">
                     <div className="relative h-14 w-24 rounded-2xl overflow-hidden border border-border shadow-lg group-hover:scale-110 transition-transform duration-500">
                       <Image 
