@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import { Search, Book, MessageCircle, HelpCircle, ArrowRight, UserPlus, GraduationCap, CreditCard } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 
@@ -77,12 +78,12 @@ const HelpCenter = () => {
                     Can&apos;t find what you&apos;re looking for? Our friendly support team is always ready to assist you.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
-                    <button className="px-8 py-4 bg-white text-orange-500 font-bold rounded-2xl hover:bg-orange-50 transition-all flex items-center gap-2">
+                    <Link href="/contact-us" className="px-8 py-4 bg-white text-orange-500 font-bold rounded-2xl hover:bg-orange-50 transition-all flex items-center gap-2">
                         <MessageCircle size={20} /> Chat with Support
-                    </button>
-                    <button className="px-8 py-4 bg-white/20 backdrop-blur-md text-white font-bold rounded-2xl hover:bg-white/30 transition-all border border-white/30">
+                    </Link>
+                    <a href="mailto:support@skillbridge.com" className="px-8 py-4 bg-white/20 backdrop-blur-md text-white font-bold rounded-2xl hover:bg-white/30 transition-all border border-white/30 inline-block">
                         Email Us Directly
-                    </button>
+                    </a>
                 </div>
            </div>
         </div>

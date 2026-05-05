@@ -16,6 +16,7 @@ import {
 import { getUser } from "../../services/auth";
 import {
   AudioWaveform,
+  Bell,
   BookOpen,
   Bot,
   Command,
@@ -27,6 +28,7 @@ import {
   SquareTerminal,
 } from "lucide-react"
 import Link from "next/link";
+import { DashboardUserNav } from "../../components/dashboard-user-nav";
 
 interface LayoutProps {
   children: React.ReactNode; // ✅ REQUIRED by Next.js
@@ -52,34 +54,67 @@ export default async function DashboardLayout({children, admin, student, tutor }
     <SidebarProvider>
       <AppSidebar userRole={user.role as "ADMIN" | "STUDENT" | "TUTOR"}/>
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
+        <header className="flex h-20 shrink-0 items-center justify-between gap-2 px-6 border-b border-white/5 bg-[#0a0a14]/40 backdrop-blur-md sticky top-0 z-10">
+          <div className="flex items-center gap-4">
+            <SidebarTrigger className="-ml-1 text-white hover:bg-white/10" />
             <Separator
               orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
+              className="h-6 bg-white/10"
             />
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Application Data
+                  <BreadcrumbLink href="/dashboard" className="text-white/60 hover:text-white transition-colors">
+                    Dashboard
                   </BreadcrumbLink>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
+                <BreadcrumbSeparator className="hidden md:block text-white/20" />
                 <BreadcrumbItem>
+                  <BreadcrumbPage className="text-white font-bold">
+                    {user.role.charAt(0) + user.role.slice(1).toLowerCase()} Overview
+                  </BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
           </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
 
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" >
-            {user?.role === "ADMIN" && admin}
-            {user?.role === "STUDENT" && student}
-            {user?.role === "TUTOR" && tutor}
-          
+          <div className="flex items-center gap-6">
+            <div className="hidden lg:flex flex-col items-end">
+              <span className="text-sm font-bold text-white">Welcome back, {user.name.split(' ')[0]}!</span>
+              <span className="text-[10px] uppercase tracking-widest text-orange-500 font-black">
+                {user.role} Account
+              </span>
+            </div>
+            
+            <Separator orientation="vertical" className="h-8 bg-white/10 hidden lg:block" />
+
+            <div className="flex items-center gap-4">
+               <button className="p-2.5 rounded-xl bg-white/5 text-white/60 hover:bg-white/10 hover:text-white transition-all relative">
+                <Bell size={20} />
+                <span className="absolute top-2 right-2 size-2 bg-orange-500 rounded-full border-2 border-[#0a0a14]" />
+              </button>
+
+              <DashboardUserNav user={{
+                name: user.name,
+                email: user.email,
+                avatar: (user as any).avatar
+              }} />
+            </div>
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 md:p-6 lg:p-8 bg-[#0a0a14]">
+          <div className="min-h-[calc(100vh-120px)] flex-1 rounded-[2.5rem] bg-gradient-to-br from-[#0d0d1a] to-[#0a0a14] border border-white/5 shadow-2xl relative overflow-hidden" >
+            {/* Subtle Inner Glow */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
+              <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-orange-500/10 blur-[100px]" />
+              <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-purple-500/10 blur-[100px]" />
+            </div>
+            
+            <div className="relative z-10 h-full">
+              {user?.role === "ADMIN" && admin}
+              {user?.role === "STUDENT" && student}
+              {user?.role === "TUTOR" && tutor}
+            </div>
           </div>
         </div>
       </SidebarInset>

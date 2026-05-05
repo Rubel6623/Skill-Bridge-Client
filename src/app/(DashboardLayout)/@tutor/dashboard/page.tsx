@@ -12,6 +12,7 @@ export default function TutorDashboard() {
   const [bookings, setBookings] = useState<any[]>([])
   const [reviews, setReviews] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -32,6 +33,7 @@ export default function TutorDashboard() {
       }
     }
     fetchDashboardData()
+    setMounted(true);
   }, [])
 
   const confirmedBookings = bookings.filter(b => b.status === 'CONFIRMED')
@@ -41,111 +43,124 @@ export default function TutorDashboard() {
     
   const averageRating = reviews.length > 0 
     ? (reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length).toFixed(1)
-    : "N/A"
+    : "0.0"
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <Loader2 className="w-10 h-10 animate-spin text-orange-500" />
+        <p className="font-black text-white/40 tracking-[0.3em] uppercase text-[10px]">Initializing Mentor Node...</p>
+      </div>
+    )
+  }
 
   return (
-    <div className="p-6 space-y-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="p-8 space-y-12 bg-transparent text-white animate-in fade-in duration-700">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className="text-3xl font-extrabold text-foreground mb-2 tracking-tight">Tutor Dashboard</h1>
-          <p className="text-muted-foreground font-medium">Manage your subjects, sessions, and growth.</p>
+          <div className="flex items-center gap-2 text-orange-500 mb-3 font-black uppercase tracking-[0.4em] text-[10px]">
+            <Users className="w-4 h-4" /> Mentor Command Center
+          </div>
+          <h1 className="text-6xl font-black tracking-tighter leading-none">
+            Tutor <span className="text-orange-500">Node</span>
+          </h1>
+          <p className="text-white/50 text-lg mt-3 font-medium">Empower the next generation of experts.</p>
         </div>
-        <div className="px-5 py-2.5 bg-zinc-100 dark:bg-zinc-800 rounded-2xl flex items-center gap-2 border border-zinc-200 dark:border-zinc-700">
-           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-           <span className="text-xs font-black tracking-widest text-zinc-500 uppercase">Platform Active</span>
+        <div className="flex items-center gap-3 px-6 py-4 bg-white/5 border border-white/10 rounded-[1.5rem] backdrop-blur-xl shadow-2xl">
+           <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.5)] animate-pulse" />
+           <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white/60">
+             Hub Status: ONLINE
+           </span>
         </div>
       </div>
 
-      {/* Stats */}
+      {/* Stats Hub */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
         {[
-          { label: "My Growth", value: subjects.length, icon: BookOpen, color: "text-blue-500", bg: "bg-blue-500/10 border-blue-500/20" },
-          { label: "Bookings", value: bookings.length, icon: Calendar, color: "text-orange-500", bg: "bg-orange-500/10 border-orange-500/20" },
-          { label: "Active", value: confirmedBookings.length, icon: Clock, color: "text-purple-500", bg: "bg-purple-500/10 border-purple-500/20" },
-          { label: "Rating", value: averageRating, icon: Star, color: "text-yellow-500", bg: "bg-yellow-500/10 border-yellow-500/20" },
-          { label: "Earnings", value: `$${totalEarnings}`, icon: DollarSign, color: "text-emerald-500", bg: "bg-emerald-500/10 border-emerald-500/20" },
+          { label: "My Courses", value: subjects.length, icon: BookOpen, color: "text-blue-400", bg: "bg-blue-500/10 border-blue-500/20" },
+          { label: "Total Bookings", value: bookings.length, icon: Calendar, color: "text-orange-400", bg: "bg-orange-500/10 border-orange-500/20" },
+          { label: "Active Sessions", value: confirmedBookings.length, icon: Clock, color: "text-purple-400", bg: "bg-purple-500/10 border-purple-500/20" },
+          { label: "Avg Rating", value: averageRating, icon: Star, color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/20" },
+          { label: "Total Earnings", value: `$${totalEarnings}`, icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20" },
         ].map((stat, i) => (
-          <div key={i} className={`p-6 rounded-3xl border-2 backdrop-blur-xl ${stat.bg} transition-all hover:scale-[1.03] group`}>
-            <div className={`w-14 h-14 rounded-2xl bg-white dark:bg-zinc-900 border-2 border-transparent group-hover:border-inherit flex items-center justify-center mb-6 shadow-xl transition-all ${stat.color}`}>
-              <stat.icon className="w-7 h-7" />
+          <div key={i} className={`p-6 rounded-[2rem] border backdrop-blur-xl ${stat.bg} transition-all hover:scale-[1.05] group shadow-2xl`}>
+            <div className={`w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center mb-6 shadow-xl transition-all ${stat.color} group-hover:scale-110`}>
+              <stat.icon size={24} />
             </div>
-            <p className="text-4xl font-black text-foreground mb-1 tracking-tighter">{stat.value}</p>
-            <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">{stat.label}</p>
+            <p className="text-4xl font-black text-white mb-1 tracking-tighter leading-none">{stat.value}</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-white/40">{stat.label}</p>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* My Subjects Section */}
-        <div className="rounded-3xl border-2 border-border/50 bg-card/50 backdrop-blur-sm p-8 shadow-2xl overflow-hidden relative group">
-          <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:scale-110 transition-transform">
-             <BookOpen className="w-32 h-32" />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        {/* Course Catalog */}
+        <div className="rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-xl p-10 shadow-2xl relative overflow-hidden group">
+          <div className="absolute top-0 right-0 p-10 opacity-[0.02] group-hover:scale-110 transition-transform">
+             <BookOpen size={200} />
           </div>
-          <h2 className="text-2xl font-black mb-8 flex items-center gap-3 tracking-tight">
-            <BookOpen className="w-6 h-6 text-blue-500" />
-            Courses Offered
+          <h2 className="text-2xl font-black mb-10 flex items-center gap-4 tracking-tighter uppercase">
+            <BookOpen className="text-blue-500" /> Published Expertise
           </h2>
 
-          {loading ? (
-            <div className="space-y-4">
-              {[1, 2, 3].map((i) => <div key={i} className="h-20 bg-muted/30 animate-pulse rounded-2xl" />)}
-            </div>
-          ) : subjects.length > 0 ? (
-            <div className="space-y-4">
+          {subjects.length > 0 ? (
+            <div className="grid grid-cols-1 gap-4">
               {subjects.map((subject: any) => (
-                <div key={subject.id} className="group/item flex items-center gap-5 p-5 rounded-2xl bg-white/50 dark:bg-zinc-900/50 border border-border/50 hover:border-blue-500/50 hover:bg-white dark:hover:bg-zinc-900 transition-all shadow-sm">
-                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 font-bold shrink-0">
+                <div key={subject.id} className="flex items-center gap-5 p-5 rounded-[1.5rem] bg-white/5 border border-white/5 hover:border-blue-500/50 hover:bg-white/10 transition-all group/item shadow-xl">
+                  <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 font-black border border-blue-500/20 group-hover/item:scale-110 transition-transform">
                     {subject.title?.[0] || 'S'}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-lg font-black text-foreground truncate leading-none mb-1">{subject.title}</p>
-                    <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest">{subject.category?.name}</p>
+                    <p className="text-lg font-black text-white truncate leading-none mb-1">{subject.title}</p>
+                    <p className="text-[10px] font-black text-white/40 uppercase tracking-widest">{subject.category?.name}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-20 bg-muted/10 rounded-3xl border-2 border-dashed border-border/50">
-               <p className="text-muted-foreground font-bold">No courses published yet.</p>
+            <div className="text-center py-24 border-2 border-dashed border-white/5 rounded-[2.5rem] opacity-20">
+               <BookOpen size={48} className="mx-auto mb-4" />
+               <p className="font-black text-[10px] uppercase tracking-[0.4em]">No Expertise Published</p>
             </div>
           )}
         </div>
 
-        {/* Recent Purchases Section */}
-        <div className="rounded-3xl border-2 border-border/50 bg-card/50 backdrop-blur-sm p-8 shadow-2xl group">
-          <h2 className="text-2xl font-black mb-8 flex items-center gap-3 tracking-tight">
-             <Calendar className="w-6 h-6 text-orange-500" />
-             Recent Bookings
+        {/* Booking History */}
+        <div className="rounded-[3rem] border border-white/10 bg-white/[0.02] backdrop-blur-xl p-10 shadow-2xl group">
+          <h2 className="text-2xl font-black mb-10 flex items-center gap-4 tracking-tighter uppercase">
+             <Calendar className="text-orange-500" /> Recent Interactions
           </h2>
 
-          {loading ? (
-             <div className="space-y-4">
-               {[1, 2, 3].map((i) => <div key={i} className="h-24 bg-muted/30 animate-pulse rounded-2xl" />)}
-             </div>
-          ) : bookings.length > 0 ? (
+          {bookings.length > 0 ? (
              <div className="space-y-4">
                 {bookings.slice(0, 4).map((booking: any) => (
-                  <div key={booking.id} className="flex flex-col p-5 rounded-2xl bg-white/50 dark:bg-zinc-900/50 border border-border/50 hover:border-orange-500/50 hover:bg-white dark:hover:bg-zinc-900 transition-all shadow-sm">
-                    <div className="flex items-center justify-between mb-3">
-                       <span className={`text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border-2 ${
-                         booking.status === 'CONFIRMED' ? 'bg-blue-100/50 text-blue-700 border-blue-200/50' :
-                         booking.status === 'COMPLETED' ? 'bg-emerald-100/50 text-emerald-700 border-emerald-200/50' :
-                         'bg-zinc-100 text-zinc-600 border-zinc-200'
+                  <div key={booking.id} className="flex flex-col p-6 rounded-[2rem] bg-white/5 border border-white/5 hover:border-orange-500/50 hover:bg-white/10 transition-all shadow-xl">
+                    <div className="flex items-center justify-between mb-4">
+                       <span className={`text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full border ${
+                         booking.status === 'CONFIRMED' ? 'bg-blue-500/10 text-blue-400 border-blue-500/20' :
+                         booking.status === 'COMPLETED' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-200/20' :
+                         'bg-white/5 text-white/40 border-white/10'
                        }`}>
                          {booking.status}
                        </span>
-                       <span className="text-lg font-black text-orange-500 tracking-tighter">${booking.totalPrice}</span>
+                       <span className="text-2xl font-black text-orange-500 tracking-tighter leading-none">${booking.totalPrice}</span>
                     </div>
                     <div>
-                       <p className="text-base font-bold text-foreground">Bought by <span className="text-orange-500">{booking.student?.name}</span></p>
-                       <p className="text-xs text-muted-foreground font-medium">Session: {format(new Date(booking.startTime), "MMM d, h:mm a")}</p>
+                       <p className="text-lg font-black text-white mb-1 uppercase tracking-tight leading-none">
+                         Student: <span className="text-orange-500">{booking.student?.name}</span>
+                       </p>
+                       <p className="text-[10px] text-white/40 font-black tracking-widest uppercase">
+                         Session: {format(new Date(booking.startTime), "MMM dd • HH:mm")}
+                       </p>
                     </div>
                   </div>
                 ))}
              </div>
           ) : (
-             <div className="text-center py-20 bg-muted/10 rounded-3xl border-2 border-dashed border-border/50">
-                <p className="text-muted-foreground font-bold">No sessions booked yet.</p>
+             <div className="text-center py-24 border-2 border-dashed border-white/5 rounded-[2.5rem] opacity-20">
+                <Calendar size={48} className="mx-auto mb-4" />
+                <p className="font-black text-[10px] uppercase tracking-[0.4em]">No Recent Bookings</p>
              </div>
           )}
         </div>

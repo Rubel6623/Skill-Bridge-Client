@@ -62,7 +62,7 @@ export default function AdminManageUsersPage() {
   }
 
   const handleDeleteUser = async (userId: string) => {
-    if (!confirm("CRITICAL ACTION: This will permanently delete this user account. All associated data will be lost. Proceed?")) return
+    if (!confirm("CRITICAL ACTION: This will permanently delete this user account. Proceed?")) return
     
     setUpdatingId(userId)
     try {
@@ -91,45 +91,56 @@ export default function AdminManageUsersPage() {
     return matchesSearch && matchesRole && matchesStatus
   })
 
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <Loader2 className="w-10 h-10 animate-spin text-orange-500" />
+        <p className="font-black text-white/40 tracking-[0.3em] uppercase text-[10px]">Accessing User Core...</p>
+      </div>
+    )
+  }
+
   return (
-    <div className="p-8 space-y-10 max-w-[1600px] mx-auto">
-      <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-6">
+    <div className="p-8 space-y-12 bg-transparent text-white animate-in fade-in duration-700">
+      {/* Header Section */}
+      <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-8">
         <div>
-          <div className="flex items-center gap-2 text-orange-500 mb-2 font-black uppercase tracking-[0.2em] text-[10px]">
-            <Users className="w-4 h-4" /> User Directory Control
+          <div className="flex items-center gap-2 text-orange-500 mb-3 font-black uppercase tracking-[0.4em] text-[10px]">
+            <Users className="w-4 h-4" /> Global Citizen Registry
           </div>
-          <h1 className="text-4xl font-black text-zinc-900 dark:text-zinc-50 tracking-tight">Platform <span className="text-orange-500">Citizens</span></h1>
-          <p className="text-zinc-500 mt-2 font-medium italic">Oversee the growth and conduct of students and experts alike.</p>
+          <h1 className="text-6xl font-black tracking-tighter leading-none">
+            User <span className="text-orange-500">Node</span>
+          </h1>
+          <p className="text-white/50 text-lg mt-3 font-medium">Oversee the growth and conduct of your experts.</p>
         </div>
         
         <div className="flex flex-wrap items-center gap-4">
           <div className="relative group">
-            <Search className="w-5 h-5 absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 group-focus-within:text-orange-500 transition-colors" />
+            <Search className="w-4 h-4 absolute left-5 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-orange-500 transition-colors" />
             <input
               type="text"
-              placeholder="Search Name or Identity..."
+              placeholder="Filter Citizens..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-12 pr-6 py-4 bg-white dark:bg-zinc-900 border-2 border-zinc-100 dark:border-zinc-800 rounded-[1.5rem] focus:ring-0 focus:border-orange-500/50 outline-none w-80 shadow-sm font-bold text-sm transition-all"
+              className="pl-14 pr-8 py-5 bg-white/5 border border-white/10 rounded-[1.5rem] focus:ring-2 focus:ring-orange-500/30 outline-none w-80 shadow-2xl font-black text-xs transition-all placeholder:text-white/20 uppercase tracking-widest"
             />
           </div>
           
-          <div className="flex gap-2 bg-zinc-100 dark:bg-zinc-900 p-1.5 rounded-[1.5rem] border-2 border-zinc-100 dark:border-zinc-800">
+          <div className="flex gap-2 bg-white/5 p-2 rounded-[1.5rem] border border-white/10 backdrop-blur-xl">
              <select 
                value={roleFilter} 
                onChange={(e) => setRoleFilter(e.target.value)}
-               className="bg-transparent text-[10px] font-black uppercase tracking-widest px-4 py-2 outline-none cursor-pointer"
+               className="bg-transparent text-[10px] font-black uppercase tracking-[0.2em] px-5 py-3 outline-none cursor-pointer text-white/60 focus:text-white transition-colors appearance-none border-r border-white/5"
              >
                <option value="ALL">All Roles</option>
                <option value="STUDENT">Students</option>
                <option value="TUTOR">Tutors</option>
                <option value="ADMIN">Admins</option>
              </select>
-             <div className="w-[2px] bg-zinc-200 dark:bg-zinc-800 my-1" />
              <select 
                value={statusFilter} 
                onChange={(e) => setStatusFilter(e.target.value)}
-               className="bg-transparent text-[10px] font-black uppercase tracking-widest px-4 py-2 outline-none cursor-pointer"
+               className="bg-transparent text-[10px] font-black uppercase tracking-[0.2em] px-5 py-3 outline-none cursor-pointer text-white/60 focus:text-white transition-colors appearance-none"
              >
                <option value="ALL">All Status</option>
                <option value="ACTIVE">Active</option>
@@ -139,94 +150,87 @@ export default function AdminManageUsersPage() {
         </div>
       </div>
 
-      {loading ? (
-        <div className="flex flex-col items-center justify-center py-40 gap-6 bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-[3rem] shadow-2xl">
-           <div className="relative">
-             <Loader2 className="w-16 h-16 animate-spin text-orange-500" />
-             <div className="absolute inset-0 blur-3xl bg-orange-500/20 rounded-full" />
-           </div>
-           <p className="font-black text-xl text-zinc-900 dark:text-zinc-100 tracking-tight">Accessing User Database</p>
-        </div>
-      ) : filteredUsers.length > 0 ? (
-        <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-[3rem] overflow-hidden shadow-2xl">
+      {filteredUsers.length > 0 ? (
+        <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] overflow-hidden shadow-2xl backdrop-blur-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-zinc-50/50 dark:bg-zinc-900/50 border-b border-zinc-100 dark:border-zinc-800/50">
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">Identity</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">Classification</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">Registry Date</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em]">Access Status</th>
-                  <th className="px-8 py-6 text-[10px] font-black text-zinc-400 uppercase tracking-[0.25em] text-right">Directives</th>
+                <tr className="bg-white/5 border-b border-white/5">
+                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">Identity</th>
+                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">Classification</th>
+                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">Registry</th>
+                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em]">Status</th>
+                  <th className="px-10 py-8 text-[10px] font-black text-white/30 uppercase tracking-[0.4em] text-right">Directives</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-zinc-100 dark:divide-zinc-800/50">
+              <tbody className="divide-y divide-white/5">
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="group hover:bg-orange-50/20 dark:hover:bg-orange-400/5 transition-all">
-                    <td className="px-8 py-6">
-                      <div className="flex items-center gap-4">
+                  <tr key={user.id} className="group hover:bg-white/[0.03] transition-all">
+                    <td className="px-10 py-8">
+                      <div className="flex items-center gap-6">
                         <div className={cn(
-                           "w-12 h-12 rounded-2xl flex items-center justify-center font-black text-white text-lg shadow-lg",
-                           user.role === 'ADMIN' ? 'bg-zinc-900 dark:bg-zinc-100 dark:text-zinc-900' : 
-                           user.role === 'TUTOR' ? 'bg-orange-500' : 'bg-blue-500'
+                           "w-14 h-14 rounded-[1.5rem] flex items-center justify-center font-black text-white text-xl shadow-2xl relative overflow-hidden",
+                           user.role === 'ADMIN' ? 'bg-zinc-800 border border-zinc-700' : 
+                           user.role === 'TUTOR' ? 'bg-orange-500 shadow-orange-500/20' : 'bg-blue-600 shadow-blue-600/20'
                         )}>
-                          {user.name?.[0]}
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent" />
+                          <span className="relative z-10">{user.name?.[0]}</span>
                         </div>
                         <div>
-                          <p className="font-black text-zinc-900 dark:text-zinc-50">{user.name}</p>
-                          <div className="flex items-center gap-1.5 text-zinc-400 font-bold text-xs mt-0.5">
+                          <p className="font-black text-white text-lg tracking-tight uppercase leading-none mb-2">{user.name}</p>
+                          <div className="flex items-center gap-2 text-white/30 font-black text-[10px] uppercase tracking-widest">
                             <Mail className="w-3 h-3" />
                             {user.email}
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="px-8 py-6">
+                    <td className="px-10 py-8">
                        <span className={cn(
-                          "px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest border-2",
-                          user.role === 'ADMIN' ? 'border-zinc-900 text-zinc-900 bg-zinc-50' :
-                          user.role === 'TUTOR' ? 'border-orange-500 text-orange-600 bg-orange-50' :
-                          'border-blue-500 text-blue-600 bg-blue-50'
+                          "px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border",
+                          user.role === 'ADMIN' ? 'border-zinc-700 text-zinc-400 bg-zinc-800/50' :
+                          user.role === 'TUTOR' ? 'border-orange-500/30 text-orange-400 bg-orange-500/10' :
+                          'border-blue-500/30 text-blue-400 bg-blue-500/10'
                        )}>
                           {user.role}
                        </span>
                     </td>
-                    <td className="px-8 py-6">
-                       <div className="flex items-center gap-2 text-zinc-500 font-bold text-sm">
-                          <Calendar className="w-4 h-4 text-zinc-300" />
-                          {format(new Date(user.createdAt), "PPP")}
+                    <td className="px-10 py-8">
+                       <div className="flex items-center gap-3 text-white/40 font-black text-[10px] uppercase tracking-widest">
+                          <Calendar size={14} className="text-white/20" />
+                          {format(new Date(user.createdAt), "MMM dd • yyyy")}
                        </div>
                     </td>
-                    <td className="px-8 py-6">
-                       <div className="flex items-center gap-2">
+                    <td className="px-10 py-8">
+                       <div className="flex items-center gap-3">
                           <div className={cn(
                              "w-2 h-2 rounded-full",
-                             user.status === 'ACTIVE' ? 'bg-emerald-500' : 'bg-rose-500 animate-pulse'
+                             user.status === 'ACTIVE' ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]' : 'bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.5)] animate-pulse'
                           )} />
                           <span className={cn(
-                             "text-[10px] font-black uppercase tracking-widest",
-                             user.status === 'ACTIVE' ? 'text-emerald-600' : 'text-rose-600'
+                             "text-[9px] font-black uppercase tracking-widest",
+                             user.status === 'ACTIVE' ? 'text-emerald-400' : 'text-rose-400'
                           )}>
-                             User {user.status}
+                             {user.status}
                           </span>
                        </div>
                     </td>
-                    <td className="px-8 py-6 text-right">
+                    <td className="px-10 py-8 text-right">
                       {updatingId === user.id ? (
                         <Loader2 className="animate-spin w-6 h-6 ml-auto text-orange-500" />
                       ) : (
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" className="h-10 w-10 p-0 rounded-2xl hover:bg-orange-100/50">
-                              <MoreVertical size={18} className="text-zinc-400 group-hover:text-orange-500" />
+                            <Button variant="ghost" className="h-12 w-12 p-0 rounded-2xl hover:bg-white/10 transition-all">
+                              <MoreVertical size={20} className="text-white/20 group-hover:text-orange-500" />
                             </Button>
                           </DropdownMenuTrigger>
-                          <DropdownMenuContent align="end" className="w-56 rounded-[1.5rem] p-2 border-2 border-zinc-100 dark:border-zinc-800 shadow-2xl dark:bg-zinc-950">
+                          <DropdownMenuContent align="end" className="w-64 rounded-[2rem] p-3 border border-white/10 shadow-2xl bg-[#0d0d1a] backdrop-blur-2xl">
                             <DropdownMenuItem 
                               onClick={() => handleStatusUpdate(user.id, user.status)}
                               className={cn(
-                                "rounded-xl px-4 py-3 flex items-center gap-3 cursor-pointer font-black text-[10px] uppercase tracking-widest",
-                                user.status === "ACTIVE" ? "text-rose-600 hover:bg-rose-50" : "text-emerald-600 hover:bg-emerald-50"
+                                "rounded-xl px-5 py-4 flex items-center gap-4 cursor-pointer font-black text-[10px] uppercase tracking-widest transition-all",
+                                user.status === "ACTIVE" ? "text-rose-400 hover:bg-rose-500/10" : "text-emerald-400 hover:bg-emerald-500/10"
                               )}
                             >
                               {user.status === "ACTIVE" ? <Ban size={16} /> : <ShieldCheck size={16} />}
@@ -234,7 +238,7 @@ export default function AdminManageUsersPage() {
                             </DropdownMenuItem>
                             <DropdownMenuItem 
                               onClick={() => handleDeleteUser(user.id)}
-                              className="rounded-xl px-4 py-3 flex items-center gap-3 cursor-pointer text-zinc-400 hover:text-red-600 hover:bg-red-50 font-black text-[10px] uppercase tracking-widest mt-1 border-t border-zinc-50 pt-3"
+                              className="rounded-xl px-5 py-4 flex items-center gap-4 cursor-pointer text-white/30 hover:text-red-500 hover:bg-red-500/10 font-black text-[10px] uppercase tracking-widest mt-2 border-t border-white/5 pt-4"
                             >
                               <Trash2 size={16} /> Delete Account
                             </DropdownMenuItem>
@@ -247,28 +251,29 @@ export default function AdminManageUsersPage() {
               </tbody>
             </table>
           </div>
-          <div className="bg-zinc-50 dark:bg-zinc-900/50 px-8 py-6 flex items-center justify-between">
-             <div className="text-[10px] font-black text-zinc-400 uppercase tracking-widest">
-                Showing <span className="text-orange-500">{filteredUsers.length}</span> Active Citizens
+          <div className="bg-white/5 px-10 py-8 flex items-center justify-between">
+             <div className="text-[10px] font-black text-white/30 uppercase tracking-[0.3em]">
+                Registry Volume: <span className="text-orange-500">{filteredUsers.length}</span> Active Nodes
              </div>
-             <div className="flex items-center gap-2 text-zinc-300 text-[10px] font-black uppercase tracking-widest italic">
-                Platform Pulse Synchronized
+             <div className="flex items-center gap-3 text-emerald-400 text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 px-5 py-2.5 rounded-xl border border-emerald-500/20">
+                <ArrowUpRight size={14} /> Synchronized with Core
              </div>
           </div>
         </div>
       ) : (
-        <div className="text-center py-32 bg-zinc-50/50 dark:bg-zinc-900/40 rounded-[3rem] border-4 border-dotted border-zinc-200 dark:border-zinc-800 flex flex-col items-center gap-6">
-           <Filter className="w-20 h-20 text-zinc-200" />
+        <div className="text-center py-32 bg-white/[0.02] border-2 border-dashed border-white/10 rounded-[3rem] flex flex-col items-center gap-8 shadow-2xl">
+           <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center border border-white/5">
+              <Filter className="w-10 h-10 text-white/10" />
+           </div>
            <div>
-             <h3 className="text-2xl font-black text-zinc-900 dark:text-zinc-100 tracking-tight uppercase">Database Zero</h3>
-             <p className="text-zinc-500 mt-2 font-bold max-w-sm mx-auto italic">No users matching the current identification criteria were found in the registry.</p>
+             <h3 className="text-3xl font-black text-white tracking-tight uppercase">Registry Zero</h3>
+             <p className="text-white/40 mt-3 font-medium max-w-sm mx-auto italic">No identification matches found within the global database.</p>
            </div>
            <Button 
-            variant="outline"
             onClick={() => { setSearchTerm(""); setRoleFilter("ALL"); setStatusFilter("ALL"); }}
-            className="rounded-[1.5rem] border-2 font-black px-8 py-6 uppercase tracking-widest text-xs hover:bg-zinc-900 hover:text-white"
+            className="rounded-[1.5rem] bg-orange-500 hover:bg-orange-600 font-black px-12 h-14 uppercase tracking-widest text-[10px] shadow-lg shadow-orange-500/20"
            >
-             Reset Core Scanning
+             Reset Pulse Scan
            </Button>
         </div>
       )}

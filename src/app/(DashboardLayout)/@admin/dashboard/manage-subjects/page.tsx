@@ -34,82 +34,102 @@ export default function AdminManageSubjectsPage() {
     fetchSubjects()
   }, [searchTerm])
 
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <Loader2 className="w-10 h-10 animate-spin text-orange-500" />
+        <p className="font-black text-white/40 tracking-[0.3em] uppercase text-[10px]">Scanning Knowledge Graph...</p>
+      </div>
+    )
+  }
+
   return (
-    <div className="p-6 space-y-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="p-8 space-y-12 bg-transparent text-white animate-in fade-in duration-700">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 mb-2">Platform Subjects</h1>
-          <p className="text-zinc-500">Manage all subjects offered by tutors on the platform.</p>
-        </div>
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
-            <input
-              type="text"
-              placeholder="Search subjects or categories..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-10 pr-4 py-2 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:ring-2 focus:ring-orange-500 outline-none w-80 shadow-sm"
-            />
+          <div className="flex items-center gap-2 text-orange-500 mb-3 font-black uppercase tracking-[0.4em] text-[10px]">
+            <BookOpen className="w-4 h-4" /> Academic Inventory Control
           </div>
+          <h1 className="text-6xl font-black tracking-tighter leading-none">
+            Expert <span className="text-orange-500">Nodes</span>
+          </h1>
+          <p className="text-white/50 text-lg mt-3 font-medium">Moderate all educational modules offered on the platform.</p>
+        </div>
+        
+        <div className="relative group">
+          <Search className="w-4 h-4 absolute left-5 top-1/2 -translate-y-1/2 text-white/30 group-focus-within:text-orange-500 transition-colors" />
+          <input
+            type="text"
+            placeholder="Scan Subjects..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-14 pr-8 py-5 bg-white/5 border border-white/10 rounded-[1.5rem] focus:ring-2 focus:ring-orange-500/30 outline-none w-80 shadow-2xl font-black text-xs transition-all placeholder:text-white/20 uppercase tracking-widest"
+          />
         </div>
       </div>
 
-      {loading ? (
-        <div className="flex flex-col items-center justify-center py-24 gap-4">
-           <Loader2 className="w-12 h-12 animate-spin text-orange-500" />
-           <p className="font-bold text-zinc-500 animate-pulse">Scanning platform inventory...</p>
-        </div>
-      ) : subjects.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {subjects.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {subjects.map((subject: any) => (
-            <div key={subject.id} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all group border-b-4 border-b-orange-500/0 hover:border-b-orange-500">
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 border border-orange-500/20">
-                  <BookOpen className="w-6 h-6" />
+            <div key={subject.id} className="bg-white/[0.02] border border-white/10 rounded-[2.5rem] p-8 backdrop-blur-xl shadow-2xl hover:border-orange-500/30 transition-all group relative overflow-hidden flex flex-col h-full">
+              <div className="absolute top-0 right-0 p-8 opacity-[0.02] group-hover:scale-110 transition-transform">
+                 <BookOpen size={150} />
+              </div>
+              
+              <div className="flex items-start justify-between mb-8 relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 border border-orange-500/20 group-hover:scale-110 transition-transform">
+                  <BookOpen size={24} />
                 </div>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" className="h-8 w-8 p-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                      <MoreVertical className="h-4 h-4" />
+                    <Button variant="ghost" className="h-10 w-10 p-0 rounded-xl hover:bg-white/10 transition-all">
+                      <MoreVertical size={18} className="text-white/20 group-hover:text-white" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-40 rounded-xl p-1">
-                    <DropdownMenuItem className="flex items-center gap-2 p-2 cursor-pointer text-blue-600 font-medium">
-                      <Edit2 className="w-4 h-4" /> Edit
+                  <DropdownMenuContent align="end" className="w-48 rounded-[1.5rem] p-2 border border-white/10 bg-[#0d0d1a] backdrop-blur-2xl">
+                    <DropdownMenuItem className="rounded-xl px-4 py-3 flex items-center gap-3 cursor-pointer text-blue-400 hover:bg-blue-500/10 font-black text-[10px] uppercase tracking-widest transition-all">
+                      <Edit2 size={14} /> Modify Node
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="flex items-center gap-2 p-2 cursor-pointer text-red-600 font-medium">
-                      <Trash2 className="w-4 h-4" /> Delete
+                    <DropdownMenuItem className="rounded-xl px-4 py-3 flex items-center gap-3 cursor-pointer text-red-500 hover:bg-red-500/10 font-black text-[10px] uppercase tracking-widest transition-all mt-1">
+                      <Trash2 size={14} /> Purge Node
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>
 
-              <div className="space-y-4">
-                <div>
-                  <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-1 leading-tight">{subject.title}</h3>
-                  <div className="flex items-center gap-1.5 text-xs font-black text-orange-500 uppercase tracking-widest">
-                    <Tag className="w-3 h-3" />
+              <div className="space-y-6 flex-1 relative z-10 flex flex-col">
+                <div className="flex-1">
+                  <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-none mb-3 group-hover:text-orange-500 transition-colors">
+                    {subject.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-[10px] font-black text-orange-500/60 uppercase tracking-[0.2em] bg-orange-500/5 w-fit px-4 py-1.5 rounded-full border border-orange-500/10">
+                    <Tag size={12} />
                     {subject.category?.name}
                   </div>
                 </div>
 
-                <div className="p-4 bg-zinc-50 dark:bg-zinc-800/50 rounded-2xl border border-zinc-100 dark:border-zinc-800 flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-zinc-200 dark:bg-zinc-700 overflow-hidden border border-white dark:border-zinc-900 shadow-sm flex items-center justify-center font-bold text-xs">
+                <div className="pt-6 border-t border-white/5 flex items-center justify-between mt-auto">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 overflow-hidden shadow-lg flex items-center justify-center relative">
                        {subject.tutorProfile?.user?.avatar ? (
                          <img src={subject.tutorProfile?.user?.avatar} alt="Avatar" className="w-full h-full object-cover" />
                        ) : (
-                         <User className="w-4 h-4 text-zinc-400" />
+                         <User size={16} className="text-white/20" />
                        )}
                     </div>
-                    <span className="text-sm font-bold text-zinc-700 dark:text-zinc-300 truncate max-w-[120px]">
-                      {subject.tutorProfile?.user?.name}
-                    </span>
+                    <div className="grid">
+                       <span className="text-[10px] font-black text-white/80 uppercase tracking-tight truncate max-w-[100px]">
+                         {subject.tutorProfile?.user?.name}
+                       </span>
+                       <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.2em]">
+                         Tutor Host
+                       </span>
+                    </div>
                   </div>
                   <div className="text-right">
-                    <p className="text-[10px] text-zinc-400 uppercase font-bold">Total Enrolled</p>
-                    <p className="font-black text-zinc-900 dark:text-zinc-100 leading-none">
+                    <p className="text-[8px] text-white/20 uppercase font-black tracking-[0.2em] mb-1">Utilization</p>
+                    <p className="font-black text-white text-lg leading-none tracking-tight">
                       {subject.bookings?.length || 0}
                     </p>
                   </div>
@@ -119,10 +139,20 @@ export default function AdminManageSubjectsPage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-20 bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl border-2 border-dashed border-zinc-200 dark:border-zinc-800">
-           <BookOpen className="w-16 h-16 text-zinc-300 mx-auto mb-4" />
-           <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">No subjects found</h3>
-           <p className="text-zinc-500 mt-2">Try a different search term.</p>
+        <div className="text-center py-32 bg-white/[0.02] border-2 border-dashed border-white/10 rounded-[3rem] flex flex-col items-center gap-8 shadow-2xl">
+           <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center border border-white/5">
+              <BookOpen size={40} className="text-white/10" />
+           </div>
+           <div>
+             <h3 className="text-3xl font-black text-white tracking-tight uppercase">Knowledge Gap</h3>
+             <p className="text-white/40 mt-3 font-medium max-w-sm mx-auto italic">No subjects matching the current identification criteria were found in the registry.</p>
+           </div>
+           <Button 
+            onClick={() => setSearchTerm("")}
+            className="rounded-[1.5rem] bg-orange-500 hover:bg-orange-600 font-black px-12 h-14 uppercase tracking-widest text-[10px] shadow-lg shadow-orange-500/20"
+           >
+             Reset Core Scanning
+           </Button>
         </div>
       )}
     </div>

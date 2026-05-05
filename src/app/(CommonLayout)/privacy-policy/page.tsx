@@ -1,4 +1,4 @@
-import React from 'react';
+import Link from 'next/link';
 import { Shield, Lock, Eye, Globe } from 'lucide-react';
 
 const PrivacyPolicy = () => {
@@ -64,9 +64,17 @@ const PrivacyPolicy = () => {
           <section className="text-center py-12 border-t border-white/10">
             <h3 className="text-2xl font-bold text-white mb-4">Questions about our Privacy Policy?</h3>
             <p className="text-gray-400 mb-8">If you have any questions, please contact us at privacy@skillbridge.com</p>
-            <button className="px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-orange-500/20">
-              Contact Privacy Team
-            </button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a href="mailto:privacy@skillbridge.com" className="inline-block px-8 py-3 bg-orange-500 hover:bg-orange-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-orange-500/20">
+                Contact Privacy Team
+              </a>
+              <Link href="/contact-us" className="inline-block px-8 py-3 bg-blue-500 hover:bg-blue-600 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-500/20">
+                Chat with Support
+              </Link>
+              <a href="mailto:support@skillbridge.com" className="inline-block px-8 py-3 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/10">
+                Email Us Directly
+              </a>
+            </div>
           </section>
         </div>
       </div>

@@ -18,7 +18,6 @@ export default function TutorAvailabilityPage() {
       try {
         const res = await getMyAvailability()
         if (res.success && res.data) {
-          // Format times for HTML input if needed, but our backend stores them as "HH:mm" usually
           setSlots(res.data)
         }
       } catch (error) {
@@ -50,7 +49,7 @@ export default function TutorAvailabilityPage() {
     try {
       const res = await updateAvailability(slots)
       if (res.success) {
-        toast.success("Availability schedule saved successfully!")
+        toast.success("Schedule integrated successfully!")
       } else {
         toast.error(res.message || "Something went wrong")
       }
@@ -61,115 +60,131 @@ export default function TutorAvailabilityPage() {
     }
   }
 
+  if (isFetching) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-4">
+        <Loader2 className="w-10 h-10 animate-spin text-orange-500" />
+        <p className="font-black text-white/40 tracking-[0.3em] uppercase text-[10px]">Syncing Schedule Node...</p>
+      </div>
+    )
+  }
+
   return (
-    <div className="p-6 space-y-8">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="p-8 space-y-12 bg-transparent text-white animate-in fade-in duration-700">
+      {/* Header Section */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
         <div>
-          <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 mb-2">My Availability</h1>
-          <p className="text-zinc-500">Set your weekly tutoring schedule for students to book sessions.</p>
-        </div>
-        {!isFetching && (
-          <div className="flex items-center gap-3">
-             <Button 
-               onClick={addSlot}
-               variant="outline"
-               className="border-zinc-200 dark:border-zinc-800 rounded-xl font-bold py-5"
-             >
-               <Plus className="w-4 h-4 mr-2" /> Add Time Slot
-             </Button>
-             <Button 
-               onClick={handleSave}
-               disabled={loading}
-               className="bg-orange-500 hover:bg-orange-600 px-8 py-5 rounded-xl font-bold transition-all shadow-lg hover:shadow-orange-500/20"
-             >
-               {loading ? <Loader2 className="animate-spin mr-2" /> : <Save className="w-4 h-4 mr-2" />}
-               Save Schedule
-             </Button>
+          <div className="flex items-center gap-2 text-orange-500 mb-3 font-black uppercase tracking-[0.4em] text-[10px]">
+            <Clock className="w-4 h-4" /> Temporal Hub Management
           </div>
-        )}
+          <h1 className="text-6xl font-black tracking-tighter leading-none">
+            Time <span className="text-orange-500">Nodes</span>
+          </h1>
+          <p className="text-white/50 text-lg mt-3 font-medium">Define your weekly operational windows.</p>
+        </div>
+        <div className="flex items-center gap-4">
+           <Button 
+             onClick={addSlot}
+             className="bg-white/5 hover:bg-white/10 text-white font-black h-14 px-8 rounded-2xl border border-white/5 transition-all flex items-center gap-3"
+           >
+             <Plus className="size-4" /> ADD SLOT
+           </Button>
+           <Button 
+             onClick={handleSave}
+             disabled={loading}
+             className="bg-orange-500 hover:bg-orange-600 text-white font-black h-14 px-10 rounded-2xl shadow-lg shadow-orange-500/20 transition-all flex items-center gap-3"
+           >
+             {loading ? <Loader2 className="animate-spin" /> : <Save className="size-4" />}
+             SAVE SCHEDULE
+           </Button>
+        </div>
       </div>
 
-      {isFetching ? (
-        <div className="flex flex-col items-center justify-center py-40 gap-6">
-           <Loader2 className="w-16 h-16 animate-spin text-orange-500" />
-           <p className="font-black text-xl text-zinc-400 tracking-widest uppercase">Syncing Schedule...</p>
-        </div>
-      ) : slots.length > 0 ? (
-        <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-3xl overflow-hidden shadow-2xl">
-            <div className="p-8 space-y-6">
-              <div className="grid grid-cols-12 gap-4 text-xs font-black text-zinc-400 uppercase tracking-widest px-4">
-                 <div className="col-span-4">Day of Week</div>
-                 <div className="col-span-3 text-center">Start Time</div>
-                 <div className="col-span-3 text-center">End Time</div>
-                 <div className="col-span-2 text-right">Remove</div>
+      {slots.length > 0 ? (
+        <div className="bg-white/[0.02] border border-white/10 rounded-[3rem] p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-10 opacity-[0.02] group-hover:scale-110 transition-transform">
+               <Calendar size={200} />
+            </div>
+
+            <div className="space-y-6 relative z-10">
+              <div className="grid grid-cols-12 gap-6 text-[10px] font-black text-white/30 uppercase tracking-[0.3em] px-6">
+                 <div className="col-span-4">Weekly Cycle</div>
+                 <div className="col-span-3 text-center">Inception</div>
+                 <div className="col-span-3 text-center">Termination</div>
+                 <div className="col-span-2 text-right">Delete</div>
               </div>
 
-              {slots.map((slot, index) => (
-                <div key={index} className="grid grid-cols-12 gap-4 items-center p-4 bg-zinc-50 dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 rounded-2xl transition-all group">
-                  <div className="col-span-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-orange-500/10 text-orange-500 rounded-lg group-hover:scale-110 transition-transform">
-                        <Calendar className="w-5 h-5" />
+              <div className="space-y-4">
+                {slots.map((slot, index) => (
+                  <div key={index} className="grid grid-cols-12 gap-6 items-center p-6 bg-white/5 border border-white/5 rounded-[2rem] hover:bg-white/10 transition-all group/item shadow-xl">
+                    <div className="col-span-4">
+                      <div className="flex items-center gap-4">
+                        <div className="w-11 h-11 rounded-2xl bg-orange-500/10 text-orange-500 flex items-center justify-center border border-orange-500/20 group-hover/item:scale-110 transition-transform">
+                          <Calendar size={20} />
+                        </div>
+                        <select
+                          value={slot.dayOfWeek}
+                          onChange={(e) => updateSlot(index, "dayOfWeek", e.target.value)}
+                          className="w-full bg-[#0d0d1a] border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none cursor-pointer"
+                        >
+                          {DAYS.map(day => (
+                            <option key={day} value={day}>{day}</option>
+                          ))}
+                        </select>
                       </div>
-                      <select
-                        value={slot.dayOfWeek}
-                        onChange={(e) => updateSlot(index, "dayOfWeek", e.target.value)}
-                        className="w-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-2 text-sm font-bold outline-none focus:ring-2 focus:ring-orange-500 shadow-sm"
-                      >
-                        {DAYS.map(day => (
-                          <option key={day} value={day}>{day}</option>
-                        ))}
-                      </select>
                     </div>
-                  </div>
-                  <div className="col-span-3">
-                    <div className="flex items-center gap-3 justify-center">
+                    <div className="col-span-3">
                        <input
                          type="time"
                          value={slot.startTime}
                          onChange={(e) => updateSlot(index, "startTime", e.target.value)}
-                        className="w-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-2 text-sm font-bold outline-none focus:ring-2 focus:ring-orange-500 shadow-sm"
+                         className="w-full bg-[#0d0d1a] border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none text-center"
                        />
                     </div>
-                  </div>
-                  <div className="col-span-3">
-                    <div className="flex items-center gap-3 justify-center">
+                    <div className="col-span-3">
                        <input
                          type="time"
                          value={slot.endTime}
                          onChange={(e) => updateSlot(index, "endTime", e.target.value)}
-                        className="w-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl px-4 py-2 text-sm font-bold outline-none focus:ring-2 focus:ring-orange-500 shadow-sm"
+                         className="w-full bg-[#0d0d1a] border border-white/10 text-white rounded-xl px-4 py-2.5 text-sm font-black outline-none focus:ring-2 focus:ring-orange-500/50 appearance-none text-center"
                        />
                     </div>
+                    <div className="col-span-2 text-right">
+                      <button
+                        onClick={() => removeSlot(index)}
+                        className="p-3 text-red-500/40 hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
+                      >
+                        <Trash2 size={20} />
+                      </button>
+                    </div>
                   </div>
-                  <div className="col-span-2 text-right">
-                    <button
-                      onClick={() => removeSlot(index)}
-                      className="p-3 text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-xl transition-colors opacity-0 group-hover:opacity-100"
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
             
-            <div className="bg-zinc-50 dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 p-6 flex items-center justify-between">
-              <p className="text-sm text-zinc-500 font-bold">Total Slots: {slots.length}</p>
-              <div className="flex items-center gap-2 text-emerald-500 font-bold text-sm">
-                <CheckCircle2 className="w-4 h-4" /> Changes are not live until you save.
+            <div className="mt-10 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="px-4 py-2 rounded-xl bg-white/5 border border-white/5 text-[10px] font-black text-white/40 uppercase tracking-widest">
+                  Active Nodes: {slots.length}
+                </div>
+              </div>
+              <div className="flex items-center gap-3 text-emerald-400 font-black text-[10px] uppercase tracking-widest bg-emerald-500/10 px-6 py-3 rounded-2xl border border-emerald-500/20">
+                <CheckCircle2 size={16} /> Changes require manual synchronization to deploy.
               </div>
             </div>
           </div>
-        ) : (
-          <div className="text-center py-24 bg-zinc-50 dark:bg-zinc-900/50 rounded-3xl border-2 border-dashed border-zinc-200 dark:border-zinc-800 group hover:border-orange-500/30 transition-all cursor-pointer" onClick={addSlot}>
-            <div className="w-20 h-20 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-              <Clock className="w-10 h-10 text-zinc-400 group-hover:text-orange-500 transition-colors" />
-            </div>
-            <h3 className="text-2xl font-black text-zinc-900 dark:text-zinc-100">No schedule set</h3>
-            <p className="text-zinc-500 mt-2 max-w-xs mx-auto">Click here or on "Add Time Slot" to start defining your availability.</p>
+      ) : (
+        <div className="text-center py-32 bg-white/[0.02] border-2 border-dashed border-white/10 rounded-[3rem] group hover:border-orange-500/30 transition-all cursor-pointer shadow-2xl" onClick={addSlot}>
+          <div className="w-24 h-24 bg-white/5 border border-white/5 rounded-full flex items-center justify-center mx-auto mb-8 group-hover:scale-110 group-hover:border-orange-500/20 transition-all">
+            <Clock size={40} className="text-white/20 group-hover:text-orange-500 transition-colors" />
           </div>
-        )}
+          <h3 className="text-3xl font-black text-white tracking-tight">No Temporal Nodes Active</h3>
+          <p className="text-white/40 mt-3 max-w-xs mx-auto font-medium">Initialize your schedule hub to begin session acceptance.</p>
+          <Button className="mt-8 bg-orange-500 hover:bg-orange-600 font-black px-10 h-14 rounded-2xl">
+             INITIALIZE HUB
+          </Button>
+        </div>
+      )}
     </div>
   )
 }

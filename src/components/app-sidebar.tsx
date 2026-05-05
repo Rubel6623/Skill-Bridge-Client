@@ -16,14 +16,19 @@ import {
 } from "lucide-react"
 
 import { NavMain } from "../components/nav-main"
+import { NavUser } from "../components/nav-user"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
 } from "./ui/sidebar"
 import { useEffect, useState } from "react";
+import { getUser } from "@/services/auth";
 
 
 
@@ -152,9 +157,15 @@ const TUTOR_navMain = [
 export function AppSidebar({userRole, ...props }: AppSidebarProps) {
 
   const [mounted, setMounted] = useState(false);
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     setMounted(true);
+    const fetchUser = async () => {
+      const userData = await getUser();
+      setUser(userData);
+    };
+    fetchUser();
   }, []);
 
   if (!mounted) {
@@ -172,16 +183,41 @@ export function AppSidebar({userRole, ...props }: AppSidebarProps) {
   }
 
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        {/* <TeamSwitcher teams={data.teams} /> */}
+    <Sidebar collapsible="icon" {...props} className="border-r border-white/5 bg-[#0a0a14]">
+      <SidebarHeader className="h-20 flex items-center justify-center border-b border-white/5 bg-[#0d0d1a]/50">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild className="hover:bg-transparent focus:bg-transparent">
+              <div className="flex items-center gap-3">
+                <div className="flex aspect-square size-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-purple-600 text-white shadow-lg shadow-orange-500/20">
+                  <GalleryVerticalEnd className="size-6" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-black text-xl tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+                    SkillBridge
+                  </span>
+                  <span className="truncate text-[10px] font-bold uppercase tracking-widest text-orange-500/80">
+                    Premium Learning
+                  </span>
+                </div>
+              </div>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="py-4">
         <NavMain items={navItems!} />
-        {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
-      <SidebarFooter>
-        {/* <NavUser user={data.user} /> */}
+      <SidebarFooter className="border-t border-white/5 p-4">
+        {user && (
+          <NavUser 
+            user={{
+              name: user.name,
+              email: user.email,
+              avatar: user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.name}`
+            }} 
+          />
+        )}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
